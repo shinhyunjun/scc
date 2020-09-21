@@ -91,6 +91,8 @@
                 formObj.attr("action", "/sign/sign");
                 formObj.attr("method", "post");
                 formObj.submit();
+
+                alert('가입에 성공하였습니다!');
             });
 
 
