@@ -56,12 +56,17 @@
             width: 600px;
             height: 600px;
             position: absolute;
-            top: 220px;
+            top: 190px;
             left: 520px;
             text-align: center;
         }
 
         form input {
+            width: 450px;
+            height: 30px;
+            margin: 7px;
+        }
+        form button {
             width: 450px;
             height: 30px;
             margin: 7px;
