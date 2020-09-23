@@ -9,10 +9,11 @@
 
     <style>
         table{
-            font-size: 14px;
+            width:900px;
+            font-size: 30px;
 
             position:absolute;
-            top:100px;
+            top:200px;
             right:100px;
         }
     </style>
@@ -22,9 +23,9 @@
 
 <table border="1">
     <tr>
-        <th align="center" width="30">name</th>
-        <th align="center" width="150">grade</th>
-        <th align="center" width="300">address</th>
+        <th align="center" width="80">name</th>
+        <th align="center" width="320">grade</th>
+        <th align="center" width="100">address</th>
 
     </tr>
 

@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page session="false"%>
+
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -127,18 +128,6 @@
 
 
 
-
-
-
-
-<%--@elvariable id="sibal" type=""--%>
-<form:form modelAttribute="sibal" method="POST" action="search">
-
-<div>
-    <h5>검색</h5>
-    <form:input path="scc_name" /><input type="submit" value="Search" />  <br/><br/><br/><br/><br/><br/><br/>
-</div>
-
 <h5 class="seoul">서울특별시</h5>
 <div class="choice">구 선택</div>
 <div id="bx" >
@@ -170,7 +159,9 @@
 </div>
 
 
-
+<form:form modelAttribute="sccPr" method="POST" action="search">
+<br><br><br>
+검색 : <form:input path="scc_address" /><input type="submit" value="Search" />
 
 <table border="1">
     <tr>
@@ -180,25 +171,17 @@
 
     </tr>
 
-    <c:choose>
-    <c:when test="${empty list}">
-        <tr>
-            <td colspan="4">
-                List is empty.
-            </td>
-        </tr>
-    </c:when>
 
-    <c:otherwise>
+
+
     <c:forEach items="${list}" var="scc">
         <tr>
             <td align="center">${scc.scc_name}</td>
             <td align="center">${scc.scc_grade}</td>
             <td align="center">${scc.scc_address}</td>
         </tr>
-            </c:forEach>
-         </c:otherwise>
-     </c:choose>
+    </c:forEach>
+
 </table>
 </form:form>
 

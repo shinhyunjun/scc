@@ -20,8 +20,8 @@ public class sccprServiceImpl implements sccprService{
     }
 
     @Override
-    public List<scc_pr> search(String scc_name) throws Exception{
-        return mapper.search(scc_name);
+    public List<scc_pr> search(String scc_address) throws Exception{
+        return mapper.search(scc_address);
     }
 
 }

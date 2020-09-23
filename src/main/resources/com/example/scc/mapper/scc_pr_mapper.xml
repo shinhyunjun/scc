@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 
 <mapper namespace="com.example.scc.mapper.scc_pr_mapper">
 
 
 
-<select id="list" resultType="com.example.scc.domain.scc_pr">
-    <![CDATA[
-
-            select scc_name, scc_grade, scc_address
-            from scc_info
-
-
-        ]]>
-</select>
+    <select id="list" resultType="scc_pr">
+        select scc_name, scc_grade, scc_address
+        from scc_info
+    </select>
 
 
 
-
-    <select id="search" resultType="com.example.scc.domain.scc_pr">
+    <select id="search" resultType="scc_pr" parameterType="Criteria">
         <![CDATA[
-	 	    select scc_name, scc_grade, scc_address
-            from scc_info
+	 	SELECT *
+	 	  FROM scc_info
 	 	]]>
 
-        <if test="scc_name != null and  scc_name != ''">
-            AND scc_name LIKE CONCAT('%', #{scc_name}, '%')
+        <if test="scc_address != null and scc_address != ''">
+            where scc_address like concat('%', #{scc_address}, '%')
         </if>
-
 
     </select>
 
