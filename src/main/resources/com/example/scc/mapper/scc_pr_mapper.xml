@@ -16,4 +16,20 @@
         ]]>
 </select>
 
+
+
+
+    <select id="search" resultType="com.example.scc.domain.scc_pr">
+        <![CDATA[
+	 	    select scc_name, scc_grade, scc_address
+            from scc_info
+	 	]]>
+
+        <if test="scc_name != null and  scc_name != ''">
+            AND scc_name LIKE CONCAT('%', #{scc_name}, '%')
+        </if>
+
+
+    </select>
+
 </mapper>

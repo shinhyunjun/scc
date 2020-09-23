@@ -1,7 +1,9 @@
+<%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page session="false"%>
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -94,15 +96,24 @@
         #bx p{
             color:darkgrey
         }
+
+
+
+        table{
+            width:900px;
+            font-size: 14px;
+
+            position:absolute;
+            top:200px;
+            right:100px;
+        }
+
     </style>
-
-    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
-    <script>
-
-    </script>
 
 </head>
 <body>
+
+
 <h1>  <a href="/home">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
@@ -113,9 +124,19 @@
     </ul>
 </nav>
 
+
+
+
+
+
+
+
+<%--@elvariable id="sibal" type=""--%>
+<form:form modelAttribute="sibal" method="POST" action="search">
+
 <div>
     <h5>검색</h5>
-    <input type="text"/>  <br/><br/><br/><br/><br/><br/><br/>
+    <form:input path="scc_name" /><input type="submit" value="Search" />  <br/><br/><br/><br/><br/><br/><br/>
 </div>
 
 <h5 class="seoul">서울특별시</h5>
@@ -147,6 +168,40 @@
     <p>중구</p>
     <p>중랑구</p>
 </div>
+
+
+
+
+<table border="1">
+    <tr>
+        <th align="center" width="80">name</th>
+        <th align="center" width="320">grade</th>
+        <th align="center" width="100">address</th>
+
+    </tr>
+
+    <c:choose>
+    <c:when test="${empty list}">
+        <tr>
+            <td colspan="4">
+                List is empty.
+            </td>
+        </tr>
+    </c:when>
+
+    <c:otherwise>
+    <c:forEach items="${list}" var="scc">
+        <tr>
+            <td align="center">${scc.scc_name}</td>
+            <td align="center">${scc.scc_grade}</td>
+            <td align="center">${scc.scc_address}</td>
+        </tr>
+            </c:forEach>
+         </c:otherwise>
+     </c:choose>
+</table>
+</form:form>
+
 
 </body>
 </html>
