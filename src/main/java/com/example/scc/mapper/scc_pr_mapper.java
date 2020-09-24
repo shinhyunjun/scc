@@ -11,6 +11,6 @@ public interface scc_pr_mapper {
 
    // public List<scc_pr> search(@Param("scc_name")String scc_name) throws Exception;
 
-    public List<scc_pr> search(@Param("scc_address")String scc_address) throws Exception;
+    public List<scc_pr> search(@Param("scc_name")String scc_name) throws Exception;
 
 }

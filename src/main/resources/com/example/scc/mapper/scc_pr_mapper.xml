@@ -21,8 +21,8 @@
 	 	  FROM scc_info
 	 	]]>
 
-        <if test="scc_address != null and scc_address != ''">
-            where scc_address like concat('%', #{scc_address}, '%')
+        <if test="scc_name != null and scc_name != ''">
+            where scc_name like concat('%', #{scc_name}, '%')
         </if>
 
     </select>
