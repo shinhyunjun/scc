@@ -1,10 +1,7 @@
-
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
@@ -96,15 +93,27 @@
     </ul>
 </nav>
 
-<form id="login-form" method="post">
-    <input name="userid" type="text" placeholder="아이디">
+<h2>
+    <c:out value="${error}"/>
+</h2>
+
+<h2>
+    <c:out value="${logout}"/>
+</h2>
+
+<form id="login-form" method="post" action="/login">
+    <input name="userid" type="text" placeholder="아이디" >
     <input name="password" type="password" placeholder="비밀번호">
     <input name="btn" type="submit" value="로그인">
+
+    <sec:csrfInput />
 </form>
 
 <div>
     <button onclick="location.href='sign/sign'">회원가입</button>
     <button>계정찾기</button>
 </div>
+
+
 </body>
 </html>
