@@ -5,7 +5,7 @@
 <%@ page session="false"%>
 <html>
 <head>
-    <title>Board</title>
+    <title>연습</title>
 
     <style>
         table{

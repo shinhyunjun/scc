@@ -160,8 +160,9 @@
 
 
 <form:form modelAttribute="sccPr" method="POST" action="search">
-<br><br><br>
-검색 : <form:input path="scc_name" /><input type="submit" value="Search" />
+<br><br><br><br><br><br><br>
+
+검색 <form:input path="scc_name" /><input type="submit" value="Search" />
 
 <table border="1">
     <tr>

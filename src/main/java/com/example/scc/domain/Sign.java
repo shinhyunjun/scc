@@ -24,4 +24,5 @@ public class Sign {
     private Date user_date;
     private int user_age;
     private int gr_no;
+    private char enabled;
 }

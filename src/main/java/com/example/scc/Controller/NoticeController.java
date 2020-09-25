@@ -17,10 +17,12 @@ public class NoticeController {
     @Autowired
     private NoticeService service;
 
-    @RequestMapping("/list")
-    public String list(Model model){
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public void list(Model model) throws Exception{
 
-        return "notice/list";  //view 파일 리턴
+        model.addAttribute("notice", new Notice());
+
+        model.addAttribute("list",service.list());
     }
 
 

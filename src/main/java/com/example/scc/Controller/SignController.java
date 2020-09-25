@@ -27,6 +27,6 @@ public class SignController {
 
         model.addAttribute("msg","가입이 완료되었습니다");
 
-        return "sign/sign";
+        return "sign/success";
     }
 }

@@ -1,4 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -46,6 +51,18 @@
             color:black;
         }
 
+        #sc{
+            position: absolute;
+            top: 95px;
+            left: 10px;
+        }
+
+        table{
+
+            position: absolute;
+            top: 150px;
+            left: 10px;
+        }
 
     </style>
 
@@ -61,6 +78,62 @@
         <li><h4><a href="/login">회원가입/로그인</a></h4></li>
     </ul>
 </nav>
+
+
+
+
+<form:form modelAttribute="notice" method="POST" action="search">
+
+    <div id="sc">
+    TITLE : <form:input path="title" /><input type="submit" value="Search" />
+    </div>
+
+
+    <table border="1">
+
+        <tr>
+            <th align="center" width="60">NO</th>
+
+            <th align="center" width="300">TITLE</th>
+
+            <th align="center" width="100">WRITER</th>
+
+            <th align="center" width="180">REGDATE</th>
+        </tr>
+
+        <c:choose>
+            <c:when test="${empty list}">
+
+                <tr>
+                    <td colspan="4">
+                        List is empty.
+                    </td>
+                </tr>
+            </c:when>
+
+
+            <c:otherwise>
+                <c:forEach items="${list}" var="notice">
+                    <tr>
+                        <td align="center">${notice.boardNo}</td>
+                        <td align="left"><a href="/notice/read?boardNo=${notice.boardNo}">${notice.title}</a></td>
+                        <td align="right">${notice.writer}</td>
+                        <td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.regDate}" /></td>
+                    </tr>
+
+                </c:forEach>
+
+            </c:otherwise>
+
+        </c:choose>
+
+
+    </table>
+
+
+
+</form:form>
+
 
 
 </body>

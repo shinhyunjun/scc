@@ -86,9 +86,9 @@
 <h1>  <a href="/home">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
-        <li><h4><a href="search.html">요양시설 찾기</a></h4></li>
+        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
         <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
-        <li><h4><a href="post.html">공지사항</a></h4></li>
+        <li><h4><a href="/notice/list">공지사항</a></h4></li>
         <li><h4><a href="/login">회원가입/로그인</a></h4></li>
     </ul>
 </nav>
@@ -101,10 +101,10 @@
     <c:out value="${logout}"/>
 </h2>
 
-<form id="login-form" method="post" action="/login">
-    <input name="userid" type="text" placeholder="아이디" >
+<form method="post" action="/login"  id="login-form" >
+    <input name="username" type="text" placeholder="아이디" >
     <input name="password" type="password" placeholder="비밀번호">
-    <input name="btn" type="submit" value="로그인">
+    <input type="submit" value="로그인">
 
     <sec:csrfInput />
 </form>

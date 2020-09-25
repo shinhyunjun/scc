@@ -11,4 +11,23 @@
     </insert>
 
 
+    <select id="list" resultType="Notice">
+
+ 		<![CDATA[
+
+ 		SELECT boardNo,
+ 			   title,
+ 			   content,
+ 			   writer,
+ 			   regDate
+		  FROM board2
+		 WHERE boardNo > 0
+	  ORDER BY boardNo DESC,
+	  		   regDate DESC
+
+		]]>
+
+
+
+	</select>
 </mapper>

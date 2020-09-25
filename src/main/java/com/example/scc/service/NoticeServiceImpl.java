@@ -5,6 +5,8 @@ import com.example.scc.mapper.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NoticeServiceImpl implements NoticeService{
 
@@ -14,5 +16,11 @@ public class NoticeServiceImpl implements NoticeService{
     @Override
     public void register(Notice notice) throws Exception{
         mapper.create(notice);
+    }
+
+
+    @Override
+    public List<Notice> list() throws Exception{
+        return mapper.list();
     }
 }

@@ -5,9 +5,9 @@
 <mapper namespace="com.example.scc.mapper.SignMapper">
 
     <insert id="create">
-
-        INSERT INTO member(user_id,user_password,user_name, user_birth,user_age,user_sex,user_phone,user_email)
+    INSERT INTO member(user_id,user_password,user_name, user_birth,user_age,user_sex,user_phone,user_email)
            VALUES(#{user_id}, #{user_password}, #{user_name},#{user_birth}, #{user_age},#{user_sex}, #{user_phone},#{user_email})
+
     </insert>
 
 
