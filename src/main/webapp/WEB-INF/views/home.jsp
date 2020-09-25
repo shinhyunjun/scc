@@ -151,7 +151,9 @@
     </ul>
 </nav>
 
+
 <div class="d1">
+
     <input type="text" placeholder="시설 검색하기"/>
     <button id="sb">검색</button>
 </div>

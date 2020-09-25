@@ -26,6 +26,7 @@ public class scc_pr_Controller {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(String scc_name, Model model) throws Exception {
+
         scc_pr prpr = new scc_pr();
         prpr.setScc_name(scc_name);
 
