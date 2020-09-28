@@ -10,4 +10,6 @@ public interface NoticeService {
 
     public List<Notice> list() throws Exception;
 
+    public List<Notice> search(String title) throws Exception;
+
 }

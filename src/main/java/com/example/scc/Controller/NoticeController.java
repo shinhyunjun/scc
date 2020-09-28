@@ -41,4 +41,18 @@ public class NoticeController {
 
         log.info("list : access to all");
     }
+
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String search(String title, Model model) throws Exception {
+
+        Notice notice = new Notice();
+        notice.setTitle(title);
+
+        model.addAttribute("notice", notice);
+
+        model.addAttribute("list", service.search(title));
+
+        return "notice/list";
+    }
 }

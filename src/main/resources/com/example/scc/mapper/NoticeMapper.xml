@@ -22,12 +22,34 @@
  			   regDate
 		  FROM board2
 		 WHERE boardNo > 0
-	  ORDER BY boardNo DESC,
+	  ORDER BY boardNo ASC,
 	  		   regDate DESC
 
 		]]>
 
 
-
 	</select>
+
+
+    <select id="search" resultType="Notice">
+        <![CDATA[
+            SELECT boardNo,
+ 			   title,
+ 			   content,
+ 			   writer,
+ 			   regDate
+		  FROM board2
+		 WHERE boardNo > 0
+        ]]>
+
+        <if test="title != null and title != ''">
+            AND title like CONCAT('%',#{title},'%')
+        </if>
+
+        <![CDATA[
+		  ORDER BY boardNo ASC,
+	  		       regDate DESC
+	 	]]>
+    </select>
+
 </mapper>

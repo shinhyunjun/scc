@@ -126,12 +126,7 @@
             </c:otherwise>
 
         </c:choose>
-
-
     </table>
-
-
-
 </form:form>
 
 

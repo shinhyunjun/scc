@@ -23,4 +23,9 @@ public class NoticeServiceImpl implements NoticeService{
     public List<Notice> list() throws Exception{
         return mapper.list();
     }
+
+    @Override
+    public List<Notice> search(String title) throws Exception{
+        return mapper.search(title);
+    }
 }
