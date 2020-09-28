@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Log
 @Controller
@@ -54,5 +55,11 @@ public class NoticeController {
         model.addAttribute("list", service.search(title));
 
         return "notice/list";
+    }
+
+    @RequestMapping(value = "/read", method=RequestMethod.GET)
+    public void read(@RequestParam("boardNo") int boardNo, Model model) throws Exception{
+
+        model.addAttribute(service.read(boardNo));
     }
 }

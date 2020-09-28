@@ -14,4 +14,5 @@ public interface NoticeMapper {
     public List<Notice> search(@Param("title")String title) throws Exception;
     //@Param("title") => 컬럼인 제목으로 검색하겠다는 설정
 
+    public Notice read(Integer boardNo) throws Exception;
 }

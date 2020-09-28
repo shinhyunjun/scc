@@ -12,4 +12,5 @@ public interface NoticeService {
 
     public List<Notice> search(String title) throws Exception;
 
+    public Notice read(Integer boardNo) throws Exception;
 }

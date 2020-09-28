@@ -52,4 +52,15 @@
 	 	]]>
     </select>
 
+
+    <select id="read" resultType="Notice">
+       SELECT boardNo,
+ 			   title,
+ 			   content,
+ 			   writer,
+ 			   regDate
+		  FROM board2
+		 WHERE boardNo = #{boardNo}
+    </select>
+
 </mapper>
