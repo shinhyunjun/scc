@@ -95,23 +95,53 @@
         }
 
         #bx p{
-            color:darkgrey
+            color:black;
         }
 
-
+        .reverse{
+            background-color: yellow;
+        }
 
         table{
-            width:900px;
+            width:700px;
+            height:450px;
             font-size: 14px;
-
             position:absolute;
-            top:200px;
-            right:100px;
+            top:150px;
+            right:260px;
         }
 
+        #paging{
+            top:600px;
+            left:575px;
+            position:absolute;
+        }
+
+        #paging li{
+            float:left;
+            list-style: none;
+
+            padding:6px;
+        }
+        li a{
+            text-decoration: none;
+        }
     </style>
 
+    <script src="https://code.jquery.com/jquery-3.1.1.js"> </script>
+    <script>
+
+        $(document).ready(function(){
+
+            $('p').on({
+                mouseenter:function(){$(this).addClass('reverse')},
+                mouseleave:function(){$(this).removeClass('reverse')}
+            })
+        })
+    </script>
+
 </head>
+
 <body>
 
 
@@ -166,9 +196,9 @@
 
 <table border="1">
     <tr>
-        <th align="center" width="80">name</th>
-        <th align="center" width="320">grade</th>
-        <th align="center" width="100">address</th>
+        <th align="center" width="200">name</th>
+        <th align="center" width="130">grade</th>
+        <th align="center" width="350">address</th>
 
     </tr>
 
@@ -186,6 +216,24 @@
 </table>
 </form:form>
 
+
+
+
+<div id="paging">
+    <ul >
+        <c:if test="${pageMaker.prev}">
+            <li><a href="sccSearch${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+        </c:if>
+
+        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+            <li><a href="sccSearch${pageMaker.makeQuery(idx)}">${idx}</a></li>
+        </c:forEach>
+
+        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+            <li><a href="sccSearch${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
+        </c:if>
+    </ul>
+</div>
 
 </body>
 </html>

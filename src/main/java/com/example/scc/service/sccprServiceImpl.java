@@ -1,5 +1,6 @@
 package com.example.scc.service;
 
+import com.example.scc.domain.Criteria;
 import com.example.scc.domain.scc_pr;
 import com.example.scc.mapper.scc_pr_mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ public class sccprServiceImpl implements sccprService{
     private scc_pr_mapper mapper;
 
     @Override
-    public List<scc_pr> list() throws Exception{
-        return mapper.list();
+    public List<scc_pr> list(Criteria cri) throws Exception{
+        return mapper.list(cri);
+    }
+
+    public int listCount() throws Exception{
+        return mapper.listCount();
     }
 
     @Override

@@ -11,25 +11,25 @@
     </insert>
 
 
-    <select id="list" resultType="Notice">
+    <select id="list" resultType="Notice" parameterType="Criteria">
 
- 		<![CDATA[
-
- 		SELECT boardNo,
- 			   title,
- 			   content,
- 			   writer,
- 			   regDate
-		  FROM board2
-		 WHERE boardNo > 0
-	  ORDER BY boardNo ASC,
-	  		   regDate DESC
-
-		]]>
-
+ 	    SELECT *
+         FROM (
+         SELECT *,
+         ROW_NUMBER() OVER(ORDER BY boardNo ASC) AS RNUM
+         FROM board2) board2
+         WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+        ORDER BY boardNo ASC
 
 	</select>
 
+    <select id="listCount" resultType="int">
+    <![CDATA[
+      SELECT COUNT(boardNo)
+        FROM board2
+       WHERE boardNo > 0
+   ]]>
+    </select>
 
     <select id="search" resultType="Notice">
         <![CDATA[

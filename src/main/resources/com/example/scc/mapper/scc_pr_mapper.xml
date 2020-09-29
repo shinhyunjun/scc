@@ -7,13 +7,23 @@
 <mapper namespace="com.example.scc.mapper.scc_pr_mapper">
 
 
-
-    <select id="list" resultType="scc_pr">
-        select scc_name, scc_grade, scc_address
-        from scc_info
+    <select id="list" resultType="scc_pr" parameterType="Criteria">
+       SELECT scc_name, scc_grade, scc_address
+         FROM (
+         SELECT scc_name, scc_grade, scc_address,
+         ROW_NUMBER() OVER(ORDER BY scc_name ASC) AS RNUM
+         FROM scc_info) scc_info
+         WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+        ORDER BY scc_name ASC
     </select>
 
 
+    <select id="listCount" resultType="int">
+        <![CDATA[
+      SELECT COUNT(scc_num)
+        FROM scc_info
+   ]]>
+   </select>
 
     <select id="search" resultType="scc_pr" parameterType="Criteria">
         <![CDATA[

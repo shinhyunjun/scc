@@ -1,5 +1,6 @@
 package com.example.scc.service;
 
+import com.example.scc.domain.Criteria;
 import com.example.scc.domain.Notice;
 import com.example.scc.mapper.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,12 @@ public class NoticeServiceImpl implements NoticeService{
 
 
     @Override
-    public List<Notice> list() throws Exception{
-        return mapper.list();
+    public List<Notice> list(Criteria cri) throws Exception{
+        return mapper.list(cri);
+    }
+
+    public int listCount() throws Exception{
+        return mapper.listCount();
     }
 
     @Override

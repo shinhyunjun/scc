@@ -1,6 +1,8 @@
 package com.example.scc.Controller;
 
+import com.example.scc.domain.Criteria;
 import com.example.scc.domain.Notice;
+import com.example.scc.domain.PageMaker;
 import com.example.scc.service.NoticeService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,17 @@ public class NoticeController {
     private NoticeService service;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public void list(Model model) throws Exception{
+    public void list(Model model, Criteria cri) throws Exception{
 
         model.addAttribute("notice", new Notice());
 
-        model.addAttribute("list",service.list());
+        model.addAttribute("list",service.list(cri));
+
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(cri);
+        pageMaker.setTotalCount(service.listCount());
+
+        model.addAttribute("pageMaker", pageMaker);
     }
 
 

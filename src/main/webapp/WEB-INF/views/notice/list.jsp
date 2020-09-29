@@ -63,8 +63,26 @@
             top: 150px;
             left: 10px;
         }
+        div ul{
+            position: absolute;
+            top: 450px;
+            left: 10px;
+            font-size: 18px;
+            float: left;
+        }
 
+        li {
+            list-style: none;
+
+            float: left;
+            padding: 6px;
+        }
+
+        li a{
+            text-decoration: none;
+        }
     </style>
+
 
 
 </head>
@@ -128,6 +146,22 @@
         </c:choose>
     </table>
 </form:form>
+
+<div>
+    <ul>
+        <c:if test="${pageMaker.prev}">
+            <li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+        </c:if>
+
+        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+            <li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
+        </c:forEach>
+
+        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+            <li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
+        </c:if>
+    </ul>
+</div>
 
 
 
