@@ -14,4 +14,6 @@ public interface sccprService {
     //public List<scc_pr> search(String scc_name) throws Exception;
 
     public List<scc_pr> search(String scc_name) throws Exception;
+
+    public scc_pr read(int scc_num) throws Exception;
 }

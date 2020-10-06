@@ -8,9 +8,9 @@
 
 
     <select id="list" resultType="scc_pr" parameterType="Criteria">
-       SELECT scc_name, scc_grade, scc_address
+       SELECT scc_num, scc_name, scc_grade, scc_address
          FROM (
-         SELECT scc_name, scc_grade, scc_address,
+         SELECT scc_num, scc_name, scc_grade, scc_address,
          ROW_NUMBER() OVER(ORDER BY scc_name ASC) AS RNUM
          FROM scc_info) scc_info
          WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
@@ -37,4 +37,10 @@
 
     </select>
 
+
+    <select id="read" resultType="scc_pr">
+		SELECT scc_num, scc_name, wait_num, limit_num
+		  FROM scc_info
+		 WHERE scc_num = #{scc_num}
+	</select>
 </mapper>

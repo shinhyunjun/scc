@@ -49,4 +49,13 @@ public class scc_pr_Controller {
         return "sccSearch";
     }
 
+    @RequestMapping(value = "/sccSearch_read", method = RequestMethod.GET)
+    public String read(int scc_num, Model model) throws Exception {
+        scc_pr scc_pr = service.read(scc_num);
+
+        model.addAttribute(scc_pr);
+
+        return "sccSearch_read";
+    }
+
 }

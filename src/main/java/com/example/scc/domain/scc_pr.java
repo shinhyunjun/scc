@@ -17,7 +17,7 @@ public class scc_pr {
     private String scc_phone;
     private int limit_num;
     private String scc_type;
-    private String scc_district;
+    private String scc_district;   //지역구
     private String detail_info;
     private int remaind_num;
     private int state_num;

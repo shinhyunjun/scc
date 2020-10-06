@@ -196,6 +196,7 @@
 
 <table border="1">
     <tr>
+        <th align="center" width="200">no</th>
         <th align="center" width="200">name</th>
         <th align="center" width="130">grade</th>
         <th align="center" width="350">address</th>
@@ -207,7 +208,8 @@
 
     <c:forEach items="${list}" var="scc">
         <tr>
-            <td align="center">${scc.scc_name}</td>
+            <td align="center">${scc.scc_num}</td>
+            <td align="center"> <a href="/sccSearch_read?scc_num=${scc.scc_num}">${scc.scc_name} </a>   </td>
             <td align="center">${scc.scc_grade}</td>
             <td align="center">${scc.scc_address}</td>
         </tr>

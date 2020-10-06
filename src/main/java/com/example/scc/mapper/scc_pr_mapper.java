@@ -15,4 +15,6 @@ public interface scc_pr_mapper {
 
     public List<scc_pr> search(@Param("scc_name")String scc_name) throws Exception;
 
+    public scc_pr read(int scc_num) throws Exception;
+
 }

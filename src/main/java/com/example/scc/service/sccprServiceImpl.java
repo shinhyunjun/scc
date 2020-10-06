@@ -29,4 +29,9 @@ public class sccprServiceImpl implements sccprService{
         return mapper.search(scc_name);
     }
 
+    @Override
+    public scc_pr read(int scc_num) throws Exception{
+        return mapper.read(scc_num);
+    }
+
 }
