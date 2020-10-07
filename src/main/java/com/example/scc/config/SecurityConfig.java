@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -43,33 +44,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 
-        // 스프링 시큐리티가 원하는 결과를 반환하는 쿼리를 작성한다.
-        String query1 = "SELECT user_id , user_password, enabled FROM member WHERE user_id = ?";
-        String query2 ="SELECT b.user_id, a.auth FROM member_auth2 a, member b WHERE a.user_no = b.user_no AND b.user_id = ?";
+        //jdbc 스프링 시큐리티가 원하는 결과를 반환하는 쿼리를 작성한다.
+       // String query1 = "SELECT user_id , user_password, enabled FROM member WHERE user_id = ?";
+       // String query2 ="SELECT b.user_id, a.auth FROM member_auth2 a, member b WHERE a.user_no = b.user_no AND b.user_id = ?";
 
+      //  auth.jdbcAuthentication()
+       //         .dataSource(dataSource)
 
+       //         .usersByUsernameQuery(query1) //jdbc
+       //         .authoritiesByUsernameQuery(query2);  //작성한 쿼리를 지정한다.
 
-
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-
-                .usersByUsernameQuery(query1)
-                .authoritiesByUsernameQuery(query2);  //작성한 쿼리를 지정한다.
 
     }
 
 
+    @Bean
+    public PasswordEncoder createPasswordEncoder() {
+
+        return new BCryptPasswordEncoder();
+    }
 
 
-    //CustomLoginSuccessHandler를 빈으로 등록한다.
+    // CustomLoginSuccessHandler를 빈으로 등록한다.
     @Bean
     public AuthenticationSuccessHandler createAuthenticationSuccessHandler(){
         return new CustomLoginSuccessHandler();
     }
 
-
+/*
     @Bean
     public PasswordEncoder noOpPasswordEncoder(){
         return NoOpPasswordEncoder.getInstance();
-    }
+    }    */
 }

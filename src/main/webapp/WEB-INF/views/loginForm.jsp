@@ -110,7 +110,7 @@
 </form>
 
 <div>
-    <button onclick="location.href='sign/sign'">회원가입</button>
+    <button onclick="location.href='user/register'">회원가입</button>
     <button>계정찾기</button>
 </div>
 

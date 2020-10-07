@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @ToString
 
-public class Sign {
+public class Member {
 
     private int user_no;
     private String user_id;

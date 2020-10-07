@@ -1,7 +1,10 @@
 <%@ page session="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -85,16 +88,19 @@
     <script>
         $(document).ready(function() {
 
-            var formObj = $("#sign");
+            var formObj = $("#member");
 
-            $("#insert").on("click", function() {
-                formObj.attr("action", "/sign/sign");
-                formObj.attr("method", "post");
+            $("#btnRegister").on("click", function() {
+
                 formObj.submit();
-
             });
 
 
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            $("#btnList").on("click", function() {
+                self.location = "list";
+            });
+            </sec:authorize>
         });
     </script>
 
@@ -111,7 +117,8 @@
     </ul>
 </nav>
 
-<form method="POST" modelAttribute="sign" action="sign">
+
+<form:form  modelAttribute="member" action="register">
     <fieldset>
         <legend>회원가입</legend>
 
@@ -119,18 +126,22 @@
             <img id="thumbnailImg" src="">
             <input type="file" accept="image/*" id="upImgFile" onchange="uploadImgPreview();" />
         </div>
-        <input type="text" name="user_id" id="user_id" placeholder="아이디">
-        <input type="password" name="user_password" id="user_password" placeholder="비밀번호">
-        <input type="text" name="user_name" id="user_name" placeholder="이름">
-        <input type="number" name="user_birth" id="user_birth" placeholder="생년월일">
-        <input type="number" name="user_age" id="user_age" placeholder="나이">
-        <input type="text" name="user_sex" id="user_sex" placeholder="성별">
-        <input type="text" name="user_phone" id="user_phone" placeholder="연락처">
-        <input type="text" name="user_email" id="user_email" placeholder="이메일">
+        <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
+        <form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
+        <form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/>
+        <form:input path="user_birth" type="number" name="user_birth" id="user_birth" placeholder="생년월일"/>
+        <form:input path="user_age" type="number" name="user_age" id="user_age" placeholder="나이"/>
+        <form:input path="user_sex" type="text" name="user_sex" id="user_sex" placeholder="성별"/>
+        <form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/>
+        <form:input path="user_email" type="text" name="user_email" id="user_email" placeholder="이메일"/>
 
-        <button type="submit" id="insert">가입하기</button>
+        <button type="submit" id="btnRegister">가입하기</button>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <button type="submit" id="btnList">리스트</button>
+        </sec:authorize>
     </fieldset>
-</form>
+</form:form>
 
 
 </body>

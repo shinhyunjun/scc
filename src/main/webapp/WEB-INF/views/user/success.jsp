@@ -6,7 +6,7 @@
 </head>
 <body>
 <div>
-    <h2>${msg}</h2>
+    <h2>성공!</h2>
     <br>
 </div>
 </body>
