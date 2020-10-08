@@ -87,7 +87,7 @@
 
 </head>
 <body>
-<h1>  <a href="/home">   SCC  </a> </h1>
+<h1>  <a href="/">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
         <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>

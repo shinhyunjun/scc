@@ -5,6 +5,31 @@
 <mapper namespace="com.example.scc.mapper.MemberMapper">
 
 
+	<!-- 사용자 정의 resultMap 요소 정의 -->
+	<resultMap type="Member" id="memberMap">
+		<id property="user_no" column="user_no" />
+		<result property="user_no" column="user_no" />
+		<result property="user_id" column="user_id" />
+		<result property="user_password" column="user_password" />
+		<result property="user_name" column="user_name" />
+		<result property="user_phone" column="user_phone" />
+		<result property="user_email" column="user_email" />
+		<result property="user_sex" column="user_sex" />
+		<result property="user_birth" column="user_birth" />
+		<result property="user_age" column="user_age" />
+		<result property="user_date" column="user_date" />
+		<result property="gr_no" column="gr_no" />
+		<result property="enabled" column="enabled" />
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+
+	<resultMap type="MemberAuth" id="authMap">
+		<result property="user_no" column="user_no" />
+		<result property="auth" column="auth" />
+	</resultMap>
+
+
 
 
     <insert id="create" useGeneratedKeys="true" keyProperty="user_no">
@@ -26,5 +51,23 @@
 			 )
 	</insert>
 
+
+	<select id="readByUserId" resultMap="memberMap">
+		SELECT mem.user_no,
+			   mem.user_id,
+			   user_password,
+			   user_name,
+			   user_phone,
+			   user_email,
+			   user_sex,
+			   user_birth,
+			   user_age,
+			   user_date,
+			   gr_no,
+			   enabled,
+			   auth
+		  FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
+		 WHERE mem.user_id = #{user_id}
+	</select>
 
 </mapper>

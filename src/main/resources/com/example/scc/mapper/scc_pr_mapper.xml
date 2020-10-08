@@ -39,7 +39,7 @@
 
 
     <select id="read" resultType="scc_pr">
-		SELECT scc_num, scc_name, wait_num, limit_num
+		SELECT scc_num, scc_name, scc_grade, detail_info, scc_address, scc_phone, limit_num, state_num, remaind_num, wait_num
 		  FROM scc_info
 		 WHERE scc_num = #{scc_num}
 	</select>

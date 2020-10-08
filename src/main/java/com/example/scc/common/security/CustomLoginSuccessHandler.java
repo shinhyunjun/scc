@@ -1,5 +1,7 @@
 package com.example.scc.common.security;
 
+import com.example.scc.common.security.domain.CustomUser;
+import com.example.scc.domain.Member;
 import lombok.extern.java.Log;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -14,15 +16,16 @@ import java.io.IOException;
 public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
 
+    //로그인 성공 처리자 메소드드
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth) throws IOException, ServletException {
-        log.info("onAuthenticationSuccess");
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        org.springframework.security.core.userdetails.User customUser = (User) auth.getPrincipal();
+        CustomUser customUser = (CustomUser)authentication.getPrincipal();
+        Member member = customUser.getMember();
 
-        log.info("username = " + customUser.getUsername());
+        log.info("Userid = " + member.getUser_id());
 
-        super.onAuthenticationSuccess(request, response, auth);
+        super.onAuthenticationSuccess(request, response, authentication);
     }
 
 }
