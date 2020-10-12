@@ -38,4 +38,15 @@ public class NoticeServiceImpl implements NoticeService{
     public Notice read(Integer boardNo) throws Exception{
         return mapper.read(boardNo);
     }
+
+    @Override
+    public void modify(Notice notice) throws Exception {
+        mapper.update(notice);
+    }
+
+    @Override
+    public void remove(Integer boardNo) throws Exception {
+        mapper.delete(boardNo);
+    }
+
 }

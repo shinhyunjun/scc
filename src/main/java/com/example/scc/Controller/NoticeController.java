@@ -1,17 +1,21 @@
 package com.example.scc.Controller;
 
+import com.example.scc.common.security.domain.CustomUser;
 import com.example.scc.domain.Criteria;
+import com.example.scc.domain.Member;
 import com.example.scc.domain.Notice;
 import com.example.scc.domain.PageMaker;
 import com.example.scc.service.NoticeService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log
 @Controller
@@ -38,19 +42,26 @@ public class NoticeController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(Notice notice, Model model) throws Exception {
+    public String register(Notice notice, RedirectAttributes rttr) throws Exception {
+
         service.register(notice);
 
-        model.addAttribute("msg", "등록이 완료되었습니다.");
+        rttr.addFlashAttribute("msg", "SUCCESS");
 
-        return "notice/success";
+        return "redirect:/notice/list";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public void registerForm(Notice notice, Model model) throws Exception {
+    public void registerForm(Model model, Authentication authentication) throws Exception {
 
-        log.info("list : access to all");
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+        Notice notice = new Notice();
+
+        notice.setWriter(member.getUser_id());   // 등록 시 id를 미리 입력해 준다.
+
+        model.addAttribute(notice);
     }
 
 
@@ -71,5 +82,30 @@ public class NoticeController {
     public void read(@RequestParam("boardNo") int boardNo, Model model) throws Exception{
 
         model.addAttribute(service.read(boardNo));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public String remove(int boardNo, RedirectAttributes rttr) throws Exception {
+        service.remove(boardNo);
+
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+        return "redirect:/notice/list";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
+    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    public void modifyForm(int boardNo, Model model) throws Exception {
+        model.addAttribute(service.read(boardNo));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public String modify(Notice notice, RedirectAttributes rttr) throws Exception {
+        service.modify(notice);
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+        return "redirect:/notice/list";
     }
 }

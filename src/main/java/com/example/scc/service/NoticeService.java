@@ -16,4 +16,8 @@ public interface NoticeService {
     public List<Notice> search(String title) throws Exception;
 
     public Notice read(Integer boardNo) throws Exception;
+
+    public void modify(Notice notice) throws Exception;
+
+    public void remove(Integer boardNo) throws Exception;
 }

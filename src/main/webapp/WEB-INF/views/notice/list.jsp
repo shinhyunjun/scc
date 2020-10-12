@@ -150,19 +150,11 @@
                     </tr>
 
                 </c:forEach>
-
             </c:otherwise>
-
         </c:choose>
     </table>
 
-
-
 </form:form>
-
-
-
-
 
 
 
@@ -183,6 +175,12 @@
 </div>
 
 
+<script>
+    var result = "${msg}";
 
+    if (result === "SUCCESS") {
+        alert("성공");
+    }
+</script>
 </body>
 </html>

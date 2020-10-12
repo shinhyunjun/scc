@@ -17,4 +17,8 @@ public interface NoticeMapper {
     //@Param("title") => 컬럼인 제목으로 검색하겠다는 설정
 
     public Notice read(Integer boardNo) throws Exception;
+
+    public void update(Notice notice) throws Exception;
+
+    public void delete(Integer boardNo) throws Exception;
 }

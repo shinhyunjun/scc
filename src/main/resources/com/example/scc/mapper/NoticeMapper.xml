@@ -63,4 +63,15 @@
 		 WHERE boardNo = #{boardNo}
     </select>
 
+    <update id="update">
+		UPDATE board2
+		   SET title =#{title},
+			   content =#{content}
+		 WHERE boardNo = #{boardNo}
+	</update>
+
+    <delete id="delete">
+		DELETE FROM board2
+		 WHERE boardNo = #{boardNo}
+	</delete>
 </mapper>
