@@ -7,6 +7,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,6 +26,7 @@ import javax.sql.DataSource;
 
 @Log
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true, securedEnabled=true) //시큐리티 애너테이션  활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -34,7 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
 
-        log.info("security config...");
 
         //  http.authorizeRequests().antMatchers("/notice/list").permitAll();
         // http.authorizeRequests().antMatchers("/notice/register").hasRole("ADMIN");
@@ -45,7 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //CustomLoginSuccessHandler를 로그인 성공 처리자로 지정한다.
                 .successHandler(createAuthenticationSuccessHandler());
 
-       // http.logout().logoutUrl("/logout").invalidateHttpSession(true);
+        http.logout()
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("remember-me","JSESSION_ID");
+
 
         http.exceptionHandling()
                 //CustomAccessDeniedHandler를 접근 거부 처리자로 지정한다.

@@ -98,9 +98,6 @@
     <c:out value="${error}"/>
 </h2>
 
-<h2>
-    <c:out value="${logout}"/>
-</h2>
 
 <form method="post" action="/login"  id="login-form" >
     <input name="username" type="text" placeholder="아이디" >

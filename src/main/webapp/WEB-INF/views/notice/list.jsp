@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -104,6 +105,15 @@
 
     <div id="sc">
     TITLE : <form:input path="title" /><input type="submit" value="Search" />
+
+        <!-- 인증된 사용자인 경우 -->
+        <sec:authorize access="isAuthenticated()">
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <input type="button" value="작성" onclick="location.href='register'" />
+        </sec:authorize>
+
+        <!--회원 권한을 가진 사용자인 경우 -->
+        </sec:authorize>
     </div>
 
 

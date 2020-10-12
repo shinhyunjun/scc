@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
         MemberAuth memberAuth = new MemberAuth();
 
         memberAuth.setUser_no(member.getUser_no());
-        memberAuth.setAuth("ROLE_MEMBER");
+        memberAuth.setAuth("ROLE_MEMBER");  //auth 컬럼에 ROLE_MEMBER
 
         mapper.createAuth(memberAuth);
     }

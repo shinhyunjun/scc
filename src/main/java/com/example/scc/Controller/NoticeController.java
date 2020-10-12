@@ -6,6 +6,7 @@ import com.example.scc.domain.PageMaker;
 import com.example.scc.service.NoticeService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class NoticeController {
     }
 
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(Notice notice, Model model) throws Exception {
         service.register(notice);
@@ -45,6 +46,7 @@ public class NoticeController {
         return "notice/success";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public void registerForm(Notice notice, Model model) throws Exception {
 

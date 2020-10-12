@@ -1,18 +1,10 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Logout</title>
-</head>
-<body>
-
-<h1>로그아웃</h1>
+<h2>로그아웃</h2>
 
 <form action="/logout" method="post">
-
-    <sec:csrfInput/>
+    <sec:csrfInput />
     <button>로그아웃</button>
 </form>
-</body>
-</html>
