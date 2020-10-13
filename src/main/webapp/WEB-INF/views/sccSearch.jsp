@@ -188,11 +188,15 @@
     <p>중랑구</p>
 </div>
 
-
-<form:form modelAttribute="sccPr" method="POST" action="search">
 <br><br><br><br><br><br><br>
 
-검색 <form:input path="scc_name" /><input type="submit" value="Search" />
+    <!-- 검색폼 만들기 -->
+    <form:form modelAttribute="pgrq" method="get" action="sccSearch${pgrq.toUriStringByPage(1)}">
+        <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
+
+        <form:input path="keyword" />
+        <button id='searchBtn'>검색</button>
+    </form:form>
 
 <table border="1">
     <tr>
@@ -209,33 +213,35 @@
     <c:forEach items="${list}" var="scc">
         <tr>
             <td align="center">${scc.scc_num}</td>
-            <td align="center"> <a href="/sccSearch_read?scc_num=${scc.scc_num}">${scc.scc_name} </a>   </td>
+
+            <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
+            <td align="center"> <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a>   </td>
             <td align="center">${scc.scc_grade}</td>
             <td align="center">${scc.scc_address}</td>
         </tr>
     </c:forEach>
 
 </table>
-</form:form>
 
 
 
 
+
+<!-- 페이징 네비게이션 -->
 <div id="paging">
-    <ul >
-        <c:if test="${pageMaker.prev}">
-            <li><a href="sccSearch${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
-        </c:if>
+    <c:if test="${pagination.prev}">
+        <a href="/sccSearch${pagination.makeQuery(pagination.startPage -1)}">&laquo;</a>
+    </c:if>
 
-        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-            <li><a href="sccSearch${pageMaker.makeQuery(idx)}">${idx}</a></li>
-        </c:forEach>
+    <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="idx">
+        <a href="/sccSearch${pageRequest.toUriString(idx)}">${idx}</a>  <!-- 페이지 누를때 url-->
+    </c:forEach>
 
-        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-            <li><a href="sccSearch${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
-        </c:if>
-    </ul>
+    <c:if test="${pagination.next && pagination.endPage > 0}">
+        <a href="/sccSearch${pagination.makeQuery(pagination.endPage + 1)}"> &raquo; </a>
+    </c:if>
 </div>
 
 </body>
 </html>
+

@@ -46,6 +46,12 @@
 
 <body>
 
+<!-- 현재 페이지 번호, 페이징 크기, 검색유형, 검색어를 숨겨진 필드 요소를 사용하여 전달-->
+<input type="hidden" name="page" value="${pgrq.page}">
+<input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
+<input type="hidden" name="searchType" value="${pgrq.searchType}">
+<input type="hidden" name="keyword" value="${pgrq.keyword}">
+
 <div id="d1">
     <h4>${scc_pr.scc_name}</h4>
     <h5>(${scc_pr.scc_grade})</h5>
