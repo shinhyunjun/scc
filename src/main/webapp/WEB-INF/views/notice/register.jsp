@@ -80,6 +80,8 @@
             border-bottom-left-radius: 2px;
             border-bottom-right-radius: 2px;
         }
+
+
     </style>
 </head>
 
@@ -141,6 +143,11 @@
         <tr>
             <td width="50" align="center">내용</td>
             <td width="550" align="center"><form:textarea path="content" /></td>
+        </tr>
+
+        <tr>
+            <td width="70" align="center">첨부파일</td>
+            <td width="100" align="center"><input type="file" name="picture" /></td>
         </tr>
     </table>
 </form:form>

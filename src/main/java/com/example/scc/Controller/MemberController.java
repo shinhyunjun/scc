@@ -19,7 +19,7 @@ public class MemberController {
     @Autowired
     private MemberService service;
 
-    // 스프링 시큐리티의 비밀번호 암호화 처리기기
+    // 스프링 시큐리티의 비밀번호 암호화 처리기
     @Autowired
     private PasswordEncoder passwordEncoder;
 
