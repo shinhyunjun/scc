@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="false"%>
 
 <!DOCTYPE html>
@@ -11,11 +12,15 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+
+
     <style>
         * {
             margin: 0;
             padding: 0;
         }
+
+
 
         h1 {
             width: 90px;
@@ -46,6 +51,10 @@
         h1 a {
             text-decoration: none;
             color: #81F781;
+        }
+        div a {
+            text-decoration: none;
+            color: #181907
         }
 
         h4 a {
@@ -109,11 +118,20 @@
             position:absolute;
             top:150px;
             right:260px;
+            border-collapse: collapse;
         }
 
+        table a{
+            text-decoration: none;
+            color: #01DFD7;
+        }
+        th, td{
+            border:1px solid black;
+            padding:5px;
+        }
         #paging{
-            top:600px;
-            left:575px;
+            top:655px;
+            left:580px;
             position:absolute;
         }
 
@@ -151,7 +169,14 @@
         <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
         <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
         <li><h4><a href="/notice/list">공지사항</a></h4></li>
+
+        <sec:authorize access="!isAuthenticated()">   <!--인증된 경우-->
         <li><h4><a href="/login">회원가입/로그인</a></h4></li>
+        </sec:authorize>
+
+        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
+            <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
+        </sec:authorize>
     </ul>
 </nav>
 

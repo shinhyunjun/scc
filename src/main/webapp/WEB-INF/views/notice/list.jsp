@@ -59,22 +59,28 @@
         }
 
         table{
-
+            width:650px;
+            height:450px;
             position: absolute;
             top: 150px;
             left: 10px;
-        }
-        div ul{
-            position: absolute;
-            top: 450px;
-            left: 10px;
-            font-size: 18px;
-            float: left;
+            border-collapse: collapse;
         }
 
-        li {
+        th, td{
+            border:1px solid black;
+            padding:5px;
+        }
+
+
+        #paging{
+            top:600px;
+            left:5px;
+            position:absolute;
+        }
+
+        #paging li {
             list-style: none;
-
             float: left;
             padding: 6px;
         }
@@ -93,34 +99,45 @@
     <ul>
         <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
         <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
-        <li><h4><a href="/list">공지사항</a></h4></li>
+        <li><h4><a href="/notice/list">공지사항</a></h4></li>
+
+    <sec:authorize access="!isAuthenticated()">   <!--로그인 안된 경우-->
         <li><h4><a href="/login">회원가입/로그인</a></h4></li>
+    </sec:authorize>
+
+        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
+            <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
+        </sec:authorize>
     </ul>
 </nav>
 
 
 
+    <!-- 검색폼 만들기 -->
+    <form:form modelAttribute="pgrq" method="get" action="list${pgrq.toUriStringByPage(1)}">
 
-<form:form modelAttribute="notice" method="POST" action="search">
+        <div id="sc">
+             <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
 
-    <div id="sc">
-    TITLE : <form:input path="title" /><input type="submit" value="Search" />
+             <form:input path="keyword" />
+             <button id='searchBtn'>검색</button>
 
-        <!-- 인증된 사용자인 경우 -->
-        <sec:authorize access="isAuthenticated()">
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
-        <input type="button" value="작성" onclick="location.href='register'" />
-        </sec:authorize>
+            <!-- 인증된 사용자인 경우 -->
+            <sec:authorize access="isAuthenticated()">
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+              <input type="button" value="작성" onclick="location.href='register'" />
+            </sec:authorize>
 
-        <!--회원 권한을 가진 사용자인 경우 -->
-        </sec:authorize>
-    </div>
+                <!--회원 권한을 가진 사용자인 경우 -->
+            </sec:authorize>
+        </div>
 
 
-    <table border="1">
+
+    <table border="1" >
 
         <tr>
-            <th align="center" width="60">NO</th>
+            <th align="center" width="60" >NO</th>
 
             <th align="center" width="300">TITLE</th>
 
@@ -144,7 +161,7 @@
                 <c:forEach items="${list}" var="notice">
                     <tr>
                         <td align="center">${notice.boardNo}</td>
-                        <td align="left"><a href="/notice/read?boardNo=${notice.boardNo}">${notice.title}</a></td>
+                        <td align="left"><a href="/notice/read${pgrq.toUriString(pgrq.page)}&boardNo=${notice.boardNo}">${notice.title}</a></td>
                         <td align="right">${notice.writer}</td>
                         <td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.regDate}" /></td>
                     </tr>
@@ -158,18 +175,18 @@
 
 
 
-<div>
+<div id="paging">
     <ul>
-        <c:if test="${pageMaker.prev}">
-            <li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+        <c:if test="${pagination.prev}">
+            <li><a href="${pagination.startPage - 1}">&laquo;</a></li>
         </c:if>
 
-        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-            <li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
+        <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="idx">
+            <li><a href="/notice/list${pageRequest.toUriString(idx)}">${idx}</a></li>
         </c:forEach>
 
-        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-            <li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
+        <c:if test="${pagination.next && pagination.endPage > 0}">
+            <li><a href="${pagination.endPage +1}">&raquo;</a></li>
         </c:if>
     </ul>
 </div>

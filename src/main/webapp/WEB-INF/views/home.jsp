@@ -150,12 +150,12 @@
         <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
         <li><h4><a href="/notice/list">공지사항</a></h4></li>
 
-        <sec:authorize access="!isAuthenticated()">   <!--인증된 경우-->
+        <sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
         <li><h4><a href="/login">회원가입/로그인</a></h4></li>
         </sec:authorize>
 
 
-        <sec:authorize access="isAuthenticated()">
+        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
         <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
         </sec:authorize>
     </ul>

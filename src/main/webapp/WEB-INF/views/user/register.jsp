@@ -107,7 +107,7 @@
 
 </head>
 <body>
-<h1>  <a href="/home">   SCC  </a> </h1>
+<h1>  <a href="/">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
         <li><h4><a href="search.html">요양시설 찾기</a></h4></li>
@@ -122,10 +122,12 @@
     <fieldset>
         <legend>회원가입</legend>
 
+        <!--
         <div>
             <img id="thumbnailImg" src="">
             <input type="file" accept="image/*" id="upImgFile" onchange="uploadImgPreview();" />
         </div>
+        -->
         <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
         <form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
         <form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/>
