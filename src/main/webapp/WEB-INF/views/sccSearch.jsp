@@ -186,6 +186,7 @@
 <h5 class="seoul">서울특별시</h5>
 <div class="choice">구 선택</div>
 <div id="bx" >
+    <!--
     <p>강남구</p>
     <p>강동구</p>
     <p>강북구</p>
@@ -211,6 +212,13 @@
     <p>종로구</p>
     <p>중구</p>
     <p>중랑구</p>
+    -->
+
+<c:forEach items="${list2}" var="district">
+
+     <P align="center"> ${district.scc_district} </P>
+
+</c:forEach>
 </div>
 
 <br><br><br><br><br><br><br>
@@ -240,7 +248,7 @@
             <td align="center">${scc.scc_num}</td>
 
             <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
-            <td align="center"> <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a>   </td>
+            <td align="center"> <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a> </td>
             <td align="center">${scc.scc_grade}</td>
             <td align="center">${scc.scc_address}</td>
         </tr>

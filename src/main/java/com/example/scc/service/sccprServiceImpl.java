@@ -39,4 +39,9 @@ public class sccprServiceImpl implements sccprService{
         return mapper.read(scc_num);
     }
 
+    @Override
+    public List<scc_pr> list2() throws Exception {
+        return mapper.list2();
+    }
+
 }

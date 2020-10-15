@@ -30,7 +30,7 @@
     </tr>
 
 
-            <c:forEach items="${list}" var="scc">
+            <c:forEach items="${list2}" var="scc">
                 <tr>
                     <td align="center">${scc.scc_name}</td>
                     <td align="center">${scc.scc_grade}</td>

@@ -33,6 +33,8 @@ public class scc_pr_Controller {
 
         // 뷰에 페이징 처리를 한 게시글 목록을 전달한다.
         model.addAttribute("list", service.list(pageRequest));
+        // 지역구 리스트
+        model.addAttribute("list2", service.list2());
 
         // 페이징 네비게이션 정보를 뷰에 전달한다.
         Pagination pagination = new Pagination();
@@ -53,6 +55,7 @@ public class scc_pr_Controller {
         model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
 
     }
+
 
 
 /* 하나로만 검색할때 예) 제목

@@ -96,17 +96,16 @@ public class NoticeController {
 */
 
     @RequestMapping(value = "/read", method=RequestMethod.GET)
-    public void read(@RequestParam("boardNo") int boardNo, Model model) throws Exception{
+    public void read(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception{
 
         model.addAttribute(service.read(boardNo));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     public String remove(int boardNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
 
         service.remove(boardNo);
-
 
         //RedirectAttributes 객체에 일회성 데이터를 지정한여 전달한다.
         rttr.addAttribute("page", pageRequest.getPage());
@@ -116,6 +115,8 @@ public class NoticeController {
         rttr.addAttribute("searchType", pageRequest.getSearchType());
         rttr.addAttribute("keyword", pageRequest.getKeyword());
 
+
+        //검색유형과 검색어를 뷰에 전달한다.
         rttr.addFlashAttribute("msg", "SUCCESS");
 
         return "redirect:/notice/list";
@@ -123,8 +124,11 @@ public class NoticeController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/modify", method = RequestMethod.GET)
-    public void modifyForm(int boardNo, Model model) throws Exception {
-        model.addAttribute(service.read(boardNo));
+    public void modifyForm(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest,Model model) throws Exception {
+
+        // 조회한 게시글 상세정보를 뷰에 전달한다.
+        Notice notice = service.read(boardNo);
+        model.addAttribute(notice);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능

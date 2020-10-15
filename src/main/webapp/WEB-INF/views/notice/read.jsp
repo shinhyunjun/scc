@@ -61,7 +61,14 @@
 
             var formObj = $("#notice");
 
-            console.log(formObj);
+            // 현재 페이지 번호와 페이징 크기
+            var pageObj = $("#page");
+            var sizePerPageObj = $("#sizePerPage");
+
+
+            var pageVal = pageObj.val();
+            var sizePerPageVal = sizePerPageObj.val();
+
 
             $("#btnList").on("click", function() {
                 self.location = "/notice/list";

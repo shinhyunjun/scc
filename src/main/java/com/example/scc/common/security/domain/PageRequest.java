@@ -49,9 +49,6 @@ public class PageRequest {
         return this.sizePerPage;
     }
 
-
-
-
     //검색유형과 검색어를 멤버변수의 getter/setter 메서드
     public String getSearchType() {
         return searchType;
@@ -101,5 +98,6 @@ public class PageRequest {
 
         return uriComponents.toUriString();
     }
+
 
 }

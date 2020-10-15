@@ -44,6 +44,17 @@
     </select>
 
 
+    <!-- 지역구 목록 -->
+    <select id="list2" resultType="scc_pr">
+		<![CDATA[
+		SELECT DISTINCT scc_district
+		  FROM scc_info
+		 WHERE scc_num > 0
+	  ORDER BY scc_district ASC
+		]]>
+	</select>
+
+
     <!-- 게시글 전체 건수를 조회 -->
     <!-- 검색 조건 추가-->
     <select id="count" resultType="int">
@@ -56,17 +67,7 @@
         <include refid="search"></include>
    </select>
 
-    <select id="search" resultType="scc_pr" parameterType="Criteria">
-        <![CDATA[
-	 	SELECT *
-	 	  FROM scc_info
-	 	]]>
 
-        <if test="scc_name != null and scc_name != ''">
-            where scc_name like concat('%', #{scc_name}, '%')
-        </if>
-
-    </select>
 
 
     <select id="read" resultType="scc_pr">
