@@ -17,7 +17,7 @@
 
         h1 {
             width: 90px;
-            height: 55px;
+            height: 63px;
             text-align: center;
             color: #81F781;
             font-family: '맑은 고딕';
@@ -88,11 +88,13 @@
 <nav id="nav_menu">
     <ul>
         <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
+        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
         <li><h4><a href="/notice/list">공지사항</a></h4></li>
         <li><h4><a href="/login">회원가입/로그인</a></h4></li>
     </ul>
 </nav>
+<br><br><br>
+<hr width="100%">
 
 <h2>
     <c:out value="${error}"/>

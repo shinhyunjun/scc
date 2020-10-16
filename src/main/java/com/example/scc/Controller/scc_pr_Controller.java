@@ -9,6 +9,7 @@ import com.example.scc.domain.PageMaker;
 import com.example.scc.domain.scc_pr;
 import com.example.scc.service.sccprService;
 import lombok.extern.java.Log;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -52,6 +53,7 @@ public class scc_pr_Controller {
         searchTypeCodeValueList.add(new CodeLabelValue("t", "요양원명"));
         searchTypeCodeValueList.add(new CodeLabelValue("c", "지역구"));
         searchTypeCodeValueList.add(new CodeLabelValue("tc", "요양원명 또는 지역구"));
+
         model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
 
     }
@@ -60,14 +62,14 @@ public class scc_pr_Controller {
 
 /* 하나로만 검색할때 예) 제목
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String search(String scc_name, Model model) throws Exception {
+    public String search(String scc_district, Model model) throws Exception {
 
-        scc_pr prpr = new scc_pr();
-        prpr.setScc_name(scc_name);
+        scc_pr scc_pr = new scc_pr();
+        scc_pr.setScc_district(scc_district);
 
-        model.addAttribute("sccPr", prpr);
+        model.addAttribute("scc_pr", scc_pr);
 
-        model.addAttribute("list", service.search(scc_name));
+        model.addAttribute("list", service.search(scc_district));
 
         return "sccSearch";
     }

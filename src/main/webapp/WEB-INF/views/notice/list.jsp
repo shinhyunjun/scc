@@ -8,7 +8,8 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
+
+   <meta charset="utf-8" />
     <title></title>
     <style>
         * {
@@ -18,7 +19,7 @@
 
         h1 {
             width: 90px;
-            height: 55px;
+            height: 63px;
             text-align: center;
             color: #81F781;
             font-family: '맑은 고딕';
@@ -58,9 +59,7 @@
             left: 10px;
         }
 
-        table{
-            width:650px;
-            height:450px;
+        table {
             position: absolute;
             top: 150px;
             left: 10px;
@@ -94,11 +93,13 @@
 
 </head>
 <body>
+
+
 <h1>  <a href="/">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
         <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
+        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
         <li><h4><a href="/notice/list">공지사항</a></h4></li>
 
     <sec:authorize access="!isAuthenticated()">   <!--로그인 안된 경우-->
@@ -110,7 +111,8 @@
         </sec:authorize>
     </ul>
 </nav>
-
+<br><br><br>
+<hr width="100%">
 
 
     <!-- 검색폼 만들기 -->
@@ -134,7 +136,7 @@
 
 
 
-    <table border="1" >
+    <table >
 
         <tr>
             <th align="center" width="60" >NO</th>
@@ -199,5 +201,7 @@
         alert("성공");
     }
 </script>
+
+
 </body>
 </html>

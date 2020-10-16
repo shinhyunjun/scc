@@ -14,14 +14,14 @@
 
         h1 {
             width: 90px;
-            height: 55px;
+            height: 63px;
             text-align: center;
             position:absolute;
             font-family: '맑은 고딕';
             display: block;
             margin-left: 10px;
             border: 1px solid #EFFBF5;
-            position: fixed;
+
             background-color: #CEF6CE;
         }
 
@@ -112,7 +112,7 @@
 <nav id="nav_menu">
     <ul>
         <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
+        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
         <li><h4><a href="/notice/list">공지사항</a></h4></li>
 
         <sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
@@ -125,9 +125,11 @@
         </sec:authorize>
     </ul>
 </nav>
+<br><br><br>
+<hr width="100%">
 
-<br><br><br><br>
 
+<br><br>
 
 <h2>공지사항 등록</h2><br>
 <form:form modelAttribute="notice" action="register">

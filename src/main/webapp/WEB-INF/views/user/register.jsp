@@ -21,7 +21,7 @@
 
         h1 {
             width: 90px;
-            height: 55px;
+            height: 63px;
             text-align: center;
             color: #81F781;
             font-family: '맑은 고딕';
@@ -106,17 +106,18 @@
 
 
 </head>
-<body>
+<body bgcolor="#EFF5FB">
 <h1>  <a href="/">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
         <li><h4><a href="search.html">요양시설 찾기</a></h4></li>
-        <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
-        <li><h4><a href="post.html">공지사항</a></h4></li>
+        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
+        <li><h4><a href="/notice/list">공지사항</a></h4></li>
         <li><h4><a href="/login">회원가입/로그인</a></h4></li>
     </ul>
 </nav>
-
+<br><br><br>
+<hr width="100%">
 
 <form:form  modelAttribute="member" action="register">
     <fieldset>
@@ -131,8 +132,8 @@
         <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
         <form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
         <form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/>
-        <form:input path="user_birth" type="number" name="user_birth" id="user_birth" placeholder="생년월일"/>
-        <form:input path="user_age" type="number" name="user_age" id="user_age" placeholder="나이"/>
+        <form:input path="user_birth" type="number" name="user_birth" id="user_birth" value="생년월일" />
+        <form:input path="user_age" type="number" name="user_age" id="user_age" value="나이"/>
         <form:input path="user_sex" type="text" name="user_sex" id="user_sex" placeholder="성별"/>
         <form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/>
         <form:input path="user_email" type="text" name="user_email" id="user_email" placeholder="이메일"/>

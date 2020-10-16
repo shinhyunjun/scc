@@ -7,6 +7,17 @@
 <html>
 <head>
     <title>Notice</title>
+    <style>
+
+        input, textarea{
+            width:500px;
+        }
+
+        textarea{
+            height:440px;
+        }
+
+    </style>
 </head>
 
 <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
@@ -26,18 +37,23 @@
 
         <table>
             <tr>
-                <td>Title</td>
-                <td><form:input path="title" readonly="true"/> </td>
+                <td width="50" align="center">제목</td>
+                <td width="550" align="center"><form:input path="title" readonly="true"/> </td>
             </tr>
 
             <tr>
-                <td>Writer</td>
-                <td><form:input path="writer" readonly="true"/> </td>
+                <td width="50" align="center">작성자</td>
+                <td width="550" align="center"><form:input path="writer" readonly="true"/> </td>
             </tr>
 
             <tr>
-                <td>Content</td>
-                <td><form:input path="content" readonly="true"/> </td>
+                <td width="50" align="center">내용</td>
+                <td width="550" align="center"><form:textarea path="content" readonly="true"/> </td>
+            </tr>
+
+            <tr>
+                <td width="70" align="center">첨부파일</td>
+                <td width="100" align="center"><input type="file" name="picture" /></td>
             </tr>
         </table>
     </form:form>
@@ -75,11 +91,13 @@
             });
 
             $("#btnEdit").on("click", function() {
+
                 var boardNo = $("#boardNo");
                 var boardNoVal = boardNo.val();
 
                 self.location = "/notice/modify?boardNo="+boardNoVal;
             });
+
 
             $("#btnRemove").on("click", function() {
                 formObj.attr("action", "/notice/remove");

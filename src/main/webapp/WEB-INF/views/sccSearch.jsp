@@ -15,16 +15,18 @@
 
 
     <style>
+        @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
         * {
             margin: 0;
             padding: 0;
+
         }
 
 
 
         h1 {
             width: 90px;
-            height: 55px;
+            height: 63px;
             text-align: center;
             color: #81F781;
             font-family: '맑은 고딕';
@@ -90,6 +92,7 @@
             left: 10px;
             border:1px solid black;
             text-align: center;
+            font-family: 'Malgun Gothic';
         }
 
         #bx{
@@ -103,21 +106,21 @@
             text-align: center;
         }
 
+
         #bx p{
             color:black;
+
         }
 
         .reverse{
-            background-color: yellow;
+            background-color: #58ACFA;
         }
 
         table{
-            width:700px;
-            height:450px;
-            font-size: 14px;
+
             position:absolute;
             top:150px;
-            right:260px;
+            right:100px;
             border-collapse: collapse;
         }
 
@@ -129,9 +132,12 @@
             border:1px solid black;
             padding:5px;
         }
+        td{
+            font-size: 13px;
+        }
         #paging{
-            top:655px;
-            left:580px;
+            top:580px;
+            left:405px;
             position:absolute;
         }
 
@@ -147,6 +153,7 @@
     </style>
 
     <script src="https://code.jquery.com/jquery-3.1.1.js"> </script>
+
     <script>
 
         $(document).ready(function(){
@@ -155,6 +162,8 @@
                 mouseenter:function(){$(this).addClass('reverse')},
                 mouseleave:function(){$(this).removeClass('reverse')}
             })
+
+
         })
     </script>
 
@@ -167,7 +176,7 @@
 <nav id="nav_menu">
     <ul>
         <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
+        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
         <li><h4><a href="/notice/list">공지사항</a></h4></li>
 
         <sec:authorize access="!isAuthenticated()">   <!--인증된 경우-->
@@ -179,83 +188,82 @@
         </sec:authorize>
     </ul>
 </nav>
-
-
+<br><br><br>
+<hr width="100%">
 
 
 <h5 class="seoul">서울특별시</h5>
 <div class="choice">구 선택</div>
+
+<!-- 지역구 목록-->
 <div id="bx" >
-    <!--
-    <p>강남구</p>
-    <p>강동구</p>
-    <p>강북구</p>
-    <p>강서구</p>
-    <p>관악구</p>
-    <p>광진구</p>
-    <p>구로구</p>
-    <p>금천구</p>
-    <p>노원구</p>
-    <p>도봉구</p>
-    <p>동대문구</p>
-    <p>동작구</p>
-    <p>마포구</p>
-    <p>서대문구</p>
-    <p>서초구</p>
-    <p>성동구</p>
-    <p>성북구</p>
-    <p>송파구</p>
-    <p>양천구</p>
-    <p>영등포구</p>
-    <p>용산구</p>
-    <p>은평구</p>
-    <p>종로구</p>
-    <p>중구</p>
-    <p>중랑구</p>
-    -->
 
-<c:forEach items="${list2}" var="district">
-
-     <P align="center"> ${district.scc_district} </P>
-
-</c:forEach>
+    <p><a href="/sccSearch?searchType=c&keyword=강남구"> 강남구 </a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=강동구">강동구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=강북구">강북구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=강서구">강서구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=관악구">관악구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=광진구">광진구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=구로구">구로구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=금천구">금천구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=노원구">노원구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=도봉구">도봉구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=동대문구">동대문구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=동작구">동작구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=마포구">마포구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=서대문구">서대문구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=서초구">서초구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=성동구">성동구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=성북구">성북구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=송파구">송파구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=양천구">양천구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=영등포구">영등포구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=용산구">용산구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=은평구">은평구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=종로구">종로구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=중구">중구</a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=중랑구">중랑구</a></p>
 </div>
 
-<br><br><br><br><br><br><br>
+
+
+<br><br><br><br>
 
     <!-- 검색폼 만들기 -->
     <form:form modelAttribute="pgrq" method="get" action="sccSearch${pgrq.toUriStringByPage(1)}">
         <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
 
         <form:input path="keyword" />
+
         <button id='searchBtn'>검색</button>
     </form:form>
 
-<table border="1">
+<table>
+
+    <thead>
     <tr>
-        <th align="center" width="200">no</th>
-        <th align="center" width="200">name</th>
-        <th align="center" width="130">grade</th>
-        <th align="center" width="350">address</th>
+        <th align="center" width="40">no</th>
+        <th align="center" width="320">name</th>
+        <th align="center" width="120">grade</th>
+        <th align="center" width="507">address</th>
 
     </tr>
+    </thead>
 
 
-
-
+    <tbody>
     <c:forEach items="${list}" var="scc">
         <tr>
             <td align="center">${scc.scc_num}</td>
 
             <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
-            <td align="center"> <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a> </td>
+            <td align="left"> <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a> </td>
             <td align="center">${scc.scc_grade}</td>
-            <td align="center">${scc.scc_address}</td>
+            <td align="left">${scc.scc_address}</td>
         </tr>
     </c:forEach>
-
+    </tbody>
 </table>
-
 
 
 
@@ -274,6 +282,7 @@
         <a href="/sccSearch${pagination.makeQuery(pagination.endPage + 1)}"> &raquo; </a>
     </c:if>
 </div>
+
 
 </body>
 </html>

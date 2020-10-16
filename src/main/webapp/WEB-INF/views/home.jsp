@@ -20,15 +20,20 @@
 
         h1 {
             width: 90px;
-            height: 55px;
+            height: 63px;
             text-align: center;
             position:absolute;
             font-family: '맑은 고딕';
             display: block;
             margin-left: 10px;
             border: 1px solid #EFFBF5;
-            position: fixed;
+
             background-color: #CEF6CE;
+        }
+
+        h1 a {
+            text-decoration: none;
+            color: #81F781;
         }
 
         #nav_menu ul {
@@ -44,10 +49,6 @@
             margin: 5px 0px 5px 0px;
         }
 
-        h1 a {
-            text-decoration: none;
-            color: #81F781;
-        }
 
         h4 a {
             text-decoration: none;
@@ -143,11 +144,12 @@
 </head>
 <body>
 
+
 <h1>  <a href="/">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
         <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="qa.html">자주하는 질문</a></h4></li>
+        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
         <li><h4><a href="/notice/list">공지사항</a></h4></li>
 
         <sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
@@ -160,6 +162,8 @@
         </sec:authorize>
     </ul>
 </nav>
+    <br><br><br>
+    <hr width="100%">
 
 
 <div class="d1">

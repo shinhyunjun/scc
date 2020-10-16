@@ -14,7 +14,7 @@ public class PageRequest {
 
     public PageRequest() {
         this.page = 1;
-        this.sizePerPage = 10;
+        this.sizePerPage = 13;
     }
 
     public void setPage(int page) {
@@ -28,7 +28,7 @@ public class PageRequest {
 
     public void setSizePerPage(int size) {
         if (size <= 0 || size > 100) {
-            this.sizePerPage = 10;
+            this.sizePerPage = 13;
             return;
         }
 
