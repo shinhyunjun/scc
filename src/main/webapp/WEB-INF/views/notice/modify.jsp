@@ -35,6 +35,12 @@
             <td><form:textarea path="content" /></td>
             <td><font color="red"><form:errors path="content" /></font></td>
         </tr>
+        <tr>
+            <td >첨부파일</td>
+            <td ><input type="file" id="inputFile" /></td>
+
+            <div class="uploadedList"></div>
+        </tr>
     </table>
 </form:form>
 
@@ -59,9 +65,86 @@
         });
 
         $("#btnList").on("click", function() {
-            self.location = "list";
+            self.location = "/notice/list";
         });
 
+
+        $(".uploadedList").on("click", "span", function(event){
+            $(this).parent("div").remove();
+        });
+
+        function getOriginalName(fileName){
+            var idx = fileName.indexOf("_") + 1;
+            return fileName.substr(idx);
+        }
+
+        var boardNo = ${notice.boardNo};
+
+        //첨부파일 목록 조회
+        $.getJSON("/notice/getAttach/"+boardNo,function(list){
+            $(list).each(function(){
+
+                console.log("data : " + this);
+
+                var data = this;
+
+                console.log("data : " + data);
+                console.log("getOriginalName(data) : " + getOriginalName(data));
+
+                var str = "<div><a href='/notice/downloadFile?fullName="+data+"'>" + getOriginalName(data)+"</a>"
+                    + "<span>X</span></div>";
+
+                $(".uploadedList").append(str);
+            });
+        });
+
+        $("#notice").submit(function(event){
+
+            event.preventDefault();
+
+            var that = $(this);
+
+            var str ="";
+
+            $(".uploadedList a").each(function(index){
+
+                var value = $(this).attr("href");
+                value = value.substr(27);
+
+                str += "<input type='hidden' name='files[" + index + "]' value='" + value + "'> ";
+            });
+
+            that.append(str);
+
+            that.get(0).submit();
+        });
+
+        $("#inputFile").on("change", function(event){
+
+            var files = event.target.files;
+            var file = files[0];
+
+            console.log(file);
+
+            var formData = new FormData();
+
+            formData.append("file", file);
+
+            $.ajax({
+                url: "/notice/uploadAjax?${_csrf.parameterName}=${_csrf.token}",
+                data: formData,
+                dataType:"text",
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success: function(data){
+                    var str = "<div><a href='/notice/downloadFile?fullName=" + data + "'>"
+                        + getOriginalName(data) + "</a>" + "<span>X</span></div></div>";
+
+                    $(".uploadedList").append(str);
+                }
+            });
+        });
     });
 </script>
 </body>

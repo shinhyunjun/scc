@@ -126,7 +126,7 @@
 
         table a{
             text-decoration: none;
-            color: #01DFD7;
+            color: #088A4B;
         }
         th, td{
             border:1px solid black;
@@ -243,9 +243,9 @@
     <thead>
     <tr>
         <th align="center" width="40">no</th>
-        <th align="center" width="320">name</th>
-        <th align="center" width="120">grade</th>
-        <th align="center" width="507">address</th>
+        <th align="center" width="320">요양원명</th>
+        <th align="center" width="120">등급</th>
+        <th align="center" width="507">주소</th>
 
     </tr>
     </thead>
@@ -257,7 +257,7 @@
             <td align="center">${scc.scc_num}</td>
 
             <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
-            <td align="left"> <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a> </td>
+            <td align="left"> <b><a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a> </b></td>
             <td align="center">${scc.scc_grade}</td>
             <td align="left">${scc.scc_address}</td>
         </tr>

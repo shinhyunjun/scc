@@ -26,7 +26,7 @@
 
     <h2>공지사항</h2>
 
-    <form:form modelAttribute="notice">
+    <form:form modelAttribute="notice" action="modify" enctype="multipart/form-data">
         <form:hidden path="boardNo"/>
 
         <!-- 현재 페이지 번호, 페이징 크기, 검색유형, 검색어를 숨겨진 필드 요소를 사용하여 전달-->
@@ -53,7 +53,9 @@
 
             <tr>
                 <td width="70" align="center">첨부파일</td>
-                <td width="100" align="center"><input type="file" name="picture" /></td>
+                <td width="100" align="center">
+                    <div class="uploadedList"></div>
+                </td>
             </tr>
         </table>
     </form:form>
@@ -71,7 +73,7 @@
 
     </div>
 
-
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
     <script>
         $(document).ready(function(){
 
@@ -106,5 +108,36 @@
         })
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            function getOriginalName(fileName){
+                var idx = fileName.indexOf("_") + 1;
+                return fileName.substr(idx);
+            }
+
+            var boardNo = ${notice.boardNo};
+
+            console.log("boardNo : " + boardNo);
+
+            //첨부파일 목록 조회
+            $.getJSON("/notice/getAttach/"+boardNo,function(list){
+                $(list).each(function(){
+
+                    console.log("data : " + this);
+
+                    var data = this;
+
+                    console.log("data : " + data);
+                    console.log("getOriginalName(data) : " + getOriginalName(data));
+
+                    var str = "<div><a href='/notice/downloadFile?fullName="+data+"'>" + getOriginalName(data) + "</a></div>";
+
+                    $(".uploadedList").append(str);
+                });
+            });
+
+        });
+    </script>
 </body>
 </html>

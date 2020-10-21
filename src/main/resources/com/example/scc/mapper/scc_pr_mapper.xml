@@ -37,7 +37,7 @@
         <include refid="search"></include>
 
         <![CDATA[
-        ORDER BY scc_name ASC
+        ORDER BY scc_num ASC
         LIMIT #{pageStart}, #{sizePerPage}
           ]]>
 

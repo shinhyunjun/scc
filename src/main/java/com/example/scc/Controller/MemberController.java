@@ -39,7 +39,8 @@ public class MemberController {
         service.register(member);
 
         rttr.addFlashAttribute("userName", member.getUser_name());
-        return "redirect:/user/success";
+        rttr.addFlashAttribute("msg", "SUCCESS");
+        return "redirect:/";
     }
 
     //등록 성공 화면

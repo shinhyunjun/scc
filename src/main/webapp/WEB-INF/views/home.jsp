@@ -199,6 +199,12 @@
 <!-- 로그인을 거친 인증된 사용자인 경우 사용자명을 보여주고 로그아웃 페이지로
             이동할 수 있게 한다.-->
 
+<script>
+    var result = "${msg}";
 
+    if (result === "SUCCESS") {
+        alert("성공");
+    }
+</script>
 </body>
 </html>

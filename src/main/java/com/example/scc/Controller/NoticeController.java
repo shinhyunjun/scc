@@ -3,20 +3,27 @@ package com.example.scc.Controller;
 import com.example.scc.common.security.domain.CustomUser;
 import com.example.scc.common.security.domain.PageRequest;
 import com.example.scc.common.security.domain.Pagination;
+import com.example.scc.common.util.UploadFileUtils;
 import com.example.scc.domain.*;
 import com.example.scc.service.NoticeService;
 import lombok.extern.java.Log;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +34,9 @@ public class NoticeController {
 
     @Autowired
     private NoticeService service;
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     //페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -96,9 +106,12 @@ public class NoticeController {
 */
 
     @RequestMapping(value = "/read", method=RequestMethod.GET)
-    public void read(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception{
+    public String read(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception{
 
-        model.addAttribute(service.read(boardNo));
+        Notice notice = service.read(boardNo);
+        model.addAttribute(notice);
+
+        return "notice/read";
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -148,5 +161,57 @@ public class NoticeController {
         rttr.addFlashAttribute("msg", "SUCCESS");
 
         return "redirect:/notice/list";
+    }
+
+
+    //첨부파일 업로드 처리
+    @ResponseBody
+    @RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
+
+        String savedName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+
+        return new ResponseEntity<String>(savedName, HttpStatus.CREATED);
+    }
+
+    //첨부파일 다운로드 처리
+    @ResponseBody
+    @RequestMapping("/downloadFile")
+    public ResponseEntity<byte[]> downloadFile(String fullName) throws Exception {
+
+        InputStream in = null;
+        ResponseEntity<byte[]> entity = null;
+
+        //첨부파일 다운로드 건수 업데이트
+        service.updateAttachDownCnt(fullName);
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+
+            in = new FileInputStream(uploadPath + fullName);
+            in = new FileInputStream(uploadPath + fullName);
+
+            String fileName = fullName.substring(fullName.indexOf("_") + 1);
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.add("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+        } finally {
+            in.close();
+        }
+
+        return entity;
+    }
+
+    //첨부파일 목록 조회
+    @ResponseBody
+    @RequestMapping("/getAttach/{boardNo}")
+    public List<String> getAttach(@PathVariable("boardNo") Integer boardNo) throws Exception {
+
+        return service.getAttach(boardNo);
     }
 }

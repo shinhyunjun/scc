@@ -18,4 +18,8 @@ public class Notice {
     private String writer;
 
     private Date regDate;
+
+    private String[] files;
+
+    private Integer viewCnt;
 }

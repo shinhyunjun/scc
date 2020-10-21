@@ -28,9 +28,9 @@ public class Member {
     private String user_phone;
     private String user_email;
     private String user_sex;
-    private int user_birth;
+    private String user_birth;
     private Date user_date;
-    private int user_age;
+    private String user_age;
     private int gr_no;
     private char enabled;
 

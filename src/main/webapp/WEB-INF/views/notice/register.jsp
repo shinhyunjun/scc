@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="false"%>
 <html>
 <head>
@@ -81,7 +83,9 @@
             border-bottom-right-radius: 2px;
         }
 
-
+        .uploadedList{
+            float:right;
+        }
     </style>
 </head>
 
@@ -89,6 +93,7 @@
 
 <script>
     $(document).ready(function() {
+
 
         var formObj = $("#notice");
 
@@ -102,6 +107,67 @@
             self.location = "/notice/list";
         });
 
+        $(".uploadedList").on("click", "span", function(event){
+            $(this).parent("div").remove();
+        });
+
+
+        function getOriginalName(fileName){
+            var idx = fileName.indexOf("_") + 1 ;
+
+            return fileName.substr(idx);
+        }
+
+        $("#notice").submit(function(event){
+            event.preventDefault();
+
+            var that = $(this);
+
+            var str ="";
+            $(".uploadedList a").each(function(index){
+                var value = $(this).attr("href");
+
+                console.log("value = " + value);
+
+                value = value.substr(27);
+
+                str += "<input type='hidden' name='files["+index+"]' value='"+ value +"'> ";
+            });
+
+            console.log("str = " + str);
+
+            that.append(str);
+
+            that.get(0).submit();
+        });
+
+        $("#inputFile").on("change", function(event){
+            var files = event.target.files;
+            var file = files[0];
+
+            console.log(file);
+
+            var formData = new FormData();
+            formData.append("file", file);
+
+            $.ajax({
+                url: "/notice/uploadAjax?${_csrf.parameterName}=${_csrf.token}",
+                data: formData,
+                dataType:"text",
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success: function(data){
+
+                    console.log(data);
+
+                    var str = "<div><a href='/notice/downloadFile?fullName="+data+"'>"
+                        + getOriginalName(data)+"</a>" +" <span>X</span></div>";
+
+                    $(".uploadedList").append(str);
+                }
+            });
+        });
     });
 </script>
 
@@ -136,20 +202,27 @@
     <table>
         <tr>
             <td width="50" align="center">제목</td>
-            <td width="550" align="center"><form:input path="title" /></td>
+            <td width="550" align="center"><form:input path="title"/></td>
+            <td><font color="red"><form:errors path="title" /></font></td>
         </tr>
         <tr>
             <td width="50" align="center">작성자</td>
             <td width="550" align="center"><form:input path="writer" /></td>
+            <td><font color="red"><form:errors path="writer" /></font></td>
         </tr>
         <tr>
             <td width="50" align="center">내용</td>
             <td width="550" align="center"><form:textarea path="content" /></td>
+            <td><font color="red"><form:errors path="content" /></font></td>
         </tr>
 
         <tr>
+            <div id="dd">
             <td width="70" align="center">첨부파일</td>
-            <td width="100" align="center"><input type="file" name="picture" /></td>
+            <td width="100" align="center"><input type="file" id="inputFile" /></td>
+
+            <div class="uploadedList"></div>
+            </div>
         </tr>
     </table>
 </form:form>

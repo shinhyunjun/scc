@@ -132,8 +132,8 @@
         <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
         <form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
         <form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/>
-        <form:input path="user_birth" type="number" name="user_birth" id="user_birth" value="생년월일" />
-        <form:input path="user_age" type="number" name="user_age" id="user_age" value="나이"/>
+        <form:input path="user_birth" type="number" name="user_birth" id="user_birth" placeholder="생년월일" />
+        <form:input path="user_age" type="number" name="user_age" id="user_age" placeholder="나이"/>
         <form:input path="user_sex" type="text" name="user_sex" id="user_sex" placeholder="성별"/>
         <form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/>
         <form:input path="user_email" type="text" name="user_email" id="user_email" placeholder="이메일"/>

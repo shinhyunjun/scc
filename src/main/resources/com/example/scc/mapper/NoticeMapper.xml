@@ -112,4 +112,61 @@
 		DELETE FROM board2
 		 WHERE boardNo = #{boardNo}
 	</delete>
+
+
+    <!-- 첨부파일 추가 -->
+    <insert id="addAttach">
+		INSERT INTO pds_attach
+		     (
+		       fullName,
+		       boardNo
+		     )
+		VALUES
+			 (
+			   #{fullName},
+			   LAST_INSERT_ID()
+			 )
+	</insert>
+
+    <!-- 첨부파일 목록 조회 -->
+    <select id="getAttach" resultType="string">
+		SELECT fullName
+		  FROM pds_attach
+		 WHERE boardNo = #{boardNo}
+	  ORDER BY regdate
+	</select>
+
+    <!-- 첨부파일 삭제 -->
+    <delete id="deleteAttach">
+		DELETE FROM pds_attach
+		 WHERE boardNo = #{boardNo}
+	</delete>
+
+    <!-- 첨부파일 교체체 -->
+    <insert id="replaceAttach">
+		INSERT INTO pds_attach
+			 (
+			   fullName,
+			   boardNo
+			 )
+		VALUES
+			 (
+			   #{fullName},
+			   #{boardNo}
+			 )
+	</insert>
+
+    <!-- 첨부파일 다운로드 건수 업데이트 -->
+    <update id="updateAttachDownCnt">
+		UPDATE pds_attach
+		   SET down_cnt = down_cnt + 1
+		 WHERE fullName = #{fullName}
+	</update>
+
+    <!-- 공개자료 조회 건수 업데이트 -->
+    <update id="updateViewCnt">
+		UPDATE board2
+		   SET view_cnt = view_cnt + 1
+		 WHERE boardNo = #{boardNo}
+	</update>
 </mapper>
