@@ -2,6 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <html>
@@ -29,7 +31,7 @@
             padding: 20px;
         }
 
-        table{
+        #tb1{
             border:1px solid black;
             border-collapse: collapse;
         }
@@ -37,6 +39,8 @@
             border:1px solid black;
             padding:5px;
         }
+
+
     </style>
 </head>
 
@@ -64,7 +68,7 @@
         연락처 : ${scc_pr.scc_phone} <br>
     </p>
 
-    <table>
+    <table id="tb1">
         <tr>
             <th>정원</th>
             <th>현원</th>
@@ -83,6 +87,8 @@
 <br>
 
 <div id="map" style="width:100%;height:350px;"></div>
+
+<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=147fd5c7cd7aa03b9a0757efe7860531&libraries=services"></script>
 <script>
@@ -126,5 +132,43 @@
         }
     });
 </script>
+
+
+<form:form modelAttribute="reply" method="post">
+    <table>
+        <tr>
+            <td width="50" align="center">작성자</td>
+            <td width="550" align="center"><form:input path="writer" /></td>
+            <td><font color="red"><form:errors path="writer" /></font></td>
+        </tr>
+        <tr>
+            <td width="50" align="center">내용</td>
+            <td width="550" align="center"><form:textarea path="content" /></td>
+            <td><font color="red"><form:errors path="content" /></font></td>
+        </tr>
+    </table>
+    <button  type="submit" id="btnRegister">등록</button>
+</form:form>
+
+<div id="reply2">
+    <c:forEach items="${repList}" var="repList">
+        <p>
+            작성자: ${repList.writer}<br>
+            내용: ${repList.content}<br>
+        </p>
+    </c:forEach>
+</div>
+
+<script>
+    var formObj = $("#reply");
+
+    $("#btnRegister").click(function(){
+        formObj.submit();
+    });
+</script>
+
+
+
+
 </body>
 </html>

@@ -170,6 +170,15 @@
 
     <input type="text" placeholder="시설 검색하기"/>
     <button id="sb">검색</button>
+
+
+    <form:form modelAttribute="pgrq" method="get" action="sccSearch${pgrq.toUriStringByPage(1)}">
+        <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
+
+        <form:input path="keyword" />
+
+        <button id='searchBtn'>검색</button>
+    </form:form>
 </div>
 
 

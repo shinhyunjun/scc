@@ -150,6 +150,8 @@
             var formData = new FormData();
             formData.append("file", file);
 
+            console.log(formData)
+
             $.ajax({
                 url: "/notice/uploadAjax?${_csrf.parameterName}=${_csrf.token}",
                 data: formData,
@@ -161,7 +163,7 @@
 
                     console.log(data);
 
-                    var str = "<div><a href='/notice/downloadFile?fullName="+data+"'>"
+                    var str = "<div><a href='/notice/downloadFile?fullNa"+data+"'>"
                         + getOriginalName(data)+"</a>" +" <span>X</span></div>";
 
                     $(".uploadedList").append(str);

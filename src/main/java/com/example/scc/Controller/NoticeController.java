@@ -83,10 +83,9 @@ public class NoticeController {
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
+
         Notice notice = new Notice();
-
         notice.setWriter(member.getUser_id());   // 등록 시 id를 미리 입력해 준다.
-
         model.addAttribute(notice);
     }
 

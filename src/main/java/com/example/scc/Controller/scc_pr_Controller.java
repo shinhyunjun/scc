@@ -3,18 +3,18 @@ package com.example.scc.Controller;
 
 import com.example.scc.common.security.domain.PageRequest;
 import com.example.scc.common.security.domain.Pagination;
-import com.example.scc.domain.CodeLabelValue;
-import com.example.scc.domain.Criteria;
-import com.example.scc.domain.PageMaker;
-import com.example.scc.domain.scc_pr;
+import com.example.scc.domain.*;
+import com.example.scc.service.ReplyService;
 import com.example.scc.service.sccprService;
 import lombok.extern.java.Log;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,9 @@ public class scc_pr_Controller {
     @Autowired
     private sccprService service;
 
+    @Autowired
+    private ReplyService RepService;
+
     @RequestMapping(value = "/sccSearch", method = RequestMethod.GET)
     public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
@@ -34,8 +37,7 @@ public class scc_pr_Controller {
 
         // 뷰에 페이징 처리를 한 게시글 목록을 전달한다.
         model.addAttribute("list", service.list(pageRequest));
-        // 지역구 리스트
-        model.addAttribute("list2", service.list2());
+
 
         // 페이징 네비게이션 정보를 뷰에 전달한다.
         Pagination pagination = new Pagination();
@@ -77,13 +79,58 @@ public class scc_pr_Controller {
 */
 
     @RequestMapping(value = "/sccSearch_read", method = RequestMethod.GET)
-    public String read(int scc_num, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+    public void read(int scc_num, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
         scc_pr scc_pr = service.read(scc_num);
 
-        model.addAttribute(scc_pr);
+        model.addAttribute("scc_pr", scc_pr);
 
-        return "sccSearch_read";
+        List<Reply> repList = RepService.list(scc_num);
+        model.addAttribute("repList", repList);
+
+
+        Reply reply = new Reply();
+        //RepService.register(reply);
+        model.addAttribute(reply);
+
+
     }
+
+    @RequestMapping(value = "/sccSearch_read", method = RequestMethod.POST)
+    public String read2(Reply reply, Model model, PageRequest pageRequest, scc_pr scc_pr) throws Exception {
+
+
+        RepService.register(reply);
+
+        return "redirect:/sccSearch_read" + pageRequest.toUriString(pageRequest.getPage()) +
+                "&scc_num=" + scc_pr.getScc_num();
+
+    }
+
+    /*
+    @RequestMapping(value = "/replyRegis", method = RequestMethod.POST)
+    public String register(Reply reply, RedirectAttributes rttr) throws Exception {
+
+
+
+
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+        return "redirect:/sccSearch_read";
+
+    }
+
+   @RequestMapping(value = "/replyRegis", method = RequestMethod.GET)
+    public void registerForm(Model model) throws Exception {
+
+        Reply reply = new Reply();
+
+        model.addAttribute(reply);
+
+    }
+
+     */
+
+
 
 }
