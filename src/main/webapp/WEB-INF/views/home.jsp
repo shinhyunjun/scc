@@ -1,6 +1,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 
@@ -168,45 +169,49 @@
 
 <div class="d1">
 
+    <!--
     <input type="text" placeholder="시설 검색하기"/>
     <button id="sb">검색</button>
+-->
 
+    <form:form modelAttribute="pgrq" method="get" action="sccSearch">
 
-    <form:form modelAttribute="pgrq" method="get" action="sccSearch${pgrq.toUriStringByPage(1)}">
-        <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
+        <form:hidden path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" value="tc"/>
+        <form:input path="keyword" placeholder="시설명 또는 지역구 검색하기" autocomplete="false"/>
 
-        <form:input path="keyword" />
+           <button id='sb'>검색</button>
 
-        <button id='searchBtn'>검색</button>
     </form:form>
-</div>
+
+    <!--  <button id='sb' onclick="location.href='/sccSearch?searchType=c&keyword=강남구'">검색</button>  -->
+  </div>
 
 
-<table class="tb1">
-    <tr>
-        <th>장기요양 급여비용 계산</th>
-    </tr>
-    <tr>
-        <td><button id="pay" onclick="window.open('http://www.longtermcare.or.kr/npbs/e/b/504/openPopEquipPaymtCalcu')">시설급여계산</button></td>
-    </tr>
-</table>
-<hr class="ll" />
+  <table class="tb1">
+      <tr>
+          <th>장기요양 급여비용 계산</th>
+      </tr>
+      <tr>
+          <td><button id="pay" onclick="window.open('http://www.longtermcare.or.kr/npbs/e/b/504/openPopEquipPaymtCalcu')">시설급여계산</button></td>
+      </tr>
+  </table>
+  <hr class="ll" />
 
 
-<table class="tb2">
-    <tr>
-        <th>장기요양등급 확인하기</th>
-    </tr>
-    <tr>
-        <td><button id="check" onclick="window.open('http://www.longtermcare.or.kr/npbs/e/b/201/npeb201t02.web?menuId=npe0000000080')">장기요양등급</button></td>
-    </tr>
-</table>
-<hr class="ll2" />
+  <table class="tb2">
+      <tr>
+          <th>장기요양등급 확인하기</th>
+      </tr>
+      <tr>
+          <td><button id="check" onclick="window.open('http://www.longtermcare.or.kr/npbs/e/b/201/npeb201t02.web?menuId=npe0000000080')">장기요양등급</button></td>
+      </tr>
+  </table>
+  <hr class="ll2" />
 
 
 
-<!-- 로그인을 거친 인증된 사용자인 경우 사용자명을 보여주고 로그아웃 페이지로
-            이동할 수 있게 한다.-->
+  <!-- 로그인을 거친 인증된 사용자인 경우 사용자명을 보여주고 로그아웃 페이지로
+              이동할 수 있게 한다.-->
 
 <script>
     var result = "${msg}";
@@ -214,6 +219,19 @@
     if (result === "SUCCESS") {
         alert("성공");
     }
+
+    /*
+    $("#sb").onclick(function(){
+
+        var keyword = $("#keyword");
+        var keywordVal = keyword.val();
+
+        self.location="/sccSearch?searchType=t&keyword=" + keywordVal;
+
+    })
+
+     */
+
 </script>
 </body>
 </html>

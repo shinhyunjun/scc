@@ -1,6 +1,7 @@
 package com.example.scc.Controller;
 
 
+import com.example.scc.common.security.domain.CustomUser;
 import com.example.scc.common.security.domain.PageRequest;
 import com.example.scc.common.security.domain.Pagination;
 import com.example.scc.domain.*;
@@ -10,12 +11,15 @@ import lombok.extern.java.Log;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,8 +101,13 @@ public class scc_pr_Controller {
     }
 
     @RequestMapping(value = "/sccSearch_read", method = RequestMethod.POST)
-    public String read2(Reply reply, Model model, PageRequest pageRequest, scc_pr scc_pr) throws Exception {
+    public String read2(Reply reply, Model model, PageRequest pageRequest, scc_pr scc_pr, Authentication authentication) throws Exception {
 
+
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        reply.setWriter(member.getUser_id());
 
         RepService.register(reply);
 
@@ -106,6 +115,7 @@ public class scc_pr_Controller {
                 "&scc_num=" + scc_pr.getScc_num();
 
     }
+
 
     /*
     @RequestMapping(value = "/replyRegis", method = RequestMethod.POST)

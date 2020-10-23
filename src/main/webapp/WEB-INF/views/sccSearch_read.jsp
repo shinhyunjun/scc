@@ -11,6 +11,50 @@
     <title>read</title>
 
     <style>
+
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            width: 90px;
+            height: 63px;
+            text-align: center;
+            position:absolute;
+            font-family: '맑은 고딕';
+            display: block;
+            margin-left: 10px;
+            border: 1px solid #EFFBF5;
+
+            background-color: #CEF6CE;
+        }
+
+        h1 a {
+            text-decoration: none;
+            color: #81F781;
+        }
+
+        #nav_menu ul {
+            margin-top: 15px;
+            list-style-type: none;
+            padding-left: 0px;
+            float: right;
+        }
+
+        #nav_menu ul li {
+            display: inline-block;
+            padding: 0px 10px 0px 10px;
+            margin: 5px 0px 5px 0px;
+        }
+
+
+        h4 a {
+            text-decoration: none;
+            color:black;
+        }
+
         #d1{
             display:flex;
         }
@@ -31,15 +75,24 @@
             padding: 20px;
         }
 
-        #tb1{
-            border:1px solid black;
-            border-collapse: collapse;
-        }
+
         th, td{
-            border:1px solid black;
             padding:5px;
         }
 
+        #back{
+            background-color: #F2F2F2;
+        }
+
+        textarea{
+            width:500px;
+            height:150px;
+        }
+
+        td h5{
+            color: black;
+            font-weight: bold;
+        }
 
     </style>
 </head>
@@ -49,6 +102,29 @@
 
 
 <body>
+
+
+<h1>  <a href="/">   SCC  </a> </h1>
+<nav id="nav_menu">
+    <ul>
+        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
+        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
+        <li><h4><a href="/notice/list">공지사항</a></h4></li>
+
+        <sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
+            <li><h4><a href="/login">회원가입/로그인</a></h4></li>
+        </sec:authorize>
+
+
+        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
+            <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
+        </sec:authorize>
+    </ul>
+</nav>
+<br><br><br>
+<hr width="100%">
+
+
 
 <!-- 현재 페이지 번호, 페이징 크기, 검색유형, 검색어를 숨겨진 필드 요소를 사용하여 전달-->
 <input type="hidden" name="page" value="${pgrq.page}">
@@ -67,19 +143,20 @@
         주소 : ${scc_pr.scc_address} <br>
         연락처 : ${scc_pr.scc_phone} <br>
     </p>
+<br>
 
-    <table id="tb1">
+    <table border="1px solid black">
         <tr>
-            <th>정원</th>
-            <th>현원</th>
-            <th>잔여</th>
-            <th>대기</th>
+            <th border="1px solid black" >정원</th>
+            <th border="1px solid black" >현원</th>
+            <th border="1px solid black" >잔여</th>
+            <th border="1px solid black" >대기</th>
         </tr>
         <tr>
-            <td>${scc_pr.limit_num}</td>
-            <td>${scc_pr.state_num}</td>
-            <td>${scc_pr.remaind_num}</td>
-            <td>${scc_pr.wait_num}</td>
+            <td border="1px solid black" >${scc_pr.limit_num}</td>
+            <td border="1px solid black" >${scc_pr.state_num}</td>
+            <td border="1px solid black" >${scc_pr.remaind_num}</td>
+            <td border="1px solid black" >${scc_pr.wait_num}</td>
         </tr>
     </table>
 </div>
@@ -133,31 +210,36 @@
     });
 </script>
 
-
+<br>
+<div id="back" >
 <form:form modelAttribute="reply" method="post">
     <table>
+
         <tr>
-            <td width="50" align="center">작성자</td>
-            <td width="550" align="center"><form:input path="writer" /></td>
-            <td><font color="red"><form:errors path="writer" /></font></td>
-        </tr>
-        <tr>
-            <td width="50" align="center">내용</td>
-            <td width="550" align="center"><form:textarea path="content" /></td>
-            <td><font color="red"><form:errors path="content" /></font></td>
+            <td  align="center" border="none"><form:textarea path="content" /></td>
+
         </tr>
     </table>
-    <button  type="submit" id="btnRegister">등록</button>
+
+    <button  type="submit" id="btnRegister" align="right">등록</button>
+
 </form:form>
+
+<br>
 
 <div id="reply2">
     <c:forEach items="${repList}" var="repList">
-        <p>
-            작성자: ${repList.writer}<br>
-            내용: ${repList.content}<br>
-        </p>
+
+        <table>
+            <tr>
+                <td align="center" width="80"><h5>${repList.writer}</h5></td>
+                <td align="left" width="400"><p> ${repList.content}</p></td>
+            </tr>
+        </table>
     </c:forEach>
 </div>
+</div>
+
 
 <script>
     var formObj = $("#reply");
