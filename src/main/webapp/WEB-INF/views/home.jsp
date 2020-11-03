@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
-
+<%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -19,6 +19,9 @@
             padding: 0;
         }
 
+        body{
+            background-image: url("human.jpg");
+        }
         h1 {
             width: 90px;
             height: 63px;
@@ -208,10 +211,9 @@
   </table>
   <hr class="ll2" />
 
-
-
-  <!-- 로그인을 거친 인증된 사용자인 경우 사용자명을 보여주고 로그아웃 페이지로
-              이동할 수 있게 한다.-->
+<!--
+ <img src="img/human.jpg" width="100%">
+-->
 
 <script>
     var result = "${msg}";
@@ -231,6 +233,9 @@
     })
 
      */
+
+
+
 
 </script>
 </body>

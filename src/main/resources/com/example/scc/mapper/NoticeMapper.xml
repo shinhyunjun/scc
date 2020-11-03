@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="com.example.scc.mapper.NoticeMapper">
 
     <!-- 검색 조건을 나타내는 쿼리 조각 -->
@@ -61,13 +62,8 @@
 
     </select>
 
-    <select id="listCount" resultType="int">
-    <![CDATA[
-      SELECT COUNT(boardNo)
-        FROM board2
-       WHERE boardNo > 0
-   ]]>
-    </select>
+
+
 
     <select id="search" resultType="Notice">
         <![CDATA[

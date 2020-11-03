@@ -119,7 +119,7 @@ public class NoticeController {
 
         service.remove(boardNo);
 
-        //RedirectAttributes 객체에 일회성 데이터를 지정한여 전달한다.
+         //RedirectAttributes 객체에 일회성 데이터를 지정한여 전달한다.
         rttr.addAttribute("page", pageRequest.getPage());
         rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
 

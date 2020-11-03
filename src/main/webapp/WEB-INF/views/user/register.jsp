@@ -140,9 +140,7 @@
 
         <button type="submit" id="btnRegister">가입하기</button>
 
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <button type="submit" id="btnList">리스트</button>
-        </sec:authorize>
+
     </fieldset>
 </form:form>
 
