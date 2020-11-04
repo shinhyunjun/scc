@@ -3,6 +3,7 @@ package com.example.scc.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -33,6 +34,10 @@ public class Member {
     private String user_age;
     private int gr_no;
     private char enabled;
+
+    private MultipartFile picture;
+    private String picture_url;
+
 
     private List<MemberAuth> authList;
 }

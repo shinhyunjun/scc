@@ -20,6 +20,7 @@
 		<result property="user_date" column="user_date" />
 		<result property="gr_no" column="gr_no" />
 		<result property="enabled" column="enabled" />
+		<result property="picture_url" column="picture_url" />
 		<collection property="authList" resultMap="authMap">
 		</collection>
 	</resultMap>
@@ -33,8 +34,8 @@
 
 
     <insert id="create" useGeneratedKeys="true" keyProperty="user_no">
-    INSERT INTO member(user_id,user_password,user_name, user_birth,user_age,user_sex,user_phone,user_email)
-           VALUES(#{user_id}, #{user_password}, #{user_name},#{user_birth}, #{user_age},#{user_sex}, #{user_phone},#{user_email})
+    INSERT INTO member(user_id,user_password,user_name, user_birth,user_age,user_sex,user_phone,user_email, picture_url)
+           VALUES(#{user_id}, #{user_password}, #{user_name},#{user_birth}, #{user_age},#{user_sex}, #{user_phone},#{user_email}, #{picture_url})
 
     </insert>
 
@@ -51,6 +52,12 @@
 			 )
 	</insert>
 
+	<!-- 원본 이미지 표시 -->
+	<select id="getPicture" resultType="String">
+		SELECT picture_url
+		  FROM member
+		 WHERE user_no = #{user_no}
+	</select>
 
 	<select id="readByUserId" resultMap="memberMap">
 		SELECT mem.user_no,

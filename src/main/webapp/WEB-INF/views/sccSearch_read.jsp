@@ -230,7 +230,7 @@
 <div id="reply2">
     <c:forEach items="${repList}" var="repList">
 
-        <table>
+        <table >
             <tr>
                 <td align="center" width="80"><h5>${repList.writer}</h5></td>
                 <td align="left" width="400"><p> ${repList.content}</p></td>

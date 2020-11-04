@@ -26,4 +26,10 @@ public class MemberServiceImpl implements MemberService {
 
         mapper.createAuth(memberAuth);
     }
+
+
+    @Override
+    public String getPicture(Integer user_no) throws Exception {
+        return mapper.getPicture(user_no);
+    }
 }
