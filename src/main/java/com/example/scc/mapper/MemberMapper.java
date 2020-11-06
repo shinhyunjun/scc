@@ -18,4 +18,7 @@ public interface MemberMapper {
     public Member readByUserId(String userId);
 
     public String getPicture(Integer itemId) throws Exception;
+
+    public void newPassword(Member member) throws Exception;
+
 }
