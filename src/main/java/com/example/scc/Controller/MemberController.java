@@ -31,6 +31,9 @@ public class MemberController {
 
     @RequestMapping(value = "/register", method= RequestMethod.POST)
     public String register(@Validated Member member, BindingResult result,  Model model, RedirectAttributes rttr) throws Exception{
+        if(result.hasErrors()){
+            return "user/register";
+        }
 
         // 비밀번호 암호화
         String inputPassword = member.getUser_password();
