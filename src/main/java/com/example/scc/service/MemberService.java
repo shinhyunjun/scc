@@ -2,6 +2,7 @@ package com.example.scc.service;
 
 import com.example.scc.domain.Member;
 import com.example.scc.mapper.MemberMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
@@ -12,8 +13,6 @@ public interface MemberService {
 
     // 원본 이미지 표시
     public String getPicture(Integer user_no) throws Exception;
-
-    public void newPassword(Member member) throws Exception;
 
 
 

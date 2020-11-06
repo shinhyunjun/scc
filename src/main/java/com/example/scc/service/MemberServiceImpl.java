@@ -5,6 +5,8 @@ import com.example.scc.domain.MemberAuth;
 import com.example.scc.mapper.MemberMapper;
 import org.assertj.core.util.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,12 +36,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public String getPicture(Integer user_no) throws Exception {
         return mapper.getPicture(user_no);
-    }
-
-    @Override
-    public void newPassword(Member member) throws Exception{
-
-        mapper.newPassword(member);
     }
 
 

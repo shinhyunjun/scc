@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
@@ -53,14 +54,14 @@ public class MemberController {
     private PasswordEncoder passwordEncoder;
 
 
-    @RequestMapping(value = "/register", method= RequestMethod.GET)
-    public void registerForm(Member member, Model model) throws Exception{
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public void registerForm(Member member, Model model) throws Exception {
 
     }
 
-    @RequestMapping(value = "/register", method= RequestMethod.POST)
-    public String register(@Validated Member member, BindingResult result,  Model model, RedirectAttributes rttr) throws Exception{
-        if(result.hasErrors()){
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@Validated Member member, BindingResult result, Model model, RedirectAttributes rttr) throws Exception {
+        if (result.hasErrors()) {
             return "user/register";
         }
 
@@ -68,7 +69,7 @@ public class MemberController {
         String inputPassword = member.getUser_password();
         member.setUser_password(passwordEncoder.encode(inputPassword));
 
-      //  service.register(member);
+        //  service.register(member);
 
         rttr.addFlashAttribute("userName", member.getUser_name());
 
@@ -79,7 +80,6 @@ public class MemberController {
         String createdPictureFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
 
         member.setPicture_url(createdPictureFilename);
-
 
 
         service.register(member);
@@ -102,19 +102,18 @@ public class MemberController {
     }
 
 
-
     //이미지 형식 확인
-    private MediaType getMediaType(String formatName){
-        if(formatName != null) {
-            if(formatName.equals("JPG")) {
+    private MediaType getMediaType(String formatName) {
+        if (formatName != null) {
+            if (formatName.equals("JPG")) {
                 return MediaType.IMAGE_JPEG;
             }
 
-            if(formatName.equals("GIF")) {
+            if (formatName.equals("GIF")) {
                 return MediaType.IMAGE_GIF;
             }
 
-            if(formatName.equals("PNG")) {
+            if (formatName.equals("PNG")) {
                 return MediaType.IMAGE_PNG;
             }
         }
@@ -156,7 +155,4 @@ public class MemberController {
     }
 
 
-
-
-   }
-
+}
