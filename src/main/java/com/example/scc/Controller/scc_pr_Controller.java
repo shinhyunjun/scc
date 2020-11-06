@@ -10,6 +10,7 @@ import com.example.scc.service.sccprService;
 import lombok.extern.java.Log;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,7 @@ public class scc_pr_Controller {
 
     @Autowired
     private ReplyService RepService;
+
 
     @RequestMapping(value = "/sccSearch", method = RequestMethod.GET)
     public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
@@ -89,12 +91,13 @@ public class scc_pr_Controller {
 
         model.addAttribute("scc_pr", scc_pr);
 
+        // 댓글 목록 보기
         List<Reply> repList = RepService.list(scc_num);
         model.addAttribute("repList", repList);
 
 
         Reply reply = new Reply();
-        //RepService.register(reply);
+
         model.addAttribute(reply);
 
 
@@ -103,11 +106,11 @@ public class scc_pr_Controller {
     @RequestMapping(value = "/sccSearch_read", method = RequestMethod.POST)
     public String read2(Reply reply, Model model, PageRequest pageRequest, scc_pr scc_pr, Authentication authentication) throws Exception {
 
-
+        // 댓글 작성시 로그인한 회원이름으로 작성
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
-
         reply.setWriter(member.getUser_id());
+
 
         RepService.register(reply);
 

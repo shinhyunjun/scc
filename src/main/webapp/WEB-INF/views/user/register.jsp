@@ -56,7 +56,7 @@
         }
 
         form {
-            width: 600px;
+            width:600px;
             height: 600px;
             position: absolute;
             top: 190px;
@@ -64,8 +64,12 @@
             text-align: center;
         }
 
+#exception{
+    width:100px;
+}
+
         form input {
-            width: 450px;
+            width:450px;
             height: 30px;
             margin: 7px;
         }
@@ -76,10 +80,13 @@
         }
 
         form img {
-            width: 70px;
+            width: 100px;
 
         }
 
+        #upImgFile{
+            width:200px;
+        }
 
     </style>
 
@@ -101,6 +108,7 @@
                 self.location = "list";
             });
             </sec:authorize>
+
         });
     </script>
 
@@ -109,7 +117,7 @@
     </script>
 
 </head>
-<body bgcolor="#EFF5FB">
+<body >
 <h1>  <a href="/">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
@@ -122,16 +130,15 @@
 <br><br><br>
 <hr width="100%">
 
-<form:form  modelAttribute="member" action="register">
+<form:form  modelAttribute="member" action="register" enctype="multipart/form-data">
     <fieldset>
         <legend>회원가입</legend>
 
-        <!--
-        <div>
-            <img id="thumbnailImg" src="">
-            <input type="file" accept="image/*" id="upImgFile" onchange="uploadImgPreview();" />
+        <div align="center">
+            <img id="thumbnailImg" src="" >
+            <form:input path="picture" type="file"  id="upImgFile" onchange="uploadImgPreview();" />
         </div>
-        -->
+
         <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
         <form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
         <form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/>
@@ -147,6 +154,30 @@
     </fieldset>
 </form:form>
 
+<script type="text/javascript">
 
+    function uploadImgPreview() {
+
+        let fileInfo = document.getElementById("upImgFile").files[0];
+        let reader = new FileReader();
+
+        reader.onload = function () {
+
+            document.getElementById("thumbnailImg").src = reader.result;
+
+        };
+
+
+        if (fileInfo) {
+
+            reader.readAsDataURL(fileInfo);
+        }
+
+        var img = document.getElementById('thumbnailImg')
+        var width = img.width;
+
+    }
+
+</script>
 </body>
 </html>
