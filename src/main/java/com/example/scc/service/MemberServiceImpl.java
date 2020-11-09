@@ -32,11 +32,46 @@ public class MemberServiceImpl implements MemberService {
         mapper.createAuth(memberAuth);
     }
 
+    /*
+    @Override
+    public Member idCheck(String user_id) throws Exception{
+
+        return mapper.idCheck(user_id);
+    }
+
+     */
 
     @Override
     public String getPicture(Integer user_no) throws Exception {
         return mapper.getPicture(user_no);
     }
 
+    @Override
+    public void modifyUser(Member member) throws Exception{
 
+        mapper.modifyUser(member);
+    }
+
+    @Autowired
+    private JavaMailSender mailSender;
+    private static final String FROM_ADDRESS = "";
+
+    @Override
+    public void sendMail(String pwd, String address){
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setTo(address);
+        message.setFrom(FROM_ADDRESS);
+        message.setSubject("비밀번호 찾기 안내 메일입니다.");
+        message.setText("비밀번호는 " + pwd + "입니다.");
+
+        mailSender.send(message);
+    }
+
+    @Override
+    public Member findPwd(Member member) throws Exception{
+
+        return mapper.findPwd(member);
+    }
 }

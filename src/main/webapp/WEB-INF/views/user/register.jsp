@@ -73,7 +73,18 @@
             height: 30px;
             margin: 7px;
         }
-        form button {
+
+        #divId #user_id{
+            width:400px;
+            margin-right:0px;
+        }
+
+        #divId button{
+
+            align: right;
+
+        }
+        #btnRegister {
             width: 450px;
             height: 30px;
             margin: 7px;
@@ -99,8 +110,66 @@
 
             $("#btnRegister").on("click", function() {
 
+                var user_id = $('#user_id').val();
+                var user_password = $('#user_password').val();
+                var user_name = $('#user_name').val();
+                var user_sex = $('#user_sex').val();
+                var user_birth = $('#user_birth').val();
+                var user_age = $('#user_age').val();
+
+                if (user_id == '') {
+                    alert('아이디를 입력하세요.');
+                    return false;
+                }
+
+                else if (user_password == '') {
+                    alert('비밀번호를 입력하세요.');
+                    return false;
+                }
+
+                else if (user_name == '') {
+                    alert('성함을 입력하세요.');
+                    return false;
+                }
+                else if (user_birth == '') {
+                    alert('생년월일을 입력하세요.');
+                    return false;
+                }
+                else if (user_age == '') {
+                    alert('나이를 입력하세요.');
+                    return false;
+                }
+                else if (user_sex == '') {
+                    alert('성별을 입력하세요.');
+                    return false;
+                }
+
                 formObj.submit();
             });
+
+/*
+            $(".idCheck").click(function(){
+
+                var query = {user_id : $("#user_id").val()};
+
+                $.ajax({
+                    url : "/user/idCheck",
+                    type : "post",
+                    data : query,
+                    success : function(data) {
+
+                        if(data == 1) {
+                            $(".result .msg").text("사용 불가");
+                            $(".result .msg").attr("style", "color:#f00");
+                        } else {
+                            $(".result .msg").text("사용 가능");
+                            $(".result .msg").attr("style", "color:#00f");
+                        }
+                    }
+                });  // ajax 끝
+*/
+
+
 
 
             <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -139,7 +208,18 @@
             <form:input path="picture" type="file"  id="upImgFile" onchange="uploadImgPreview();" />
         </div>
 
-        <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
+        <div align="center" id="divId">
+            <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
+            <button class="idCheck">중복체크</button>
+        </div>
+
+        <p class="result">
+            <span class="msg">아이디를 확인해주심시오</span>
+        </p>
+
+        <!--  <div id="checkMsg"></div> -->
+          <!-- <h4 align="left" style="display:none">숨길내용입니다.</h4> -->
+
         <form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
         <form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/>
         <form:input path="user_birth" type="number" name="user_birth" id="user_birth" placeholder="생년월일" />
@@ -148,8 +228,7 @@
         <form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/>
         <form:input path="user_email" type="text" name="user_email" id="user_email" placeholder="이메일"/>
 
-        <button type="submit" id="btnRegister">가입하기</button>
-
+        <button type="submit" id="idck">가입하기</button>
 
     </fieldset>
 </form:form>

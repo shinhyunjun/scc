@@ -19,10 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,11 +27,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("/user")
@@ -88,6 +88,23 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    /*
+    @RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+    @ResponseBody
+    public int postIdCheck(HttpServletRequest req) throws Exception{
+
+        String user_id = req.getParameter("user_id");
+        Member idCheck = service.idCheck(user_id);
+
+        int result = 0;
+
+        if(idCheck != null)
+            result = 1;
+
+        return result;
+    }
+*/
 
     private String uploadFile(String originalName, byte[] fileData) throws Exception {
         UUID uid = UUID.randomUUID();
@@ -154,5 +171,27 @@ public class MemberController {
         return entity;
     }
 
+    @RequestMapping("/findAccount")
+    public String findAccount(Member member, Model model) throws Exception {
 
+        System.out.println(member);
+        model.addAttribute("member", service.findPwd(member));
+        service.modifyUser(member);
+
+        Member user = null;
+        user = service.findPwd(member);
+        System.out.println(member);
+        System.out.println(user);
+
+        if (user == null) {
+            model.addAttribute("msg", "아이디나 이메일이 일치하는 사용자가 없습니다.");
+            return "user/findAccount";
+        }
+        else {
+            String pwd = user.getUser_password();
+            String email = user.getUser_email();
+            service.sendMail(pwd, email);
+            return "user/findAccount";
+        }
+    }
 }

@@ -98,11 +98,30 @@
         var formObj = $("#notice");
 
         $("#btnRegister").on("click", function() {
-            formObj.attr("action", "/notice/register");
-            formObj.attr("method", "post");
-            formObj.submit();
-        });
 
+            var title = $('#title').val();
+            var content = $('#content').val();
+
+            if (title == '') {
+                alert('제목을 입력하세요.');
+                return false;
+            }
+
+            else if (content == '') {
+                alert('내용을 입력하세요.');
+                return false;
+            }
+
+            /* else{
+                 formObj.attr("action", "/notice/register");
+                 formObj.attr("method", "post");
+                 formObj.submit();
+             }
+ */
+            else {
+                formObj.submit();
+            }
+        });
         $("#btnList").on("click", function() {
             self.location = "/notice/list";
         });
@@ -142,6 +161,7 @@
         });
 
         $("#inputFile").on("change", function(event){
+
             var files = event.target.files;
             var file = files[0];
 
@@ -200,11 +220,11 @@
 <br><br>
 
 <h2>공지사항 등록</h2><br>
-<form:form modelAttribute="notice" action="register">
+<form:form modelAttribute="notice" action="register" >
     <table>
         <tr>
             <td width="50" align="center">제목</td>
-            <td width="550" align="center"><form:input path="title"/></td>
+            <td width="550" align="center"><form:input path="title" id="title"/></td>
             <td><font color="red"><form:errors path="title" /></font></td>
         </tr>
         <tr>
@@ -214,7 +234,7 @@
         </tr>
         <tr>
             <td width="50" align="center">내용</td>
-            <td width="550" align="center"><form:textarea path="content" /></td>
+            <td width="550" align="center"><form:textarea path="content"  id="content"/></td>
             <td><font color="red"><form:errors path="content" /></font></td>
         </tr>
 

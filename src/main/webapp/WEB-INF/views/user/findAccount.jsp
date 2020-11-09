@@ -57,7 +57,10 @@
     <form action="findAccount" method="get">
     <div style="line-height:80%">
 
-
+        <div id="div3">
+            <h4>ID</h4>
+            <input type="text" name="id" placeholder="가입시 등록한 아이디를 입력하세요">
+        </div>
 
     <div id="div4">
       <h4>EMAIL</h4>
