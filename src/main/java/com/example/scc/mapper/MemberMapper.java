@@ -23,7 +23,7 @@ public interface MemberMapper {
 
     public Member findPwd(Member member) throws Exception;
 
-   // public Member idCheck(String user_id) throws Exception;
+    public int idcheck(String user_id) throws Exception;
 }
 
 

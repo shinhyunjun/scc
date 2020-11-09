@@ -104,82 +104,35 @@
 <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
 
     <script>
-        $(document).ready(function() {
 
-            var formObj = $("#member");
+        $(document).ready(function(){
+            $("#idck").on("click", function() {
 
-            $("#btnRegister").on("click", function() {
-
-                var user_id = $('#user_id').val();
-                var user_password = $('#user_password').val();
-                var user_name = $('#user_name').val();
-                var user_sex = $('#user_sex').val();
-                var user_birth = $('#user_birth').val();
-                var user_age = $('#user_age').val();
-
-                if (user_id == '') {
-                    alert('아이디를 입력하세요.');
-                    return false;
-                }
-
-                else if (user_password == '') {
-                    alert('비밀번호를 입력하세요.');
-                    return false;
-                }
-
-                else if (user_name == '') {
-                    alert('성함을 입력하세요.');
-                    return false;
-                }
-                else if (user_birth == '') {
-                    alert('생년월일을 입력하세요.');
-                    return false;
-                }
-                else if (user_age == '') {
-                    alert('나이를 입력하세요.');
-                    return false;
-                }
-                else if (user_sex == '') {
-                    alert('성별을 입력하세요.');
-                    return false;
-                }
-
-                formObj.submit();
-            });
-
-/*
-            $(".idCheck").click(function(){
-
-                var query = {user_id : $("#user_id").val()};
+                var user_id = $("#user_id").val();
 
                 $.ajax({
-                    url : "/user/idCheck",
-                    type : "post",
-                    data : query,
-                    success : function(data) {
+                    url:"/user/idcheck",
+                    type:'POST',
+                    dataType:'json',
+                    contentType:'application/json',
+                    data: {user_id},
 
-                        if(data == 1) {
-                            $(".result .msg").text("사용 불가");
-                            $(".result .msg").attr("style", "color:#f00");
-                        } else {
-                            $(".result .msg").text("사용 가능");
-                            $(".result .msg").attr("style", "color:#00f");
+                    success:function(data){
+                        if(data==0){
+                            alert("사용하실 수 있는 아이디입니다.")
                         }
-                    }
-                });  // ajax 끝
-*/
+                        else{
+                            alert("중복된 아이디가 존재합니다.")
+                        }
+                    },
+                    error:function(){}
+                })
+            })
+        })
 
-
-
-
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-            $("#btnList").on("click", function() {
-                self.location = "list";
-            });
-            </sec:authorize>
-
-        });
     </script>
+
+
 
     <script type="text/javascript">
 
@@ -210,7 +163,7 @@
 
         <div align="center" id="divId">
             <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
-            <button class="idCheck">중복체크</button>
+            <p id="idck">중복체크</p>
         </div>
 
         <p class="result">
@@ -228,10 +181,57 @@
         <form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/>
         <form:input path="user_email" type="text" name="user_email" id="user_email" placeholder="이메일"/>
 
-        <button type="submit" id="idck">가입하기</button>
+        <button type="submit" id="btnRegister">가입하기</button>
 
     </fieldset>
 </form:form>
+
+<script>
+
+        var formObj = $("#member");
+
+        $("#btnRegister").on("click", function() {
+
+            var user_id = $('#user_id').val();
+            var user_password = $('#user_password').val();
+            var user_name = $('#user_name').val();
+            var user_sex = $('#user_sex').val();
+            var user_birth = $('#user_birth').val();
+            var user_age = $('#user_age').val();
+
+            if (user_id == '') {
+                alert('아이디를 입력하세요.');
+                return false;
+            }
+
+            else if (user_password == '') {
+                alert('비밀번호를 입력하세요.');
+                return false;
+            }
+
+            else if (user_name == '') {
+                alert('성함을 입력하세요.');
+                return false;
+            }
+            else if (user_birth == '') {
+                alert('생년월일을 입력하세요.');
+                return false;
+            }
+            else if (user_age == '') {
+                alert('나이를 입력하세요.');
+                return false;
+            }
+            else if (user_sex == '') {
+                alert('성별을 입력하세요.');
+                return false;
+            }
+
+            else {
+                formObj.submit();
+            }
+
+    });
+</script>
 
 <script type="text/javascript">
 
@@ -258,5 +258,6 @@
     }
 
 </script>
+
 </body>
 </html>

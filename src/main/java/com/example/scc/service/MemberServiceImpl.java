@@ -32,14 +32,14 @@ public class MemberServiceImpl implements MemberService {
         mapper.createAuth(memberAuth);
     }
 
-    /*
-    @Override
-    public Member idCheck(String user_id) throws Exception{
 
-        return mapper.idCheck(user_id);
+    @Override
+    public int idcheck(String user_id) throws Exception{
+
+        return mapper.idcheck(user_id);
     }
 
-     */
+
 
     @Override
     public String getPicture(Integer user_no) throws Exception {

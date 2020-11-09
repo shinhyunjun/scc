@@ -89,22 +89,29 @@ public class MemberController {
         return "redirect:/";
     }
 
-    /*
-    @RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/idcheck", method = RequestMethod.POST)
     @ResponseBody
-    public int postIdCheck(HttpServletRequest req) throws Exception{
+    public Map<String, Object> idcheck(@RequestBody String user_id) throws Exception {
 
-        String user_id = req.getParameter("user_id");
-        Member idCheck = service.idCheck(user_id);
+        System.out.println("중복확인 요청된 아이디 : " + user_id);
 
-        int result = 0;
+        Map<String, Object> data = new HashMap<>();
 
-        if(idCheck != null)
-            result = 1;
+        int result = service.idcheck(user_id);
 
-        return result;
+        if(result == 0){
+            System.out.println("아이디 사용가능");
+            data.put("confirm","ok");
+        }
+        else{
+            System.out.println("사용 불가");
+            data.put("confirm","no");
+        }
+
+        return data;
     }
-*/
+
 
     private String uploadFile(String originalName, byte[] fileData) throws Exception {
         UUID uid = UUID.randomUUID();
