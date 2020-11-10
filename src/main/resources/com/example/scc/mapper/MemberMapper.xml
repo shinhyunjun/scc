@@ -89,7 +89,7 @@
 		where user_id = #{user_id} and user_email = #{user_email}
 	</select>
 
-	<select id="idcheck" resultType="int">
+	<select id="idCheck" resultType="Member">
  	select user_id
  	from member
      where user_id = #{user_id}

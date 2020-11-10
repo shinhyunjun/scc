@@ -34,9 +34,9 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public int idcheck(String user_id) throws Exception{
+    public Member idCheck(String user_id) throws Exception{
 
-        return mapper.idcheck(user_id);
+        return mapper.idCheck(user_id);
     }
 
 

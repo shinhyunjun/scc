@@ -90,27 +90,21 @@ public class MemberController {
     }
 
 
-    @RequestMapping(value = "/idcheck", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> idcheck(@RequestBody String user_id) throws Exception {
+    @RequestMapping(value = "/idCheck")
+    public int postIdCheck(HttpServletRequest req) throws Exception{
 
-        System.out.println("중복확인 요청된 아이디 : " + user_id);
+            String user_id = req.getParameter("user_id");
+            Member idCheck = service.idCheck(user_id);
 
-        Map<String, Object> data = new HashMap<>();
+            int result = 0;
 
-        int result = service.idcheck(user_id);
-
-        if(result == 0){
-            System.out.println("아이디 사용가능");
-            data.put("confirm","ok");
-        }
-        else{
-            System.out.println("사용 불가");
-            data.put("confirm","no");
+            if(idCheck != null){
+                result=1;
+            }
+            return result;
         }
 
-        return data;
-    }
 
 
     private String uploadFile(String originalName, byte[] fileData) throws Exception {

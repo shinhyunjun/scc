@@ -11,6 +11,7 @@
 
 <html>
 <head>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>가입해보자!</title>
     <style>
@@ -76,13 +77,14 @@
 
         #divId #user_id{
             width:400px;
-            margin-right:0px;
+            margin-right:3px;
         }
 
-        #divId button{
+        #divId strong{
 
             align: right;
-
+            font-size: 12px;
+            color: #9F81F7;
         }
         #btnRegister {
             width: 450px;
@@ -101,36 +103,7 @@
 
     </style>
 
-<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
 
-    <script>
-
-        $(document).ready(function(){
-            $("#idck").on("click", function() {
-
-                var user_id = $("#user_id").val();
-
-                $.ajax({
-                    url:"/user/idcheck",
-                    type:'POST',
-                    dataType:'json',
-                    contentType:'application/json',
-                    data: {user_id},
-
-                    success:function(data){
-                        if(data==0){
-                            alert("사용하실 수 있는 아이디입니다.")
-                        }
-                        else{
-                            alert("중복된 아이디가 존재합니다.")
-                        }
-                    },
-                    error:function(){}
-                })
-            })
-        })
-
-    </script>
 
 
 
@@ -163,11 +136,11 @@
 
         <div align="center" id="divId">
             <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
-            <p id="idck">중복체크</p>
+            <strong class="idCheck">중복체크</strong>
         </div>
 
-        <p class="result">
-            <span class="msg">아이디를 확인해주심시오</span>
+        <p class="result" style="display: none;">
+            <span class="msg"></span>
         </p>
 
         <!--  <div id="checkMsg"></div> -->
@@ -181,7 +154,7 @@
         <form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/>
         <form:input path="user_email" type="text" name="user_email" id="user_email" placeholder="이메일"/>
 
-        <button type="submit" id="btnRegister">가입하기</button>
+        <button type="submit" id="btnRegister" disabled="disabled">가입하기</button>
 
     </fieldset>
 </form:form>
@@ -259,5 +232,38 @@
 
 </script>
 
+<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+
+<script>
+
+
+    $(".idCheck").click(function() {
+
+        var query = {user_id : $("#user_id").val()};
+
+        $.ajax({
+            url:"/user/idCheck",
+            type:"get",
+            data: query,
+            success : function(data){
+
+
+                if(data==1){
+                    $(".result .msg").text("이미 사용중이거나 탈퇴한 아이디입니다.");
+                    $(".result .msg").attr("style","color:#f00");
+                    $("#btnRegister").attr("disabled");
+                    $(".result").show();
+                }
+                else{
+                    $(".result .msg").text("사용가능한 아이디입니다!")
+                    $(".result .msg").attr("style","color:#00f");
+                    $("#btnRegister").removeAttr("disabled");
+                    $(".result").show();
+                }
+            }
+        });
+    });
+
+</script>
 </body>
 </html>
