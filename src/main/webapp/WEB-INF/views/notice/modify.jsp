@@ -7,8 +7,104 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Notice</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            width: 90px;
+            height: 63px;
+            text-align: center;
+            position:absolute;
+            font-family: '맑은 고딕';
+            display: block;
+            margin-left: 10px;
+            border: 1px solid #EFFBF5;
+
+            background-color: #CEF6CE;
+        }
+
+        h1 a {
+            text-decoration: none;
+            color: #81F781;
+        }
+
+        #nav_menu ul {
+            margin-top: 15px;
+            list-style-type: none;
+            padding-left: 0px;
+            float: right;
+        }
+
+        #nav_menu ul li {
+            display: inline-block;
+            padding: 0px 10px 0px 10px;
+            margin: 5px 0px 5px 0px;
+        }
+
+
+        h4 a {
+            text-decoration: none;
+            color:black;
+        }
+
+        #divv{
+            width:100%;
+            text-align: center;
+        }
+
+        table{
+            border-collapse: collapse;
+        }
+        td{
+            border:1px solid #A4A4A4;
+            padding: 7px;
+        }
+
+        input, textarea{
+            width:600px;
+            border:none;
+        }
+
+        textarea{
+            height:440px;
+        }
+
+        button{
+            width:50px;
+            background-color: #5858FA;
+            color:white;
+            border:0;
+            outline: 0;
+        }
+    </style>
 </head>
 <body>
+
+<h1>  <a href="/">   SCC  </a> </h1>
+<nav id="nav_menu">
+    <ul>
+        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
+        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
+        <li><h4><a href="/notice/list">공지사항</a></h4></li>
+
+        <sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
+            <li><h4><a href="/login">회원가입/로그인</a></h4></li>
+        </sec:authorize>
+
+
+        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
+            <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
+        </sec:authorize>
+    </ul>
+</nav>
+<br><br><br>
+<hr width="100%">
+
+<br> <div id="divv"><h3>공지사항</h3></div><br>
 
 <form:form modelAttribute="notice" action="modify">
     <form:hidden path="boardNo" />
@@ -21,25 +117,29 @@
 
     <table>
         <tr>
-            <td>TItle</td>
-            <td><form:input path="title" /></td>
-            <td><font color="red"><form:errors path="title" /></font></td>
-        </tr>
-        <tr>
-            <td>Writer</td>
-            <td><form:input path="writer" /></td>
-            <td><font color="red"><form:errors path="writer" /></font></td>
-        </tr>
-        <tr>
-            <td>Content</td>
-            <td><form:textarea path="content" /></td>
-            <td><font color="red"><form:errors path="content" /></font></td>
-        </tr>
-        <tr>
-            <td >첨부파일</td>
-            <td ><input type="file" id="inputFile" /></td>
+            <td width="50" align="center">제목</td>
+            <td width="550" align="center"><form:input path="title" /></td>
 
-            <div class="uploadedList"></div>
+        </tr>
+        <tr>
+            <td width="50" align="center">작성자</td>
+            <td width="550" align="center"><form:input path="writer" /></td>
+
+        </tr>
+        <tr>
+            <td width="50" align="center">내용</td>
+            <td width="550" align="center"><form:textarea path="content" /></td>
+
+        </tr>
+        <tr>
+            <td width="70" align="center">첨부파일</td>
+            <td width="50" align="center">
+                <input type="file" id="inputFile" />
+                <div class="uploadedList"></div>
+            </td>
+
+
+
         </tr>
     </table>
 </form:form>
@@ -139,7 +239,7 @@
                 type: "POST",
                 success: function(data){
                     var str = "<div><a href='/notice/downloadFile?fullName=" + data + "'>"
-                        + getOriginalName(data) + "</a>" + "<span>X</span></div></div>";
+                        + getOriginalName(data) + "</a>" + "<span> &nbsp; X </span></div></div>";
 
                     $(".uploadedList").append(str);
                 }

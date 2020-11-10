@@ -213,15 +213,14 @@
 <br>
 <div id="back" >
 <form:form modelAttribute="reply" method="post">
+
     <table>
-
         <tr>
-            <td  align="center" border="none"><form:textarea path="content" /></td>
-
+            <td  align="center" border="none"><form:textarea path="content" id="content"/></td>
         </tr>
     </table>
 
-    <button  type="submit" id="btnRegister" align="right">등록</button>
+    <button type="button" id="btnRegister" align="right">등록</button>
 
 </form:form>
 
@@ -242,11 +241,35 @@
 
 
 <script>
+
     var formObj = $("#reply");
+    var badTalk = new Array('개새끼','개색기','개색끼','개자식','씨발','씨팔','씨부랄','병신','바보','ㅅㅂ','ㅂㅅ');
+    var tmp;
+    var bool = true;
+
 
     $("#btnRegister").click(function(){
-        formObj.submit();
+
+        var content = $('#content').val();
+
+        for(var i=0;i<badTalk.length;i++){
+
+            tmp = content.indexOf(badTalk[i]);
+            if(tmp>=0){
+                bool = false;
+                break;
+            }
+        }
+
+        if(bool == false)
+            alert("욕설을 금지합니다.");
+        else{
+            formObj.submit();
+        }
     });
+
+
+
 </script>
 
 

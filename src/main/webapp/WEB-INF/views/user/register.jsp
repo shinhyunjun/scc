@@ -116,7 +116,7 @@
 <h1>  <a href="/">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
-        <li><h4><a href="search.html">요양시설 찾기</a></h4></li>
+        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
         <li><h4><a href="/qa">자주하는 질문</a></h4></li>
         <li><h4><a href="/notice/list">공지사항</a></h4></li>
         <li><h4><a href="/login">회원가입/로그인</a></h4></li>
@@ -147,6 +147,7 @@
           <!-- <h4 align="left" style="display:none">숨길내용입니다.</h4> -->
 
         <form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
+        <input type="password"  id="user_password2" placeholder="비밀번호 확인"/>
         <form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/>
         <form:input path="user_birth" type="number" name="user_birth" id="user_birth" placeholder="생년월일" />
         <form:input path="user_age" type="number" name="user_age" id="user_age" placeholder="나이"/>
@@ -167,6 +168,8 @@
 
             var user_id = $('#user_id').val();
             var user_password = $('#user_password').val();
+            var user_password2 = $('#user_password2').val();
+
             var user_name = $('#user_name').val();
             var user_sex = $('#user_sex').val();
             var user_birth = $('#user_birth').val();
@@ -199,6 +202,10 @@
                 return false;
             }
 
+            else if(user_password != user_password2){
+                alert('비밀번호를 다시 입력해주세요.');
+                return false;
+            }
             else {
                 formObj.submit();
             }

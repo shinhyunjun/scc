@@ -50,10 +50,22 @@
             color:black;
         }
 
+        #divv{
+            width:100%;
+            text-align: center;
+        }
 
+        table{
+            border-collapse: collapse;
+        }
+        td{
+            border:1px solid #A4A4A4;
+            padding: 7px;
+        }
 
         input, textarea{
-            width:500px;
+            width:600px;
+            border:none;
         }
         textarea{
             height:440px;
@@ -65,22 +77,12 @@
 
         }
 
-        #btnRegister{
-            background-color:#5882FA;
+        button{
+            width:50px;
+            background-color: #5858FA;
             color:white;
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
-        }
-
-        #btnList{
-            background-color:#5882FA;
-            color:white;
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
+            border:0;
+            outline: 0;
         }
 
         .uploadedList{
@@ -219,32 +221,35 @@
 
 <br><br>
 
-<h2>공지사항 등록</h2><br>
+<div id="divv"><h3>공지사항 등록</h3></div><br>
 <form:form modelAttribute="notice" action="register" >
     <table>
         <tr>
             <td width="50" align="center">제목</td>
             <td width="550" align="center"><form:input path="title" id="title"/></td>
-            <td><font color="red"><form:errors path="title" /></font></td>
+
         </tr>
         <tr>
             <td width="50" align="center">작성자</td>
             <td width="550" align="center"><form:input path="writer" /></td>
-            <td><font color="red"><form:errors path="writer" /></font></td>
+
         </tr>
         <tr>
             <td width="50" align="center">내용</td>
             <td width="550" align="center"><form:textarea path="content"  id="content"/></td>
-            <td><font color="red"><form:errors path="content" /></font></td>
+
         </tr>
 
         <tr>
-            <div id="dd">
-            <td width="70" align="center">첨부파일</td>
-            <td width="100" align="center"><input type="file" id="inputFile" /></td>
 
-            <div class="uploadedList"></div>
-            </div>
+            <td width="70" align="center">첨부파일</td>
+            <td width="100" align="center">
+                <input type="file" id="inputFile" />
+                <div class="uploadedList"></div>
+            </td>
+
+
+
         </tr>
     </table>
 </form:form>

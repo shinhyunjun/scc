@@ -66,6 +66,11 @@
             border-collapse: collapse;
         }
 
+        table a{
+            text-decoration: none;
+            color: #5858FA;
+        }
+
         th, td{
             border:1px solid black;
             padding:5px;
