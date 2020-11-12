@@ -43,7 +43,7 @@ public class NoticeController {
     public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception{
 
         // 뷰에 페이징 처리를 한 게시글 목록을 전달한다.
-        model.addAttribute("list",service.list(pageRequest));
+        model.addAttribute("list", service.list(pageRequest));
 
         // 페이징 네비게이션 정보를 뷰에 전달한다.
         Pagination pagination = new Pagination();

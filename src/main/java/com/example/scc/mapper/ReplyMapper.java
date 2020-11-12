@@ -10,5 +10,9 @@ public interface ReplyMapper {
 
     public void create(Reply reply) throws Exception;
 
-    public List<Reply> list(int scc_num) throws Exception;
+    public List<Reply> list(int scc_numz) throws Exception;
+
+    public void replyUpdate(Reply reply) throws Exception;
+
+    public void replyDelete(int rno) throws Exception;
 }

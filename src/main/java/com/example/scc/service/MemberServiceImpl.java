@@ -10,6 +10,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -69,9 +72,10 @@ public class MemberServiceImpl implements MemberService {
         mailSender.send(message);
     }
 
-    @Override
-    public Member findPwd(Member member) throws Exception{
 
-        return mapper.findPwd(member);
+
+    public Member getMemberByNameAndEmail(String user_name, String user_email) throws Exception{
+        return mapper.getMemberByNameAndEmail(user_name,user_email);
     }
+
 }

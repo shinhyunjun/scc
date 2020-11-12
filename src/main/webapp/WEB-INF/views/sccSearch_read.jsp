@@ -3,9 +3,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <html>
 <head>
     <title>read</title>
@@ -94,6 +96,15 @@
             font-weight: bold;
         }
 
+        #ff{
+            margin-left:8px;
+        }
+
+        #rep{
+            display:flex;
+            font-size: 18px;
+        }
+
     </style>
 </head>
 
@@ -131,6 +142,7 @@
 <input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
 <input type="hidden" name="searchType" value="${pgrq.searchType}">
 <input type="hidden" name="keyword" value="${pgrq.keyword}">
+<input type="hidden" id="rno" name="rno" value="${Reply.rno}">
 
 <div id="d1">
     <h4>${scc_pr.scc_name}</h4>
@@ -222,20 +234,40 @@
 
     <button type="button" id="btnRegister" align="right">등록</button>
 
-</form:form>
+
 
 <br>
 
 <div id="reply2">
+    <hr width="100%">
     <c:forEach items="${repList}" var="repList">
+
 
         <table >
             <tr>
                 <td align="center" width="80"><h5>${repList.writer}</h5></td>
-                <td align="left" width="400"><p> ${repList.content}</p></td>
+                <td align="center" width="400"><p> ${repList.content}</p></td>
+                <td>
+                    <c:choose>
+                        <c:when test="${repList.rating eq 1}">★☆☆☆☆</c:when>
+                        <c:when test="${repList.rating eq 2}">★★☆☆☆</c:when>
+                        <c:when test="${repList.rating eq 3}">★★★☆☆</c:when>
+                        <c:when test="${repList.rating eq 4}">★★★★☆</c:when>
+                        <c:when test="${repList.rating eq 5}">★★★★★</c:when>
+                    </c:choose>
+                </td>
+                <td align="center"><fmt:formatDate pattern="yy/MM/dd HH:mm" value="${repList.regDate}"/></td>
+
+                <td><button type="submit" id="btnEdit">수정</button></td>
+                <td><button type="submit" id="btnRemove">삭제</button></td>
+
+
             </tr>
         </table>
+
+
     </c:forEach>
+    </form:form>
 </div>
 </div>
 
@@ -243,7 +275,7 @@
 <script>
 
     var formObj = $("#reply");
-    var badTalk = new Array('개새끼','개색기','개색끼','개자식','씨발','씨팔','씨부랄','병신','바보','ㅅㅂ','ㅂㅅ');
+    var badTalk = new Array('개새끼','개색기','개색끼','개자식','씨발','씨팔','씨부랄','병신','바보','ㅅㅂ','ㅂㅅ','ㅄ');
     var tmp;
     var bool = true;
 
@@ -270,6 +302,23 @@
 
 
 
+    $("#btnEdit").click(function(){
+
+        var rno = $("#rno");
+        var rnoVal = rno.val();
+
+        self.location = "/replyUpdate?rno="+rnoVal;
+    })
+
+    $("#btnRemove").click(function(){
+
+       // formObj.attr("action", "/replyDelete");
+      //  formObj.submit();
+
+
+
+
+    })
 </script>
 
 

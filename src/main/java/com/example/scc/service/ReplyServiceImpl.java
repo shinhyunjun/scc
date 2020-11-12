@@ -28,5 +28,14 @@ public class ReplyServiceImpl implements ReplyService{
 
         return mapper.list(scc_num);
     }
+    @Override
+    public void replyUpdate(Reply reply) throws Exception{
 
+        mapper.replyUpdate(reply);
+    }
+
+    @Override
+    public void replyDelete(int rno) throws Exception{
+        mapper.replyDelete(rno);
+    }
 }

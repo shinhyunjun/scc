@@ -120,6 +120,43 @@ public class scc_pr_Controller {
     }
 
 
+    @RequestMapping(value="/replyUpdate", method=RequestMethod.POST)
+    public String replyUpdate(Reply reply,  scc_pr scc_pr, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+
+        RepService.replyUpdate(reply);
+
+        // RedirectAttributes 객체에 일회성 데이터를 지정하면 전달한다.
+        rttr.addAttribute("page", pageRequest.getPage());
+        rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+
+        // 검색유형과 검색어를 뷰에 전달한다.
+        rttr.addAttribute("searchType", pageRequest.getSearchType());
+        rttr.addAttribute("keyword", pageRequest.getKeyword());
+
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+        return "redirect:/sccSearch_read" + pageRequest.toUriString(pageRequest.getPage()) +
+                "&scc_num=" + scc_pr.getScc_num();
+    }
+
+    @RequestMapping(value="/replyDelete", method=RequestMethod.POST)
+    public String replyDelete(Reply reply, int rno, scc_pr scc_pr, PageRequest pageRequest, RedirectAttributes rttr, Model model) throws Exception{
+
+
+        model.addAttribute("scc_pr", scc_pr);
+        model.addAttribute(reply);
+
+        RepService.replyDelete(rno);
+
+        //검색유형과 검색어를 뷰에 전달한다.
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+       //  return "redirect:/sccSearch_read" + pageRequest.toUriString(pageRequest.getPage()) +
+       //         "&scc_num=" + scc_pr.getScc_num();
+
+        return "redirect:/notice/list";
+    }
+
     /*
     @RequestMapping(value = "/replyRegis", method = RequestMethod.POST)
     public String register(Reply reply, RedirectAttributes rttr) throws Exception {

@@ -28,9 +28,11 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -56,7 +58,7 @@ public class MemberController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public void registerForm(Member member, Model model) throws Exception {
-
+        model.addAttribute("member", member);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -92,19 +94,18 @@ public class MemberController {
 
     @ResponseBody
     @RequestMapping(value = "/idCheck")
-    public int postIdCheck(HttpServletRequest req) throws Exception{
+    public int postIdCheck(HttpServletRequest req) throws Exception {
 
-            String user_id = req.getParameter("user_id");
-            Member idCheck = service.idCheck(user_id);
+        String user_id = req.getParameter("user_id");
+        Member idCheck = service.idCheck(user_id);
 
-            int result = 0;
+        int result = 0;
 
-            if(idCheck != null){
-                result=1;
-            }
-            return result;
+        if (idCheck != null) {
+            result = 1;
         }
-
+        return result;
+    }
 
 
     private String uploadFile(String originalName, byte[] fileData) throws Exception {
@@ -172,27 +173,35 @@ public class MemberController {
         return entity;
     }
 
-    @RequestMapping("/findAccount")
-    public String findAccount(Member member, Model model) throws Exception {
 
-        System.out.println(member);
-        model.addAttribute("member", service.findPwd(member));
-        service.modifyUser(member);
 
-        Member user = null;
-        user = service.findPwd(member);
-        System.out.println(member);
-        System.out.println(user);
+    @RequestMapping(value = "/findId", method = RequestMethod.GET)
+    public void findAccount(Model model,Member member) throws Exception {
 
-        if (user == null) {
-            model.addAttribute("msg", "아이디나 이메일이 일치하는 사용자가 없습니다.");
-            return "user/findAccount";
-        }
-        else {
-            String pwd = user.getUser_password();
-            String email = user.getUser_email();
-            service.sendMail(pwd, email);
-            return "user/findAccount";
-        }
+          model.addAttribute("member",member);
+
+
     }
+
+
+    @RequestMapping(value = "/findId", method = RequestMethod.POST)
+    public String findAccount2(String user_name, String user_email, Model model) throws Exception {
+
+       Member member =  service.getMemberByNameAndEmail(user_name,user_email);
+
+       if(member == null){
+            model.addAttribute("historyBack",true);
+           model.addAttribute("msg","해당 회원이 존재하지 않습니다.");
+           return "common/redirect";
+       }
+
+        model.addAttribute("historyBack",true);
+        model.addAttribute("msg",String.format("해당 회원의 아이디는 %s입니다.",member.getUser_id()));
+
+
+        return "user/findIdOk";
+
+
+    }
+
 }

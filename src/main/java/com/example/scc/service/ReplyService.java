@@ -11,4 +11,9 @@ public interface ReplyService {
     public void register(Reply reply) throws Exception;
 
     public List<Reply> list(int scc_num) throws Exception;
+
+    public void replyUpdate(Reply reply) throws Exception;
+
+    public void replyDelete(int rno) throws Exception;
+
 }

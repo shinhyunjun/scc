@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
@@ -46,7 +47,7 @@
 
     <div id="div1">
         <br>
-        <p>비밀번호 찾기</p>
+        <p>아이디 찾기</p>
     </div>
 
     <div id="div2">
@@ -54,22 +55,33 @@
         <hr>
     </div>
 
-    <form action="findAccount" method="get">
+    <form:form  modelAttribute="member" action="findId" method="post">
     <div style="line-height:80%">
 
-        <div id="div3">
-            <h4>ID</h4>
-            <input type="text" name="id" placeholder="가입시 등록한 아이디를 입력하세요">
-        </div>
+     <div id="div3">
+          <h4>이름</h4>
+         <input type="text" name="user_name" id="user_name" placeholder="가입시 등록한 이름를 입력하세요">
+    </div>
 
     <div id="div4">
-      <h4>EMAIL</h4>
-      <input type="text" name="email" placeholder="가입시 등록한 이메일을 입력하세요">
+       <h4>이메일</h4>
+      <input type="email" name="user_email" id="user_email" placeholder="가입시 등록한 이메일을 입력하세요">
     </div>
 
 
      <br><button type="submit" id="btnRegister">OK</button>
     </div>
-    </form>
+    </form:form>
+
+
+
+
+  <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+  <script>
+
+
+
+
+  </script>
   </body>
 </html>

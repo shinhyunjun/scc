@@ -14,10 +14,22 @@
 
     <select id="list" resultType="Reply" >
 
- 	    SELECT rno, content, writer
+ 	    SELECT rno, content, writer, regDate
          FROM myreply
          WHERE scc_num = #{scc_num}
 
 
     </select>
+
+    <update id="replyUpdate">
+        update myreply
+        set content = #{content}
+        where rno = #{rno}
+    </update>
+
+    <delete id="replyDelete">
+        delete from myreply
+        where rno = #{rno}
+    </delete>
+
 </mapper>

@@ -2,6 +2,10 @@ package com.example.scc.mapper;
 
 import com.example.scc.domain.Member;
 import com.example.scc.domain.MemberAuth;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public interface MemberMapper {
 
@@ -21,9 +25,11 @@ public interface MemberMapper {
 
     public void modifyUser(Member member) throws Exception;
 
-    public Member findPwd(Member member) throws Exception;
 
     public Member idCheck(String user_id) throws Exception;
+
+    public Member getMemberByNameAndEmail(@Param("user_name") String user_name, @Param("user_email")String user_email) throws Exception;
+
 }
 
 

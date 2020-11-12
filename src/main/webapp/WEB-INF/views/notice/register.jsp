@@ -58,6 +58,7 @@
         table{
             border-collapse: collapse;
         }
+
         td{
             border:1px solid #A4A4A4;
             padding: 7px;

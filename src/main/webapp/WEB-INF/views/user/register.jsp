@@ -112,7 +112,7 @@
     </script>
 
 </head>
-<body >
+<body >Z
 <h1>  <a href="/">   SCC  </a> </h1>
 <nav id="nav_menu">
     <ul>
@@ -153,7 +153,7 @@
         <form:input path="user_age" type="number" name="user_age" id="user_age" placeholder="나이"/>
         <form:input path="user_sex" type="text" name="user_sex" id="user_sex" placeholder="성별"/>
         <form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/>
-        <form:input path="user_email" type="text" name="user_email" id="user_email" placeholder="이메일"/>
+        <form:input path="user_email" type="email" name="user_email" id="user_email" placeholder="이메일"/>
 
         <button type="submit" id="btnRegister" disabled="disabled">가입하기</button>
 
