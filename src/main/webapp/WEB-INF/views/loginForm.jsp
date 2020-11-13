@@ -111,7 +111,9 @@
 
 <div>
     <button onclick="location.href='user/register'">회원가입</button>
-    <button onclick="location.href='/findAccount'">계정찾기</button>
+    <!--<button onclick="location.href='user/findId'">계정찾기</button> -->
+    <a href="user/findId">아이디 찾기</a>
+    <a href="user/findPwd">비밀번호 찾기</a>
 </div>
 
 

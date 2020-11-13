@@ -39,6 +39,25 @@
              width:260px;
              height:35px;
          }
+
+         #div22{
+             width:80%;
+
+             text-align: center;
+         }
+
+         #div22 h4{
+             color:#F78181;
+         }
+
+         #div33 input{
+             width:260px;
+             height:45px;
+         }
+         #div44 input{
+             width:260px;
+             height:45px;
+         }
       </style>
 
 
@@ -47,13 +66,14 @@
 
     <div id="div1">
         <br>
-        <p>아이디 찾기</p>
+        <p>계정 찾기</p>
     </div>
 
     <div id="div2">
-        <h4>입력된 정보로 임시 비밀번호가 전송됩니다.</h4>
+        <h4>아이디 찾기</h4>
         <hr>
     </div>
+
 
     <form:form  modelAttribute="member" action="findId" method="post">
     <div style="line-height:80%">
@@ -69,18 +89,17 @@
     </div>
 
 
-     <br><button type="submit" id="btnRegister">OK</button>
+     <br><button type="submit" id="btnRegister">아이디 찾기</button>
+
     </div>
     </form:form>
 
 
 
+   
 
   <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
   <script>
-
-
-
 
   </script>
   </body>

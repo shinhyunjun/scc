@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.rmi.CORBA.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberMapper mapper;
+
+
 
     @Transactional
     @Override
@@ -55,27 +58,15 @@ public class MemberServiceImpl implements MemberService {
         mapper.modifyUser(member);
     }
 
-    @Autowired
-    private JavaMailSender mailSender;
-    private static final String FROM_ADDRESS = "";
 
-    @Override
-    public void sendMail(String pwd, String address){
-
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setTo(address);
-        message.setFrom(FROM_ADDRESS);
-        message.setSubject("비밀번호 찾기 안내 메일입니다.");
-        message.setText("비밀번호는 " + pwd + "입니다.");
-
-        mailSender.send(message);
-    }
 
 
 
     public Member getMemberByNameAndEmail(String user_name, String user_email) throws Exception{
         return mapper.getMemberByNameAndEmail(user_name,user_email);
     }
+
+
+
 
 }

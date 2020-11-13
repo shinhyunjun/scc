@@ -30,6 +30,7 @@ public interface MemberMapper {
 
     public Member getMemberByNameAndEmail(@Param("user_name") String user_name, @Param("user_email")String user_email) throws Exception;
 
+
 }
 
 
