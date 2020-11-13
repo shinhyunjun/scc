@@ -95,4 +95,12 @@
  	from member
      where user_name = #{user_name} and user_email = #{user_email}
 	</select>
+
+
+	<select id="getMemberByIdAndEmail" resultType="Member">
+ 	select *
+ 	from member
+     where user_id = #{user_id} and user_email = #{user_email}
+	</select>
+
 </mapper>

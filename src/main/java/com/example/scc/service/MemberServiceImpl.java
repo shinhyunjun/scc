@@ -67,6 +67,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-
+    public Member  getMemberByIdAndEmail(String user_id, String user_email) throws Exception{
+        return mapper.getMemberByIdAndEmail(user_id,user_email);
+    }
 
 }

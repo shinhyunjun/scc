@@ -18,7 +18,7 @@ public interface MemberService {
 
     public void modifyUser(Member member) throws Exception;
 
-
+    public Member  getMemberByIdAndEmail(String user_id, String user_email) throws Exception;
 
     public Member idCheck(String user_id) throws Exception;
 
