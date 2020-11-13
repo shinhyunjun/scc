@@ -206,13 +206,15 @@ public class MemberController {
 
 
     @RequestMapping(value = "/findPwd", method = RequestMethod.GET)
-    public void emailPage(Model model, Member member) throws Exception {
+    public void findAccount3(Model model, Member member) throws Exception {
 
         model.addAttribute("member",member);
     }
 
     @RequestMapping(value="/findPwd", method= RequestMethod.POST)
-    public ModelAndView sendEmailAction (@RequestParam Map<String, Object> paramMap, ModelMap model, ModelAndView mv) throws Exception {
+    public String findAccount4 (@RequestParam Map<String, Object> paramMap, Model model) throws Exception {
+
+       // Member member =  service.getMemberByNameAndEmail(user_name,user_email);
 
         String user_id = (String) paramMap.get("user_id");
         String user_email = (String) paramMap.get("user_email");
@@ -233,8 +235,11 @@ public class MemberController {
             e.printStackTrace();
         }
 
-        mv.setViewName("user/emailSuccess");
-        return mv;
+       // mv.setViewName("user/emailSuccess");
+       // return mv;
+        model.addAttribute("msg","이메일이 정상적으로 발송되었습니다");
+        return "user/emailSuccess";
+
     }
 
 
