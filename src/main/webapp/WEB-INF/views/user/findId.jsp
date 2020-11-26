@@ -75,7 +75,7 @@
     </div>
 
 
-    <form:form  modelAttribute="member" action="findId" method="post">
+    <form:form  modelAttribute="member" action="findId" method="post" autocomplete="off">
     <div style="line-height:80%">
 
      <div id="div3">
@@ -99,7 +99,9 @@
    
 
   <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
-  <script>
+
+      <script>
+
 
   </script>
   </body>

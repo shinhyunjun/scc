@@ -1,6 +1,6 @@
 package com.example.scc;
 
-import com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +16,7 @@ public class SccApplication {
         SpringApplication.run(SccApplication.class, args);
     }
 
+    /*
     @Bean
     public FilterRegistrationBean<XssEscapeServletFilter> getFilterRegistrationBean(){
 
@@ -23,7 +24,10 @@ public class SccApplication {
         registrationBean.setFilter(new XssEscapeServletFilter());
         registrationBean.setOrder(1);
         registrationBean.addUrlPatterns("/notice/register");
+
         return registrationBean;
 
     }
+*/
+
 }

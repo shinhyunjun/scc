@@ -5,22 +5,16 @@ import com.example.scc.common.security.domain.CustomUser;
 import com.example.scc.common.security.domain.PageRequest;
 import com.example.scc.common.security.domain.Pagination;
 import com.example.scc.domain.*;
-import com.example.scc.service.ReplyService;
+import com.example.scc.service.CommentService;
 import com.example.scc.service.sccprService;
 import lombok.extern.java.Log;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +26,7 @@ public class scc_pr_Controller {
     private sccprService service;
 
     @Autowired
-    private ReplyService RepService;
+    private CommentService comService;
 
 
     @RequestMapping(value = "/sccSearch", method = RequestMethod.GET)
@@ -64,11 +58,12 @@ public class scc_pr_Controller {
 
         model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
 
+
     }
 
 
-
-/* 하나로만 검색할때 예) 제목
+/*
+ 하나로만 검색할때 예) 제목
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(String scc_district, Model model) throws Exception {
 
@@ -81,105 +76,29 @@ public class scc_pr_Controller {
 
         return "sccSearch";
     }
-
 */
 
+
     @RequestMapping(value = "/sccSearch_read", method = RequestMethod.GET)
-    public void read(int scc_num, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+    public void read(int scc_num, @ModelAttribute("pgrq") PageRequest pageRequest, Model model, Authentication authentication) throws Exception {
 
         scc_pr scc_pr = service.read(scc_num);
 
         model.addAttribute("scc_pr", scc_pr);
 
-        // 댓글 목록 보기
-        List<Reply> repList = RepService.list(scc_num);
-        model.addAttribute("repList", repList);
+        int count = comService.countReply(scc_num);
+        model.addAttribute("count",count);
 
+     //   CustomUser customUser = (CustomUser) authentication.getPrincipal();
+     //   Member member = customUser.getMember();
 
-        Reply reply = new Reply();
-
-        model.addAttribute(reply);
+     //   model.addAttribute("member",member);
 
 
     }
 
-    @RequestMapping(value = "/sccSearch_read", method = RequestMethod.POST)
-    public String read2(Reply reply, Model model, PageRequest pageRequest, scc_pr scc_pr, Authentication authentication) throws Exception {
-
-        // 댓글 작성시 로그인한 회원이름으로 작성
-        CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        Member member = customUser.getMember();
-        reply.setWriter(member.getUser_id());
 
 
-        RepService.register(reply);
-
-        return "redirect:/sccSearch_read" + pageRequest.toUriString(pageRequest.getPage()) +
-                "&scc_num=" + scc_pr.getScc_num();
-
-    }
-
-
-    @RequestMapping(value="/replyUpdate", method=RequestMethod.POST)
-    public String replyUpdate(Reply reply,  scc_pr scc_pr, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
-
-        RepService.replyUpdate(reply);
-
-        // RedirectAttributes 객체에 일회성 데이터를 지정하면 전달한다.
-        rttr.addAttribute("page", pageRequest.getPage());
-        rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
-
-        // 검색유형과 검색어를 뷰에 전달한다.
-        rttr.addAttribute("searchType", pageRequest.getSearchType());
-        rttr.addAttribute("keyword", pageRequest.getKeyword());
-
-        rttr.addFlashAttribute("msg", "SUCCESS");
-
-        return "redirect:/sccSearch_read" + pageRequest.toUriString(pageRequest.getPage()) +
-                "&scc_num=" + scc_pr.getScc_num();
-    }
-
-    @RequestMapping(value="/replyDelete", method=RequestMethod.POST)
-    public String replyDelete(Reply reply, int rno, scc_pr scc_pr, PageRequest pageRequest, RedirectAttributes rttr, Model model) throws Exception{
-
-
-        model.addAttribute("scc_pr", scc_pr);
-        model.addAttribute(reply);
-
-        RepService.replyDelete(rno);
-
-        //검색유형과 검색어를 뷰에 전달한다.
-        rttr.addFlashAttribute("msg", "SUCCESS");
-
-       //  return "redirect:/sccSearch_read" + pageRequest.toUriString(pageRequest.getPage()) +
-       //         "&scc_num=" + scc_pr.getScc_num();
-
-        return "redirect:/notice/list";
-    }
-
-    /*
-    @RequestMapping(value = "/replyRegis", method = RequestMethod.POST)
-    public String register(Reply reply, RedirectAttributes rttr) throws Exception {
-
-
-
-
-        rttr.addFlashAttribute("msg", "SUCCESS");
-
-        return "redirect:/sccSearch_read";
-
-    }
-
-   @RequestMapping(value = "/replyRegis", method = RequestMethod.GET)
-    public void registerForm(Model model) throws Exception {
-
-        Reply reply = new Reply();
-
-        model.addAttribute(reply);
-
-    }
-
-     */
 
 
 

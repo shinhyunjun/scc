@@ -1,5 +1,9 @@
 package com.example.scc.Controller;
 
+import com.example.scc.common.security.domain.CustomUser;
+import com.example.scc.common.security.domain.PageRequest;
+import com.example.scc.common.security.domain.Pagination;
+import com.example.scc.domain.CodeLabelValue;
 import com.example.scc.domain.Member;
 import com.example.scc.service.MemberService;
 import org.apache.commons.io.IOUtils;
@@ -11,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,13 +35,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 
@@ -92,6 +96,98 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    //마이페이지
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+
+        model.addAttribute("list", service.list(pageRequest));
+
+        Pagination pagination = new Pagination();
+        pagination.setPageRequest(pageRequest);
+
+        pagination.setTotalCount(service.count(pageRequest));
+
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("pageRequest", pageRequest);
+
+        List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>();
+        searchTypeCodeValueList.add(new CodeLabelValue("n", "---"));
+        searchTypeCodeValueList.add(new CodeLabelValue("name", "이름"));
+        searchTypeCodeValueList.add(new CodeLabelValue("id", "아이디"));
+        searchTypeCodeValueList.add(new CodeLabelValue("age", "나이"));
+
+        model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
+    }
+
+    @RequestMapping(value = "/read", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+    public void read(int user_no, Model model) throws Exception{
+        model.addAttribute(service.read(user_no));
+
+    }
+
+    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+    public void modifyForm(int user_no, Model model) throws Exception{
+
+        model.addAttribute(service.read(user_no));
+
+    }
+
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+    public String modify(Member member, RedirectAttributes rttr) throws Exception{
+        String inputPassword = member.getUser_password();
+        member.setUser_password(passwordEncoder.encode(inputPassword));
+
+
+        MultipartFile pictureFile = member.getPicture();
+
+        if(pictureFile != null && pictureFile.getSize() > 0) {
+            String createdFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
+
+            member.setPicture_url(createdFilename);
+        }
+
+        service.modify(member);
+
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+        return "redirect:/user/read?user_no=" + member.getUser_no();
+    }
+
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+    public String remove(int user_no, RedirectAttributes rttr) throws Exception{
+        service.remove(user_no);
+
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+        return "redirect:/user/list";
+
+    }
+
+    @RequestMapping(value = "/adminSetup", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String adminSetup() throws Exception{
+        return "user/adminSetup";
+    }
+
+
+    @RequestMapping(value = "/setup", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
+    public String setup(Model model, Authentication authentication) throws Exception{
+
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        model.addAttribute("member", member);
+
+        return "user/setup";
+    }
+
 
 
     @ResponseBody
@@ -214,10 +310,17 @@ public class MemberController {
     @RequestMapping(value="/findPwd", method= RequestMethod.POST)
     public String findAccount4 (Model model, String user_id, String user_email) throws Exception {
 
-        Member member =  service.getMemberByIdAndEmail(user_id,user_email);
 
+        Member member = service.getMemberByIdAndEmail(user_id,user_email);
 
-        String user_password = member.getUser_password();
+        //String user_password = "111";
+        String user_password = getTempPassword();  //무작위 비밀번호 생성
+
+        member.setUser_password(passwordEncoder.encode(user_password));
+
+        service.modifyPwd(member);
+        
+
         try {
             MimeMessage msg = mailSender.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true, "UTF-8");
@@ -233,14 +336,37 @@ public class MemberController {
             e.printStackTrace();
         }
 
-       // mv.setViewName("user/emailSuccess");
-       // return mv;
+        // mv.setViewName("user/emailSuccess");
+        // return mv;
         model.addAttribute("msg","이메일이 정상적으로 발송되었습니다");
         return "user/emailSuccess";
 
     }
 
+    public String getTempPassword(){
+        char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+        String str = "";
+
+        int idx = 0;
+        for (int i = 0; i < 10; i++) {
+            idx = (int) (charSet.length * Math.random());
+            str += charSet[idx];
+        }
+        return str;
+    }
 
 
+    @RequestMapping(value = "/modifyPwd", method = RequestMethod.POST)
+    public void modifyPwd(Model model, Member member) throws Exception {
 
+
+    }
+
+    @RequestMapping(value = "/modifyPwd", method = RequestMethod.GET)
+    public String modifyPwd2(Model model, Member member) throws Exception {
+
+            return "user/modifyPwd";
+    }
 }

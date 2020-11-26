@@ -92,6 +92,21 @@
         li a{
             text-decoration: none;
         }
+
+        #searchBtn{
+            width: 80px;
+            border:0;
+            outline: 0;
+            background-color: #088A08;
+            color:white;
+        }
+        #clear{
+            width: 80px;
+            border:0;
+            outline: 0;
+            background-color: #B40404;
+            color:white;
+        }
     </style>
 
 
@@ -99,29 +114,11 @@
 </head>
 <body>
 
-
-<h1>  <a href="/">   SCC  </a> </h1>
-<nav id="nav_menu">
-    <ul>
-        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
-        <li><h4><a href="/notice/list">공지사항</a></h4></li>
-
-    <sec:authorize access="!isAuthenticated()">   <!--로그인 안된 경우-->
-        <li><h4><a href="/login">회원가입/로그인</a></h4></li>
-    </sec:authorize>
-
-        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
-            <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
-        </sec:authorize>
-    </ul>
-</nav>
-<br><br><br>
-<hr width="100%">
+<jsp:include page="../menubar.jsp"/>
 
 
     <!-- 검색폼 만들기 -->
-    <form:form modelAttribute="pgrq" method="get" action="list${pgrq.toUriStringByPage(1)}">
+    <form:form modelAttribute="pgrq" method="get" action="list${pgrq.toUriStringByPage(1)}" autocomplete="off">
 
         <div id="sc">
              <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
@@ -132,7 +129,7 @@
             <!-- 인증된 사용자인 경우 -->
             <sec:authorize access="isAuthenticated()">
             <sec:authorize access="hasRole('ROLE_ADMIN')">
-              <input type="button" value="작성" onclick="location.href='register'" />
+              <input type="button"  id="clear" value="작성" onclick="location.href='register'" />
             </sec:authorize>
 
                 <!--회원 권한을 가진 사용자인 경우 -->
@@ -144,13 +141,13 @@
     <table >
 
         <tr>
-            <th align="center" width="60" >NO</th>
+            <th align="center" width="60" >번호</th>
 
-            <th align="center" width="300">TITLE</th>
+            <th align="center" width="300">제목</th>
 
-            <th align="center" width="100">WRITER</th>
+            <th align="center" width="100">작성자</th>
 
-            <th align="center" width="180">REGDATE</th>
+            <th align="center" width="180">작성일</th>
         </tr>
 
         <c:choose>
@@ -165,11 +162,11 @@
 
 
             <c:otherwise>
-                <c:forEach items="${list}" var="notice">
+                <c:forEach items="${list}" var="notice" varStatus="status">
                     <tr>
-                        <td align="center">${notice.boardNo}</td>
+                        <td align="center">${pagination.totalCount- ((pageRequest.page - 1) * pagination.displayPageNum + status.index)}</td>
                         <td align="left"><a href="/notice/read${pgrq.toUriString(pgrq.page)}&boardNo=${notice.boardNo}">${notice.title}</a></td>
-                        <td align="right">${notice.writer}</td>
+                        <td align="center">${notice.writer}</td>
                         <td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.regDate}" /></td>
                     </tr>
 

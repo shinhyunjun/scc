@@ -1,5 +1,6 @@
 package com.example.scc.mapper;
 
+import com.example.scc.common.security.domain.PageRequest;
 import com.example.scc.domain.Member;
 import com.example.scc.domain.MemberAuth;
 import org.apache.ibatis.annotations.Param;
@@ -11,6 +12,19 @@ public interface MemberMapper {
 
     //권한 생성
     public void createAuth(MemberAuth memberAuth);
+
+    public List<Member> list(PageRequest pageRequest) throws Exception;
+
+    public int count(PageRequest pageRequest) throws Exception;
+
+    public Member read(int user_no) throws Exception;
+
+    public void update(Member member) throws Exception;
+
+    public void delete(int user_no) throws Exception;
+
+    public int countAll() throws Exception;
+
 
     //권한 삭제
     public void deleteAuth(int userNo) throws Exception;
@@ -31,6 +45,8 @@ public interface MemberMapper {
     public Member getMemberByNameAndEmail(@Param("user_name") String user_name, @Param("user_email")String user_email) throws Exception;
 
     public Member getMemberByIdAndEmail(@Param("user_id") String user_id, @Param("user_email")String user_email) throws Exception;
+
+    public void modifyPwd(Member member) throws Exception;
 }
 
 

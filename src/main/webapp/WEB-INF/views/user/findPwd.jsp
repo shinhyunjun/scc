@@ -70,12 +70,12 @@
 </div>
 
 <div id="div2">
-    <h4>비밀번호 찾기</h4>
+    <h4>비밀번호 찾기(로그인 후 비밀번호를 꼭 변경해주세요)</h4>
     <hr>
 </div>
 
 
-<form:form modelAttribute="member"  action="findPwd" method="POST">
+<form:form modelAttribute="member"  action="findPwd" method="POST" autocomplete="off">
     <div style="line-height:80%">
 
         <div id="div3">

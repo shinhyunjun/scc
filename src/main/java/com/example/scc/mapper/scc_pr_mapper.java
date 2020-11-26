@@ -1,9 +1,7 @@
 package com.example.scc.mapper;
 
 import com.example.scc.common.security.domain.PageRequest;
-import com.example.scc.domain.Criteria;
 import com.example.scc.domain.scc_pr;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,6 +18,9 @@ public interface scc_pr_mapper {
    // public List<scc_pr> search(@Param("scc_district")String scc_district) throws Exception;
 
     public scc_pr read(int scc_num) throws Exception;
+
+
+
 
 
 }

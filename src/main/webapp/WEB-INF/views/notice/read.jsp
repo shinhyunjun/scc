@@ -81,31 +81,16 @@
             border:0;
             outline: 0;
         }
+        .ck-editor__editable {
+            min-height: 400px;
+        }
     </style>
 </head>
 
 <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
 
 <body>
-<h1>  <a href="/">   SCC  </a> </h1>
-<nav id="nav_menu">
-    <ul>
-        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
-        <li><h4><a href="/notice/list">공지사항</a></h4></li>
-
-        <sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
-            <li><h4><a href="/login">회원가입/로그인</a></h4></li>
-        </sec:authorize>
-
-
-        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
-            <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
-        </sec:authorize>
-    </ul>
-</nav>
-<br><br><br>
-<hr width="100%">
+<jsp:include page="../menubar.jsp"/>
 
 
 <br> <div id="divv"><h3>공지사항</h3></div><br>
@@ -132,7 +117,7 @@
 
             <tr>
                 <td width="50" align="center">내용</td>
-                <td width="550" align="center"><form:textarea path="content" readonly="true"/> </td>
+                <td width="550" align="center"><form:textarea path="content"  id="editor" readonly="true" class="ck-editor__editable"/> </td>
             </tr>
 
             <tr>
@@ -223,5 +208,23 @@
 
         });
     </script>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<script>
+
+    ClassicEditor
+        .create(document.querySelector( '#editor'), {
+            toolbar: [ ],
+        } )
+        .then(editor => {
+            console.log(editor);
+            editor.isReadOnly = true;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+
+</script>
 </body>
 </html>

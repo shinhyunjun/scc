@@ -114,12 +114,14 @@
             <version>2.6</version>
         </dependency>
 
-        <!-- xss 방지 -->
+
+        <!-- xss 방지
         <dependency>
             <groupId>com.navercorp.lucy</groupId>
             <artifactId>lucy-xss-servlet</artifactId>
             <version>2.0.0</version>
         </dependency>
+       -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

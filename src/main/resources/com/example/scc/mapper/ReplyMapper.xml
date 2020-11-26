@@ -32,4 +32,6 @@
         where rno = #{rno}
     </delete>
 
+
+
 </mapper>

@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -58,9 +60,9 @@ public class NoticeController {
         // 검색유형의 코드명과 코드값을 정의한다.
         List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>();
 
-        searchTypeCodeValueList.add(new CodeLabelValue("t", "Title"));
-        searchTypeCodeValueList.add(new CodeLabelValue("c", "Content"));
-        searchTypeCodeValueList.add(new CodeLabelValue("tc", "Title OR Content"));
+        searchTypeCodeValueList.add(new CodeLabelValue("t", "제목"));
+        searchTypeCodeValueList.add(new CodeLabelValue("c", "내용"));
+        searchTypeCodeValueList.add(new CodeLabelValue("tc", "제목 또는 내용"));
 
         model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
     }
@@ -105,10 +107,12 @@ public class NoticeController {
 */
 
     @RequestMapping(value = "/read", method=RequestMethod.GET)
-    public String read(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception{
+    public String read(int boardNo,  @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception{
 
         Notice notice = service.read(boardNo);
         model.addAttribute(notice);
+
+
 
         return "notice/read";
     }

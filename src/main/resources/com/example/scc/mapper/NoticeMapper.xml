@@ -165,4 +165,9 @@
 		   SET view_cnt = view_cnt + 1
 		 WHERE boardNo = #{boardNo}
 	</update>
+
+
+
+
+
 </mapper>

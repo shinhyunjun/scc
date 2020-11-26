@@ -64,16 +64,21 @@
             left: 520px;
             text-align: center;
         }
+        td{
+            font-size: 15px;
+        }
 
-#exception{
-    width:100px;
-}
+        .idCheck{
+            height: 30px;
+            background-color: yellow;
+        }
 
         form input {
             width:450px;
             height: 30px;
             margin: 7px;
         }
+
 
         #divId #user_id{
             width:400px;
@@ -87,7 +92,7 @@
             color: #9F81F7;
         }
         #btnRegister {
-            width: 450px;
+            width: 460px;
             height: 30px;
             margin: 7px;
         }
@@ -107,58 +112,111 @@
 
 
 
-    <script type="text/javascript">
-
-    </script>
 
 </head>
-<body >Z
-<h1>  <a href="/">   SCC  </a> </h1>
-<nav id="nav_menu">
-    <ul>
-        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
-        <li><h4><a href="/notice/list">공지사항</a></h4></li>
-        <li><h4><a href="/login">회원가입/로그인</a></h4></li>
-    </ul>
-</nav>
-<br><br><br>
-<hr width="100%">
+<body >
+<jsp:include page="../menubar.jsp"/>
 
-<form:form  modelAttribute="member" action="register" enctype="multipart/form-data">
+<form:form  modelAttribute="member" action="register" enctype="multipart/form-data" autocomplete="off">
     <fieldset>
         <legend>회원가입</legend>
 
-        <div align="center">
-            <img id="thumbnailImg" src="" >
-            <form:input path="picture" type="file"  id="upImgFile" onchange="uploadImgPreview();" />
-        </div>
 
-        <div align="center" id="divId">
-            <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
-            <strong class="idCheck">중복체크</strong>
-        </div>
+        <table>
+        <tr>
+            <td>프로필사진</td>
+            <div align="center">
+                <img id="thumbnailImg" src="" >
+                <form:input path="picture" type="file"  id="upImgFile" onchange="uploadImgPreview();" />
+            </div>
+        </tr>
+        <tr>
+            <td>아이디</td>
+            <td>
+            <div align="center" id="divId">
+                <form:input path="user_id" type="text" name="user_id" id="user_id" placeholder="아이디"/>
+                <strong class="idCheck">중복체크</strong>
+            </div>
+            </td>
+        </tr>
 
-        <p class="result" style="display: none;">
-            <span class="msg"></span>
-        </p>
+        <tr>
+         <td ></td>
+            <td>
+              <p class="result" style="display: none;">
+              <span class="msg"></span>
+              </p>
+            </td>
+        </tr>
 
         <!--  <div id="checkMsg"></div> -->
           <!-- <h4 align="left" style="display:none">숨길내용입니다.</h4> -->
+        <tr>
+            <td>비밀번호</td>
+            <td><form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/></td>
+        </tr>
+        <tr>
+            <td>비밀번호확인</td>
+            <td><input type="password"  id="user_password2" placeholder="비밀번호 확인"/></td>
+        </tr>
+        <tr>
+            <td>이름</td>
+            <td><form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/></td>
+        </tr>
+        <tr>
+            <td>생년월일</td>
+            <td><form:input path="user_birth" type="text" name="user_birth" id="testDatepicker" placeholder="생년월일" /></td>
+        </tr>
 
-        <form:input path="user_password" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
-        <input type="password"  id="user_password2" placeholder="비밀번호 확인"/>
-        <form:input path="user_name" type="text" name="user_name" id="user_name" placeholder="이름"/>
-        <form:input path="user_birth" type="number" name="user_birth" id="user_birth" placeholder="생년월일" />
-        <form:input path="user_age" type="number" name="user_age" id="user_age" placeholder="나이"/>
-        <form:input path="user_sex" type="text" name="user_sex" id="user_sex" placeholder="성별"/>
-        <form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/>
-        <form:input path="user_email" type="email" name="user_email" id="user_email" placeholder="이메일"/>
+        <tr>
+            <td>성별</td>
+            <td align="left">
+                <form:select path="user_sex" type="text" name="user_sex" id="user_sex">
+                    <form:option value="남" label="남"/>
+                    <form:option value="여" label="여"/>
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>전화번호</td>
+            <td><form:input path="user_phone" type="text" name="user_phone" id="user_phone" placeholder="연락처"/></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td><form:input path="user_email" type="text" name="user_email" id="user_email" placeholder="이메일"/></td>
+        </tr>
 
-        <button type="submit" id="btnRegister" disabled="disabled">가입하기</button>
+
+
+       <tr><td></td>
+           <td><button type="submit" id="btnRegister" disabled="disabled">가입하기</button></td>
+       </tr>
+        </table>
 
     </fieldset>
 </form:form>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+<script>
+    $(function() {
+        $( "#testDatepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: 'c-100:c+0',
+            dateFormat: "yy/mm/dd",
+            dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+            dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
+            monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+        });
+    });
+</script>
+
 
 <script>
 
@@ -173,7 +231,9 @@
             var user_name = $('#user_name').val();
             var user_sex = $('#user_sex').val();
             var user_birth = $('#user_birth').val();
-            var user_age = $('#user_age').val();
+            var user_phone = $('#user_phone').val();
+            var user_email = $('#user_email').val();
+            var text = "@";
 
             if (user_id == '') {
                 alert('아이디를 입력하세요.');
@@ -193,10 +253,7 @@
                 alert('생년월일을 입력하세요.');
                 return false;
             }
-            else if (user_age == '') {
-                alert('나이를 입력하세요.');
-                return false;
-            }
+
             else if (user_sex == '') {
                 alert('성별을 입력하세요.');
                 return false;
@@ -204,6 +261,14 @@
 
             else if(user_password != user_password2){
                 alert('비밀번호를 다시 입력해주세요.');
+                return false;
+            }
+            else if (user_phone == '') {
+                alert('전화번호를 입력하세요.');
+                return false;
+            }
+            else if(user_email.indexOf(text) == -1){
+                alert("이메일을 다시 입력해주세요.");
                 return false;
             }
             else {
@@ -238,8 +303,6 @@
     }
 
 </script>
-
-<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
 
 <script>
 

@@ -150,6 +150,14 @@
         li a{
             text-decoration: none;
         }
+        #searchBtn{
+            width: 60px;
+            border:0;
+            outline: 0;
+            background-color: #013ADF;
+            color:white;
+        }
+
     </style>
 
     <script src="https://code.jquery.com/jquery-3.1.1.js"> </script>
@@ -172,24 +180,7 @@
 <body>
 
 
-<h1>  <a href="/">   SCC  </a> </h1>
-<nav id="nav_menu">
-    <ul>
-        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
-        <li><h4><a href="/notice/list">공지사항</a></h4></li>
-
-        <sec:authorize access="!isAuthenticated()">   <!--인증된 경우-->
-        <li><h4><a href="/login">회원가입/로그인</a></h4></li>
-        </sec:authorize>
-
-        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
-            <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
-        </sec:authorize>
-    </ul>
-</nav>
-<br><br><br>
-<hr width="100%">
+<jsp:include page="menubar.jsp"/>
 
 
 <h5 class="seoul">서울특별시</h5>
@@ -230,7 +221,7 @@
 <br><br><br><br>
 
     <!-- 검색폼 만들기 -->
-    <form:form modelAttribute="pgrq" method="get" action="sccSearch${pgrq.toUriStringByPage(1)}">
+    <form:form modelAttribute="pgrq" method="get" action="sccSearch${pgrq.toUriStringByPage(1)}" autocomplete="off">
         <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
 
         <form:input path="keyword" />

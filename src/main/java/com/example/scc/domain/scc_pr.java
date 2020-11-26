@@ -21,4 +21,5 @@ public class scc_pr {
     private String detail_info;
     private int remaind_num;
     private int state_num;
+
 }

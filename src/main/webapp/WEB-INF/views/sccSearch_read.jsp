@@ -95,6 +95,18 @@
             color: black;
             font-weight: bold;
         }
+        .form-control{
+            margin: 5px;
+            width:40%;
+            height:30%;
+            vertical-align: top;
+            text-align:left;
+        }
+
+        .input-group-btn{
+            margin-top: 5px;
+            margin-left:585px;
+        }
 
         #ff{
             margin-left:8px;
@@ -105,35 +117,25 @@
             font-size: 18px;
         }
 
+        .full{
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+
+        }
     </style>
 </head>
 
-<script src="/js/jQuery-2.1.4.min.js"></script>
+
 
 
 
 <body>
 
 
-<h1>  <a href="/">   SCC  </a> </h1>
-<nav id="nav_menu">
-    <ul>
-        <li><h4><a href="/sccSearch">요양시설 찾기</a></h4></li>
-        <li><h4><a href="/qa">자주하는 질문</a></h4></li>
-        <li><h4><a href="/notice/list">공지사항</a></h4></li>
-
-        <sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
-            <li><h4><a href="/login">회원가입/로그인</a></h4></li>
-        </sec:authorize>
-
-
-        <sec:authorize access="isAuthenticated()">  <!--인증된 경우-->
-            <li> <h5> <sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
-        </sec:authorize>
-    </ul>
-</nav>
-<br><br><br>
-<hr width="100%">
+<jsp:include page="menubar.jsp"/>
 
 
 
@@ -221,55 +223,229 @@
         }
     });
 </script>
-
 <br>
-<div id="back" >
-<form:form modelAttribute="reply" method="post">
 
-    <table>
-        <tr>
-            <td  align="center" border="none"><form:textarea path="content" id="content"/></td>
-        </tr>
-    </table>
-
-    <button type="button" id="btnRegister" align="right">등록</button>
-
+<div>
+    <input type="button" value="좋아요" id="btn1"> <sapn id= "cnt1" style="color: red; font-weight: normal;">0</sapn>
+</div>
 
 
 <br>
+<div class="full">
+    <sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
+   <div class="container">
+        <label for="content">댓글 ${count}</label>
+        <form id="commentInsertForm2">
+            <div class="input-group">
+                <input type="hidden" name="bno" value="${scc_pr.scc_num}" readonly="true"/>
+                <input type="text" class="form-control" id="content2" name="content" placeholder="내용을 입력하세요." readonly="true">
+                <br>
+                <span class="input-group-btn" >
+                        <button class="btn btn-default" type="button" id="commentInsertBtn2" readonly="true">등록</button>
+                </span>
 
-<div id="reply2">
-    <hr width="100%">
-    <c:forEach items="${repList}" var="repList">
+            </div>
+        </form>
+    </div>
 
-
-        <table >
-            <tr>
-                <td align="center" width="80"><h5>${repList.writer}</h5></td>
-                <td align="center" width="400"><p> ${repList.content}</p></td>
-                <td>
-                    <c:choose>
-                        <c:when test="${repList.rating eq 1}">★☆☆☆☆</c:when>
-                        <c:when test="${repList.rating eq 2}">★★☆☆☆</c:when>
-                        <c:when test="${repList.rating eq 3}">★★★☆☆</c:when>
-                        <c:when test="${repList.rating eq 4}">★★★★☆</c:when>
-                        <c:when test="${repList.rating eq 5}">★★★★★</c:when>
-                    </c:choose>
-                </td>
-                <td align="center"><fmt:formatDate pattern="yy/MM/dd HH:mm" value="${repList.regDate}"/></td>
-
-                <td><button type="submit" id="btnEdit">수정</button></td>
-                <td><button type="submit" id="btnRemove">삭제</button></td>
-
-
-            </tr>
-        </table>
-
-
-    </c:forEach>
-    </form:form>
+    <div class="container">
+        <div class="commentList"></div>
+    </div>
+</sec:authorize>
 </div>
+
+<sec:authorize access="!isAuthenticated()">   <!--로그인 하지 않은 경우-->
+ <button style="border: 1px solid black; width: 100px; height: 50px;  margin: 0 auto; position: absolute; bottom:-40%; left:40%; width:100px; background-color:#04B431; color: white;  border:0;
+            outline: 0; border-radius: 5px;" onclick="location.href='/login'">로그인 하기</button>
+</sec:authorize>
+
+
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')">
+<div class="container">
+    <label for="content">댓글 ${count}</label>
+    <form id="commentInsertForm">
+        <div class="input-group">
+            <input type="hidden" name="bno" value="${scc_pr.scc_num}"/>
+            <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+            <br>
+            <span class="input-group-btn" >
+                        <button class="btn btn-default" type="button" id="commentInsertBtn">등록</button>
+                </span>
+
+        </div>
+    </form>
 </div>
+<div class="container">
+    <div class="commentList"></div>
+</div>
+</sec:authorize>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var formObj = $("#reply");
+
+        $("#btnRegister").click(function(){
+            formObj.submit();
+        });
+
+
+        $("#btnRemove").on("click", function() {
+            formObj.attr("action", "/sccSearch_remove");
+            formObj.submit();
+        });
+    })
+
+
+</script>
+
+<script type="text/javascript">
+    var bno = '${scc_pr.scc_num}'; //게시글 번호
+
+    $('#commentInsertBtn').click(function(){ //댓글 등록 버튼 클릭시
+
+        var content = $('#content').val();
+        if (content == '') {
+            alert('댓글을 입력하세요.');
+            return false;
+        }
+
+        var insertData = $('#commentInsertForm').serialize(); //commentInsertForm의 내용을 가져옴
+        commentInsert(insertData); //Insert 함수호출(아래)
+        alert("등록이 완료되었습니다");
+    });
+
+
+    function displayTime(timeValue) {
+
+
+        var dateObj = new Date(timeValue);
+        var str = "";
+
+        var yy = dateObj.getFullYear();
+        var mm = dateObj.getMonth() + 1;
+        var dd = dateObj.getDate();
+        var hh = dateObj.getHours();
+        var mi = dateObj.getMinutes();
+        var ss = dateObj.getSeconds();
+
+        return [ yy, '-', mm, '-', dd, ' ', (hh > 9 ? '' : '0') + hh, ':', (mi > 9 ? '' : '0') + mi,
+            ':', (ss > 9 ? '' : '0') + ss ].join('');
+
+    }
+
+
+    //댓글 목록
+    function commentList(){
+        $.ajax({
+            url : '/comment/list',
+            type : 'get',
+            data : {'bno':bno},
+            success : function(data){
+                var a ='';
+                $.each(data, function(key, value){
+                    a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                    a += '<div class="commentInfo'+value.cno+'" style="font-weight: bold; font-size: 18px; display: block;">'+value.writer;
+
+                    a += '</div>  <div class="commentContent'+value.cno+'" style="font-size: 16px; padding:8px;"> <p> '+value.content +'</p>';
+                    a += '<div class="commentDate'+value.cno+'">'+displayTime(value.regdate) + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp";
+
+                    a += '<sec:authentication property="principal" var="pinfo"/>';
+                    a += '<sec:authorize access="hasRole('ROLE_MEMBER')">';
+
+                    var b = (value.writer);
+                    if(b ==  ${pinfo.username}) {
+                        a += '<a onclick="commentUpdate(' + value.cno + ',\'' + value.content + '\');" style="border:1px solid red; width:150px;"> 수정 </a>';
+                        a += '<a onclick="commentDelete(' + value.cno + ');" style="border:1px solid blue; width:150px; margin-left: 5px;"> 삭제 </a>';
+                    }
+
+                    a += '</sec:authorize>';
+
+                    a += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
+                    a += '<a onclick="commentUpdate('+value.cno+',\''+value.content+'\');" style="border:1px solid red; width:150px;"> 수정 </a>';
+                    a += '<a onclick="commentDelete('+value.cno+');" style="border:1px solid blue; width:150px; margin-left: 5px;"> 삭제 </a>';
+                    a += '</sec:authorize>';
+
+                    a += '</div></div></div>';
+                });
+
+                $(".commentList").html(a);
+
+            }
+        });
+    }
+
+    //댓글 등록
+    function commentInsert(insertData){
+        $.ajax({
+            url : '/comment/insert',
+            type : 'get',
+            data : insertData,
+            success : function(data){
+                if(data == 1) {
+                    commentList(); //댓글 작성 후 댓글 목록 reload
+                    $('#content').val('');
+                }
+            }
+        });
+    }
+
+    //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
+    function commentUpdate(cno, content){
+        var a ='';
+
+        a += '<div class="input-group">';
+        a += '<textarea type="text" class="form-control" name="content_'+cno+'" value="'+content+'"/>';
+        a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+cno+');">수정</button> </span>';
+        a += '</div>';
+
+        $('.commentContent'+cno).html(a);
+
+    }
+
+    //댓글 수정
+    function commentUpdateProc(cno){
+        var updateContent = $('[name=content_'+cno+']').val();
+
+        $.ajax({
+            url : '/comment/update',
+            type : 'get',
+            data : {'content' : updateContent, 'cno' : cno},
+            success : function(data){
+                if(data == 1) commentList(bno); //댓글 수정후 목록 출력
+            }
+        });
+    }
+
+    //댓글 삭제
+    function commentDelete(cno){
+        var result = confirm("삭제하시겠습니까?");
+        if(result) {
+            $.ajax({
+                url: '/comment/delete/' + cno,
+                type: 'get',
+                success: function (data) {
+                    if (data == 1) commentList(bno); //댓글 삭제후 목록 출력
+                }
+            });
+        }
+        else{
+            return;
+        }
+    }
+
+
+
+
+    $(document).ready(function(){
+        commentList(); //페이지 로딩시 댓글 목록 출력
+    });
+
+
+
+
+</script>
 
 
 <script>
@@ -316,11 +492,31 @@
       //  formObj.submit();
 
 
-
-
     })
 </script>
 
+<script>
+
+    window.onload = function (){
+
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+        var cnt1 = document.getElementById("cnt1");
+        var cnt2 = document.getElementById("cnt2");
+
+        btn1.onclick = function(){
+            cnt1.innerHTML = Number(cnt1.innerHTML) + 1;
+
+        };
+
+        btn2.onclick = function(){
+            cnt2.innerHTML = Number(cnt2.innerHTML) + 1;
+
+        };
+    }
+
+
+</script>
 
 
 
