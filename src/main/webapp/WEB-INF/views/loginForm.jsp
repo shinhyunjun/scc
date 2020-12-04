@@ -1,7 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <html>
@@ -48,25 +48,25 @@
 
         h4 a {
             text-decoration: none;
-            color:black;
+            color: black;
         }
 
         #login-form {
-            width:600px;
-            height:60px;
+            width: 600px;
+            height: 60px;
             position: absolute;
             top: 240px;
             left: 520px;
         }
 
-        #login-form input{
+        #login-form input {
 
-            width:450px;
+            width: 450px;
             height: 45px;
             margin: 5px;
         }
 
-        div{
+        div {
             width: 600px;
             height: 60px;
             position: absolute;
@@ -74,8 +74,8 @@
             left: 525px;
         }
 
-        div button{
-            width:223px;
+        div button {
+            width: 223px;
             height: 45px;
         }
 
@@ -91,12 +91,12 @@
 </h2>
 
 
-<form method="post" action="/login"  id="login-form" >
-    <input name="username" type="text" placeholder="아이디" >
+<form method="post" action="/login" id="login-form">
+    <input name="username" type="text" placeholder="아이디">
     <input name="password" type="password" placeholder="비밀번호">
     <input type="submit" value="로그인">
 
-    <sec:csrfInput />
+    <sec:csrfInput/>
 </form>
 
 <div>

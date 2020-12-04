@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class NoticeServiceImpl implements NoticeService{
+public class NoticeServiceImpl implements NoticeService {
 
     @Autowired
     private NoticeMapper mapper;
 
     @Transactional
     @Override
-    public void register(Notice notice) throws Exception{
+    public void register(Notice notice) throws Exception {
 
         mapper.create(notice);
 
@@ -56,7 +56,7 @@ public class NoticeServiceImpl implements NoticeService{
 */
 
     @Override
-    public Notice read(Integer boardNo) throws Exception{
+    public Notice read(Integer boardNo) throws Exception {
 
         //공개자료 조회 건수 업데이트
         mapper.updateViewCnt(boardNo);

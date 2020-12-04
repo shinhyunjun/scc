@@ -42,7 +42,7 @@ public class NoticeController {
 
     //페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception{
+    public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
         // 뷰에 페이징 처리를 한 게시글 목록을 전달한다.
         model.addAttribute("list", service.list(pageRequest));
@@ -106,12 +106,11 @@ public class NoticeController {
     }
 */
 
-    @RequestMapping(value = "/read", method=RequestMethod.GET)
-    public String read(int boardNo,  @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception{
+    @RequestMapping(value = "/read", method = RequestMethod.GET)
+    public String read(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
         Notice notice = service.read(boardNo);
         model.addAttribute(notice);
-
 
 
         return "notice/read";
@@ -123,7 +122,7 @@ public class NoticeController {
 
         service.remove(boardNo);
 
-         //RedirectAttributes 객체에 일회성 데이터를 지정한여 전달한다.
+        //RedirectAttributes 객체에 일회성 데이터를 지정한여 전달한다.
         rttr.addAttribute("page", pageRequest.getPage());
         rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
 
@@ -140,7 +139,7 @@ public class NoticeController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/modify", method = RequestMethod.GET)
-    public void modifyForm(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest,Model model) throws Exception {
+    public void modifyForm(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
         // 조회한 게시글 상세정보를 뷰에 전달한다.
         Notice notice = service.read(boardNo);
@@ -149,7 +148,7 @@ public class NoticeController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
-    public String modify(Notice notice,  PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+    public String modify(Notice notice, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
 
         service.modify(notice);
 

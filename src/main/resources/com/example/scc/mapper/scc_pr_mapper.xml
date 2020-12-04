@@ -17,7 +17,7 @@
             </if>
 
             <if test="searchType == 'tc'.toString()">
-                AND (	scc_name LIKE CONCAT('%', #{keyword}, '%')
+                AND ( scc_name LIKE CONCAT('%', #{keyword}, '%')
                 OR scc_district LIKE CONCAT('%', #{keyword}, '%'))
             </if>
 
@@ -27,7 +27,7 @@
 
     <!-- 페이징 시작번호와 페이징 크기 정보를 가지고 페이징 처리된 게시글 목록 조회-->
     <!-- 검색 조건 추가-->
-    <select id="list" resultType="scc_pr"  >
+    <select id="list" resultType="scc_pr">
         <![CDATA[
        SELECT scc_num, scc_name, scc_grade, scc_address
          FROM scc_info
@@ -46,13 +46,13 @@
 
     <!-- 지역구 목록 -->
     <select id="list2" resultType="scc_pr">
-		<![CDATA[
+        <![CDATA[
 		SELECT DISTINCT scc_district
 		  FROM scc_info
 		 WHERE scc_num > 0
 	  ORDER BY scc_district ASC
 		]]>
-	</select>
+    </select>
 
 
     <!-- 게시글 전체 건수를 조회 -->
@@ -65,17 +65,15 @@
    ]]>
 
         <include refid="search"></include>
-   </select>
-
+    </select>
 
 
     <select id="read" resultType="scc_pr">
-		SELECT scc_num, scc_name, scc_grade, detail_info, scc_address, scc_phone, limit_num, state_num, remaind_num, wait_num
-		  FROM scc_info
-		 WHERE scc_num = #{scc_num}
-	</select>
-
-
+        SELECT scc_num, scc_name, scc_grade, detail_info, scc_address, scc_phone, limit_num, state_num, remaind_num,
+        wait_num
+        FROM scc_info
+        WHERE scc_num = #{scc_num}
+    </select>
 
 
 </mapper>

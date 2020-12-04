@@ -6,57 +6,61 @@
 
     <style>
 
-        #div1{
-            width:80%;
-            height:120px;
+        #div1 {
+            width: 80%;
+            height: 120px;
             background-color: mediumseagreen;
         }
-        #div1 p{
+
+        #div1 p {
             text-align: center;
-            color:white;
+            color: white;
             font-size: 23px;
         }
 
-        #div2{
-            width:80%;
+        #div2 {
+            width: 80%;
 
             text-align: center;
         }
 
-        #div2 h4{
-            color:#F78181;
+        #div2 h4 {
+            color: #F78181;
         }
 
-        #div3 input{
-            width:260px;
-            height:45px;
-        }
-        #div4 input{
-            width:260px;
-            height:45px;
-        }
-        button{
-            width:260px;
-            height:35px;
+        #div3 input {
+            width: 260px;
+            height: 45px;
         }
 
-        #div22{
-            width:80%;
+        #div4 input {
+            width: 260px;
+            height: 45px;
+        }
+
+        button {
+            width: 260px;
+            height: 35px;
+        }
+
+        #div22 {
+            width: 80%;
 
             text-align: center;
         }
 
-        #div22 h4{
-            color:#F78181;
+        #div22 h4 {
+            color: #F78181;
         }
 
-        #div33 input{
-            width:260px;
-            height:45px;
+        #div33 input {
+            width: 260px;
+            height: 45px;
         }
-        #div44 input{
-            width:260px;
-            height:45px;
+
+        #div44 input {
+            width: 260px;
+            height: 45px;
         }
     </style>
 
@@ -75,7 +79,7 @@
 </div>
 
 
-<form:form modelAttribute="member"  action="findPwd" method="POST" autocomplete="off">
+<form:form modelAttribute="member" action="findPwd" method="POST" autocomplete="off">
     <div style="line-height:80%">
 
         <div id="div3">
@@ -89,13 +93,11 @@
         </div>
 
 
-        <br><button type="submit" id="btnRegister">비밀번호 찾기</button>
+        <br>
+        <button type="submit" id="btnRegister">비밀번호 찾기</button>
 
     </div>
 </form:form>
-
-
-
 
 
 <script src="http://code.jquery.com/jquery-3.1.1.js"></script>

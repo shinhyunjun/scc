@@ -16,7 +16,7 @@
             </if>
 
             <if test="searchType == 'tc'.toString()">
-                AND (	title LIKE CONCAT('%', #{keyword}, '%')
+                AND ( title LIKE CONCAT('%', #{keyword}, '%')
                 OR content LIKE CONCAT('%', #{keyword}, '%'))
             </if>
 
@@ -27,13 +27,13 @@
     <insert id="create">
 
         INSERT INTO board2(title,content,writer)
-           VALUES(#{title}, #{content}, #{writer})
+        VALUES(#{title}, #{content}, #{writer})
     </insert>
 
 
     <!-- 페이징 시작번호와 페이징 크기 정보를 가지고 페이징 처리된 게시글 목록 조회-->
     <!-- 검색 조건 추가-->
-    <select id="list" resultType="Notice" >
+    <select id="list" resultType="Notice">
         <![CDATA[
  	    SELECT *
          FROM board2
@@ -43,11 +43,12 @@
         <include refid="search"></include>
 
         <![CDATA[
-        ORDER BY boardNo ASC,
-                 regDate DESC
+            ORDER BY regDate DESC,
+                    boardNo ASC
+
          LIMIT #{pageStart}, #{sizePerPage}
            ]]>
-	</select>
+    </select>
 
     <!-- 게시글 전체 건수를 조회 -->
     <!-- 검색 조건 추가-->
@@ -61,8 +62,6 @@
         <include refid="search"></include>
 
     </select>
-
-
 
 
     <select id="search" resultType="Notice">
@@ -88,86 +87,83 @@
 
 
     <select id="read" resultType="Notice">
-       SELECT boardNo,
- 			   title,
- 			   content,
- 			   writer,
- 			   regDate
-		  FROM board2
-		 WHERE boardNo = #{boardNo}
+        SELECT boardNo,
+        title,
+        content,
+        writer,
+        regDate
+        FROM board2
+        WHERE boardNo = #{boardNo}
     </select>
 
     <update id="update">
-		UPDATE board2
-		   SET title =#{title},
-			   content =#{content}
-		 WHERE boardNo = #{boardNo}
-	</update>
+        UPDATE board2
+        SET title =#{title},
+        content =#{content}
+        WHERE boardNo = #{boardNo}
+    </update>
 
     <delete id="delete">
-		DELETE FROM board2
-		 WHERE boardNo = #{boardNo}
-	</delete>
+        DELETE FROM board2
+        WHERE boardNo = #{boardNo}
+    </delete>
 
 
     <!-- 첨부파일 추가 -->
     <insert id="addAttach">
-		INSERT INTO pds_attach
-		     (
-		       fullName,
-		       boardNo
-		     )
-		VALUES
-			 (
-			   #{fullName},
-			   LAST_INSERT_ID()
-			 )
-	</insert>
+        INSERT INTO pds_attach
+        (
+        fullName,
+        boardNo
+        )
+        VALUES
+        (
+        #{fullName},
+        LAST_INSERT_ID()
+        )
+    </insert>
 
     <!-- 첨부파일 목록 조회 -->
     <select id="getAttach" resultType="string">
-		SELECT fullName
-		  FROM pds_attach
-		 WHERE boardNo = #{boardNo}
-	  ORDER BY regdate
-	</select>
+        SELECT fullName
+        FROM pds_attach
+        WHERE boardNo = #{boardNo}
+        ORDER BY regdate
+    </select>
 
     <!-- 첨부파일 삭제 -->
     <delete id="deleteAttach">
-		DELETE FROM pds_attach
-		 WHERE boardNo = #{boardNo}
-	</delete>
+        DELETE FROM pds_attach
+        WHERE boardNo = #{boardNo}
+    </delete>
 
     <!-- 첨부파일 교체체 -->
     <insert id="replaceAttach">
-		INSERT INTO pds_attach
-			 (
-			   fullName,
-			   boardNo
-			 )
-		VALUES
-			 (
-			   #{fullName},
-			   #{boardNo}
-			 )
-	</insert>
+        INSERT INTO pds_attach
+        (
+        fullName,
+        boardNo
+        )
+        VALUES
+        (
+        #{fullName},
+        #{boardNo}
+        )
+    </insert>
 
     <!-- 첨부파일 다운로드 건수 업데이트 -->
     <update id="updateAttachDownCnt">
-		UPDATE pds_attach
-		   SET down_cnt = down_cnt + 1
-		 WHERE fullName = #{fullName}
-	</update>
+        UPDATE pds_attach
+        SET down_cnt = down_cnt + 1
+        WHERE fullName = #{fullName}
+    </update>
 
     <!-- 공개자료 조회 건수 업데이트 -->
     <update id="updateViewCnt">
-		UPDATE board2
-		   SET view_cnt = view_cnt + 1
-		 WHERE boardNo = #{boardNo}
-	</update>
-
-
-
+        UPDATE board2
+        SET view_cnt = view_cnt + 1
+        WHERE boardNo = #{boardNo}
+    </update>
 
 
 </mapper>

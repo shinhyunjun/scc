@@ -1,8 +1,7 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"%>
+         pageEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,7 +21,7 @@
             width: 90px;
             height: 63px;
             text-align: center;
-            position:absolute;
+            position: absolute;
             font-family: '맑은 고딕';
             display: block;
             margin-left: 10px;
@@ -51,52 +50,50 @@
 
         h4 a {
             text-decoration: none;
-            color:black;
+            color: black;
         }
-
-
 
 
         input {
             font-size: 16px;
-            width:450px;
-            height:30px;
-            float:left;
+            width: 450px;
+            height: 30px;
+            float: left;
             border: 1px solid #00ff00;
         }
 
-        input::placeholder{
-            color:#81F781;
+        input::placeholder {
+            color: #81F781;
         }
 
 
-    #qa{
-        position: absolute;
-        top: 18%;
-        left: 38%;
-    }
+        #qa {
+            position: absolute;
+            top: 18%;
+            left: 38%;
+        }
 
-    #qq{
-        margin-bottom:10px;
-    }
+        #qq {
+            margin-bottom: 10px;
+        }
 
-    #menu{
-        width:300px;
-        border:1px solid black;
+        #menu {
+            width: 300px;
+            border: 1px solid black;
 
-    }
+        }
 
-    #menu p {
-        margin-top:6px;
-        margin-bottom:6px;
-    }
+        #menu p {
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
     </style>
 
 
 </head>
 <body>
 
-<h1>  <a href="/">   SCC  </a> </h1>
+<h1><a href="/"> SCC </a></h1>
 <jsp:include page="menubar.jsp"/>
 
 

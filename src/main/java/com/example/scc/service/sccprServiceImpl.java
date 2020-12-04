@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class sccprServiceImpl implements sccprService{
+public class sccprServiceImpl implements sccprService {
 
 
     @Autowired
@@ -17,7 +17,7 @@ public class sccprServiceImpl implements sccprService{
 
     // 페이징 요청 정보를 매개변수로 받아 페이징 처리를 한 게시글 목록을 반환한다.
     @Override
-    public List<scc_pr> list(PageRequest pageRequest) throws Exception{
+    public List<scc_pr> list(PageRequest pageRequest) throws Exception {
         return mapper.list(pageRequest);
     }
 
@@ -35,7 +35,7 @@ public class sccprServiceImpl implements sccprService{
 */
 
     @Override
-    public scc_pr read(int scc_num) throws Exception{
+    public scc_pr read(int scc_num) throws Exception {
         return mapper.read(scc_num);
     }
 
@@ -43,7 +43,6 @@ public class sccprServiceImpl implements sccprService{
     public List<scc_pr> list2() throws Exception {
         return mapper.list2();
     }
-
 
 
 }

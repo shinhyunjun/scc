@@ -20,7 +20,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        CustomUser customUser = (CustomUser)authentication.getPrincipal();
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
         log.info("Userid = " + member.getUser_id());

@@ -26,7 +26,7 @@ import javax.sql.DataSource;
 
 @Log
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true, securedEnabled=true) //시큐리티 애너테이션  활성화
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) //시큐리티 애너테이션  활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
 
 
         //  http.authorizeRequests().antMatchers("/notice/list").permitAll();
@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
-                .deleteCookies("remember-me","JSESSION_ID");
+                .deleteCookies("remember-me", "JSESSION_ID");
 
 
         http.exceptionHandling()
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.rememberMe()
                 .key("hdcd")
                 .tokenRepository(createJDBCRepository())
-                .tokenValiditySeconds(60*60*24); //쿠키의 유효 시간 지정
+                .tokenValiditySeconds(60 * 60 * 24); //쿠키의 유효 시간 지정
     }
 
 /*
@@ -95,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // CustomLoginSuccessHandler를 빈으로 등록한다.
     @Bean
-    public AuthenticationSuccessHandler createAuthenticationSuccessHandler(){
+    public AuthenticationSuccessHandler createAuthenticationSuccessHandler() {
         return new CustomLoginSuccessHandler();
     }
 

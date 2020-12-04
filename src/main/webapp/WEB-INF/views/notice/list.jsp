@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page session="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-   <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title></title>
     <style>
         * {
@@ -50,10 +50,10 @@
 
         h4 a {
             text-decoration: none;
-            color:black;
+            color: black;
         }
 
-        #sc{
+        #sc {
             position: absolute;
             top: 95px;
             left: 10px;
@@ -66,21 +66,21 @@
             border-collapse: collapse;
         }
 
-        table a{
+        table a {
             text-decoration: none;
             color: #5858FA;
         }
 
-        th, td{
-            border:1px solid black;
-            padding:5px;
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
         }
 
 
-        #paging{
-            top:600px;
-            left:5px;
-            position:absolute;
+        #paging {
+            top: 600px;
+            left: 5px;
+            position: absolute;
         }
 
         #paging li {
@@ -89,26 +89,26 @@
             padding: 6px;
         }
 
-        li a{
+        li a {
             text-decoration: none;
         }
 
-        #searchBtn{
+        #searchBtn {
             width: 80px;
-            border:0;
+            border: 0;
             outline: 0;
             background-color: #088A08;
-            color:white;
+            color: white;
         }
-        #clear{
+
+        #clear {
             width: 80px;
-            border:0;
+            border: 0;
             outline: 0;
             background-color: #B40404;
-            color:white;
+            color: white;
         }
     </style>
-
 
 
 </head>
@@ -117,31 +117,30 @@
 <jsp:include page="../menubar.jsp"/>
 
 
-    <!-- 검색폼 만들기 -->
-    <form:form modelAttribute="pgrq" method="get" action="list${pgrq.toUriStringByPage(1)}" autocomplete="off">
+<!-- 검색폼 만들기 -->
+<form:form modelAttribute="pgrq" method="get" action="list${pgrq.toUriStringByPage(1)}" autocomplete="off">
 
-        <div id="sc">
-             <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
+    <div id="sc">
+        <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label"/>
 
-             <form:input path="keyword" />
-             <button id='searchBtn'>검색</button>
+        <form:input path="keyword"/>
+        <button id='searchBtn'>검색</button>
 
-            <!-- 인증된 사용자인 경우 -->
-            <sec:authorize access="isAuthenticated()">
+        <!-- 인증된 사용자인 경우 -->
+        <sec:authorize access="isAuthenticated()">
             <sec:authorize access="hasRole('ROLE_ADMIN')">
-              <input type="button"  id="clear" value="작성" onclick="location.href='register'" />
+                <input type="button" id="clear" value="작성" onclick="location.href='register'"/>
             </sec:authorize>
 
-                <!--회원 권한을 가진 사용자인 경우 -->
-            </sec:authorize>
-        </div>
+            <!--회원 권한을 가진 사용자인 경우 -->
+        </sec:authorize>
+    </div>
 
 
-
-    <table >
+    <table>
 
         <tr>
-            <th align="center" width="60" >번호</th>
+            <th align="center" width="60">번호</th>
 
             <th align="center" width="300">제목</th>
 
@@ -165,9 +164,11 @@
                 <c:forEach items="${list}" var="notice" varStatus="status">
                     <tr>
                         <td align="center">${pagination.totalCount- ((pageRequest.page - 1) * pagination.displayPageNum + status.index)}</td>
-                        <td align="left"><a href="/notice/read${pgrq.toUriString(pgrq.page)}&boardNo=${notice.boardNo}">${notice.title}</a></td>
+                        <td align="left"><a
+                                href="/notice/read${pgrq.toUriString(pgrq.page)}&boardNo=${notice.boardNo}">${notice.title}</a>
+                        </td>
                         <td align="center">${notice.writer}</td>
-                        <td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.regDate}" /></td>
+                        <td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.regDate}"/></td>
                     </tr>
 
                 </c:forEach>
@@ -176,7 +177,6 @@
     </table>
 
 </form:form>
-
 
 
 <div id="paging">

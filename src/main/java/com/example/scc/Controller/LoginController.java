@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @RequestMapping("/login")
-    public String loginForm(String error, String logout, Model model){
+    public String loginForm(String error, String logout, Model model) {
 
         log.info("error" + error);
         log.info("logout" + logout);
 
-        if(error != null) {
+        if (error != null) {
             model.addAttribute("error", "Login Error!!");
         }
 
-        if(logout != null) {
+        if (logout != null) {
             model.addAttribute("logout", "Logout!!!!");
         }
 
@@ -29,7 +29,7 @@ public class LoginController {
 
 
     @RequestMapping("/logout")
-    public String logoutForm(){
+    public String logoutForm() {
 
         return "logoutForm";
     }

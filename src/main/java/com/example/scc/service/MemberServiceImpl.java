@@ -25,10 +25,9 @@ public class MemberServiceImpl implements MemberService {
     private MemberMapper mapper;
 
 
-
     @Transactional
     @Override
-    public void register(Member member) throws Exception{
+    public void register(Member member) throws Exception {
 
         mapper.create(member);
 
@@ -41,24 +40,24 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> list(PageRequest pageRequest) throws Exception{
+    public List<Member> list(PageRequest pageRequest) throws Exception {
         return mapper.list(pageRequest);
     }
 
     @Override
-    public int count(PageRequest pageRequest) throws Exception{
+    public int count(PageRequest pageRequest) throws Exception {
         return mapper.count(pageRequest);
     }
 
     @Override
-    public Member read(int user_no) throws Exception{
+    public Member read(int user_no) throws Exception {
         return mapper.read(user_no);
     }
 
 
     @Transactional
     @Override
-    public void modify(Member member) throws Exception{
+    public void modify(Member member) throws Exception {
         mapper.update(member);
 
         int user_no = member.getUser_no();
@@ -67,15 +66,15 @@ public class MemberServiceImpl implements MemberService {
 
         List<MemberAuth> authList = member.getAuthList();
 
-        for(int i = 0;i < authList.size();i++) {
+        for (int i = 0; i < authList.size(); i++) {
             MemberAuth memberAuth = authList.get(i);
 
             String auth = memberAuth.getAuth();
 
-            if(auth == null){
+            if (auth == null) {
                 continue;
             }
-            if(auth.trim().length() == 0){
+            if (auth.trim().length() == 0) {
                 continue;
             }
 
@@ -87,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public void remove(int user_no) throws Exception{
+    public void remove(int user_no) throws Exception {
         mapper.deleteAuth(user_no);
 
         mapper.delete(user_no);
@@ -100,11 +99,10 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public Member idCheck(String user_id) throws Exception{
+    public Member idCheck(String user_id) throws Exception {
 
         return mapper.idCheck(user_id);
     }
-
 
 
     @Override
@@ -113,29 +111,24 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void modifyUser(Member member) throws Exception{
+    public void modifyUser(Member member) throws Exception {
 
         mapper.modifyUser(member);
     }
 
 
-
-
-
-    public Member getMemberByNameAndEmail(String user_name, String user_email) throws Exception{
-        return mapper.getMemberByNameAndEmail(user_name,user_email);
+    public Member getMemberByNameAndEmail(String user_name, String user_email) throws Exception {
+        return mapper.getMemberByNameAndEmail(user_name, user_email);
     }
 
 
-    public Member  getMemberByIdAndEmail(String user_id, String user_email) throws Exception{
-        return mapper.getMemberByIdAndEmail(user_id,user_email);
+    public Member getMemberByIdAndEmail(String user_id, String user_email) throws Exception {
+        return mapper.getMemberByIdAndEmail(user_id, user_email);
     }
 
 
-    public void modifyPwd(Member member) throws Exception{
+    public void modifyPwd(Member member) throws Exception {
 
-
-        
 
         mapper.modifyPwd(member);
     }

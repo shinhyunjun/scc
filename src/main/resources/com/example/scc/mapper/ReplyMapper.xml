@@ -8,15 +8,15 @@
     <insert id="create">
 
         INSERT INTO myreply(scc_num, content, writer)
-           VALUES( #{scc_num}, #{content}, #{writer})
+        VALUES( #{scc_num}, #{content}, #{writer})
     </insert>
 
 
-    <select id="list" resultType="Reply" >
+    <select id="list" resultType="Reply">
 
- 	    SELECT rno, content, writer, regDate
-         FROM myreply
-         WHERE scc_num = #{scc_num}
+        SELECT rno, content, writer, regDate
+        FROM myreply
+        WHERE scc_num = #{scc_num}
 
 
     </select>
@@ -31,7 +31,6 @@
         delete from myreply
         where rno = #{rno}
     </delete>
-
 
 
 </mapper>

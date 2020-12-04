@@ -1,27 +1,27 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page session="false"%>
+<%@ page session="false" %>
 
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title></title>
 
 
     <style>
         @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+
         * {
             margin: 0;
             padding: 0;
 
         }
-
 
 
         h1 {
@@ -31,7 +31,7 @@
             color: #81F781;
             font-family: '맑은 고딕';
             display: block;
-            position:absolute;
+            position: absolute;
             margin-left: 10px;
             border: 1px solid #EFFBF5;
             background-color: #CEF6CE;
@@ -54,6 +54,7 @@
             text-decoration: none;
             color: #81F781;
         }
+
         div a {
             text-decoration: none;
             color: #181907
@@ -61,114 +62,124 @@
 
         h4 a {
             text-decoration: none;
-            color:black;
+            color: black;
         }
 
         div {
-            width:400px;
+            width: 400px;
             position: absolute;
             top: 130px;
             left: 10px;
 
         }
-        div input{
+
+        div input {
             margin-top: 10px;
-            width:200px;
+            width: 200px;
             height: 25px;
         }
 
-        .seoul{
+        .seoul {
             position: absolute;
             top: 260px;
             left: 10px;
         }
 
-        .choice{
+        .choice {
 
-            width:200px;
-            height:20px;
+            width: 200px;
+            height: 20px;
             position: absolute;
             top: 298px;
             left: 10px;
-            border:1px solid black;
+            border: 1px solid black;
             text-align: center;
             font-family: 'Malgun Gothic';
         }
 
-        #bx{
-            overflow:auto;
-            width:200px;
-            height:250px;
+        #bx {
+            overflow: auto;
+            width: 200px;
+            height: 250px;
             position: absolute;
             top: 320px;
             left: 10px;
-            border:1px solid black;
+            border: 1px solid black;
             text-align: center;
         }
 
 
-        #bx p{
-            color:black;
+        #bx p {
+            color: black;
 
         }
 
-        .reverse{
+        .reverse {
             background-color: #58ACFA;
         }
 
-        table{
+        table {
 
-            position:absolute;
-            top:150px;
-            right:100px;
+            position: absolute;
+            top: 150px;
+            right: 100px;
             border-collapse: collapse;
         }
 
-        table a{
+        table a {
             text-decoration: none;
             color: #088A4B;
         }
-        th, td{
-            border:1px solid black;
-            padding:5px;
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
         }
-        td{
+
+        td {
             font-size: 13px;
         }
-        #paging{
-            top:580px;
-            left:405px;
-            position:absolute;
+
+        #paging {
+            top: 580px;
+            left: 405px;
+            position: absolute;
         }
 
-        #paging li{
-            float:left;
+        #paging li {
+            float: left;
             list-style: none;
 
-            padding:6px;
+            padding: 6px;
         }
-        li a{
+
+        li a {
             text-decoration: none;
         }
-        #searchBtn{
+
+        #searchBtn {
             width: 60px;
-            border:0;
+            border: 0;
             outline: 0;
             background-color: #013ADF;
-            color:white;
+            color: white;
         }
 
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.js"> </script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
     <script>
 
-        $(document).ready(function(){
+        $(document).ready(function () {
 
             $('p').on({
-                mouseenter:function(){$(this).addClass('reverse')},
-                mouseleave:function(){$(this).removeClass('reverse')}
+                mouseenter: function () {
+                    $(this).addClass('reverse')
+                },
+                mouseleave: function () {
+                    $(this).removeClass('reverse')
+                }
             })
 
 
@@ -187,7 +198,7 @@
 <div class="choice">구 선택</div>
 
 <!-- 지역구 목록-->
-<div id="bx" >
+<div id="bx">
 
     <p><a href="/sccSearch?searchType=c&keyword=강남구"> 강남구 </a></p>
     <p><a href="/sccSearch?searchType=c&keyword=강동구">강동구</a></p>
@@ -217,17 +228,16 @@
 </div>
 
 
-
 <br><br><br><br>
 
-    <!-- 검색폼 만들기 -->
-    <form:form modelAttribute="pgrq" method="get" action="sccSearch${pgrq.toUriStringByPage(1)}" autocomplete="off">
-        <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
+<!-- 검색폼 만들기 -->
+<form:form modelAttribute="pgrq" method="get" action="sccSearch${pgrq.toUriStringByPage(1)}" autocomplete="off">
+    <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label"/>
 
-        <form:input path="keyword" />
+    <form:input path="keyword"/>
 
-        <button id='searchBtn'>검색</button>
-    </form:form>
+    <button id='searchBtn'>검색</button>
+</form:form>
 
 <table>
 
@@ -248,15 +258,15 @@
             <td align="center">${scc.scc_num}</td>
 
             <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
-            <td align="left"> <b><a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a> </b></td>
+            <td align="left"><b><a
+                    href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.scc_num}"> ${scc.scc_name} </a>
+            </b></td>
             <td align="center">${scc.scc_grade}</td>
             <td align="left">${scc.scc_address}</td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-
-
 
 
 <!-- 페이징 네비게이션 -->
@@ -266,7 +276,7 @@
     </c:if>
 
     <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="idx">
-        <a href="/sccSearch${pageRequest.toUriString(idx)}">${idx}</a>  <!-- 페이지 누를때 url-->
+        <a href="/sccSearch${pageRequest.toUriString(idx)}">${idx}</a> <!-- 페이지 누를때 url-->
     </c:forEach>
 
     <c:if test="${pagination.next && pagination.endPage > 0}">

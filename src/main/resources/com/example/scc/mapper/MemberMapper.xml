@@ -4,202 +4,200 @@
 
 <mapper namespace="com.example.scc.mapper.MemberMapper">
 
-	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 'name'.toString()">
-				AND user_name LIKE CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'id'.toString()">
-				AND user_id LIKE CONCAT('%', #{keyword}, '%')
-			</if>
-		</if>
-	</sql>
+    <sql id="search">
+        <if test="searchType != null">
+            <if test="searchType == 'name'.toString()">
+                AND user_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="searchType == 'id'.toString()">
+                AND user_id LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </if>
+    </sql>
 
 
-	<!-- 사용자 정의 resultMap 요소 정의 -->
-	<resultMap type="Member" id="memberMap">
-		<id property="user_no" column="user_no" />
-		<result property="user_no" column="user_no" />
-		<result property="user_id" column="user_id" />
-		<result property="user_password" column="user_password" />
-		<result property="user_name" column="user_name" />
-		<result property="user_phone" column="user_phone" />
-		<result property="user_email" column="user_email" />
-		<result property="user_sex" column="user_sex" />
-		<result property="user_birth" column="user_birth" />
+    <!-- 사용자 정의 resultMap 요소 정의 -->
+    <resultMap type="Member" id="memberMap">
+        <id property="user_no" column="user_no"/>
+        <result property="user_no" column="user_no"/>
+        <result property="user_id" column="user_id"/>
+        <result property="user_password" column="user_password"/>
+        <result property="user_name" column="user_name"/>
+        <result property="user_phone" column="user_phone"/>
+        <result property="user_email" column="user_email"/>
+        <result property="user_sex" column="user_sex"/>
+        <result property="user_birth" column="user_birth"/>
 
-		<result property="user_date" column="user_date" />
-		<result property="gr_no" column="gr_no" />
-		<result property="enabled" column="enabled" />
-		<result property="picture_url" column="picture_url" />
-		<collection property="authList" resultMap="authMap">
-		</collection>
-	</resultMap>
+        <result property="user_date" column="user_date"/>
+        <result property="gr_no" column="gr_no"/>
+        <result property="enabled" column="enabled"/>
+        <result property="picture_url" column="picture_url"/>
+        <collection property="authList" resultMap="authMap">
+        </collection>
+    </resultMap>
 
-	<resultMap type="MemberAuth" id="authMap">
-		<result property="user_no" column="user_no" />
-		<result property="auth" column="auth" />
-	</resultMap>
+    <resultMap type="MemberAuth" id="authMap">
+        <result property="user_no" column="user_no"/>
+        <result property="auth" column="auth"/>
+    </resultMap>
 
 
-
-	<insert id="create" useGeneratedKeys="true" keyProperty="user_no">
-		INSERT INTO member
-    		(
-    			user_id,
-    			user_password,
-    			user_name,
-    			user_birth,
-    			user_sex,
-    			user_phone,
-    			user_email,
-    			picture_url,
-    			user_date
-			)
-	   VALUES
-           (
-        		#{user_id},
-        		#{user_password},
-        		#{user_name},
-        		#{user_birth},
-        		#{user_sex},
-        		#{user_phone},
-        		#{user_email},
-        		#{picture_url},
-        		now()
-		   )
+    <insert id="create" useGeneratedKeys="true" keyProperty="user_no">
+        INSERT INTO member
+        (
+        user_id,
+        user_password,
+        user_name,
+        user_birth,
+        user_sex,
+        user_phone,
+        user_email,
+        picture_url,
+        user_date
+        )
+        VALUES
+        (
+        #{user_id},
+        #{user_password},
+        #{user_name},
+        #{user_birth},
+        #{user_sex},
+        #{user_phone},
+        #{user_email},
+        #{picture_url},
+        now()
+        )
     </insert>
 
     <insert id="createAuth">
-		INSERT INTO member_auth
-			 (
-			   user_no,
-			   auth
-			 )
-		VALUES
-			 (
-			   #{user_no},
-			   #{auth}
-			 )
-	</insert>
+        INSERT INTO member_auth
+        (
+        user_no,
+        auth
+        )
+        VALUES
+        (
+        #{user_no},
+        #{auth}
+        )
+    </insert>
 
-	<!-- 원본 이미지 표시 -->
-	<select id="getPicture" resultType="String">
-		SELECT picture_url
-		  FROM member
-		 WHERE user_no = #{user_no}
-	</select>
+    <!-- 원본 이미지 표시 -->
+    <select id="getPicture" resultType="String">
+        SELECT picture_url
+        FROM member
+        WHERE user_no = #{user_no}
+    </select>
 
-	<select id="readByUserId" resultMap="memberMap">
-		SELECT mem.user_no,
-			   mem.user_id,
-			   user_password,
-			   user_name,
-			   user_phone,
-			   user_email,
-			   user_sex,
-			   user_birth,
-			   user_date,
-			   gr_no,
-			   enabled,
-			   auth
-		  FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
-		 WHERE mem.user_id = #{user_id}
-	</select>
+    <select id="readByUserId" resultMap="memberMap">
+        SELECT mem.user_no,
+        mem.user_id,
+        user_password,
+        user_name,
+        user_phone,
+        user_email,
+        user_sex,
+        user_birth,
+        user_date,
+        gr_no,
+        enabled,
+        auth
+        FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
+        WHERE mem.user_id = #{user_id}
+    </select>
 
-	<select id="countAll" resultType="int">
-		SELECT count(*)
-		FROM member
-	</select>
+    <select id="countAll" resultType="int">
+        SELECT count(*)
+        FROM member
+    </select>
 
-	<select id="list" resultType="Member">
-		<![CDATA[
+    <select id="list" resultType="Member">
+        <![CDATA[
 		SELECT *
 		FROM member
 		WHERE user_no > 0
 		]]>
 
-		<include refid="search"></include>
+        <include refid="search"></include>
 
-		<![CDATA[
+        <![CDATA[
 		LIMIT #{pageStart}, #{sizePerPage}
 		]]>
-	</select>
+    </select>
 
-	<select id="count" resultType="int">
-		SELECT count(user_no)
-		FROM member
-		WHERE user_no > 0
+    <select id="count" resultType="int">
+        SELECT count(user_no)
+        FROM member
+        WHERE user_no > 0
 
-		<include refid="search"></include>
-	</select>
+        <include refid="search"></include>
+    </select>
 
-	<select id="read" resultMap="memberMap">
-		SELECT mem.user_no,
-		mem.user_id,
-		user_password,
-		user_name,
-		user_phone,
-		user_email,
-		user_sex,
-		user_birth,
-		user_date,
-		auth
-		FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
-		WHERE mem.user_no = #{user_no}
+    <select id="read" resultMap="memberMap">
+        SELECT mem.user_no,
+        mem.user_id,
+        user_password,
+        user_name,
+        user_phone,
+        user_email,
+        user_sex,
+        user_birth,
+        user_date,
+        auth
+        FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
+        WHERE mem.user_no = #{user_no}
 
-	</select>
+    </select>
 
-	<update id="update">
-		UPDATE member
-		SET
-		user_password = #{user_password},
-		user_email = #{user_email},
-		user_phone = #{user_phone}
-		WHERE user_no = #{user_no}
-	</update>
+    <update id="update">
+        UPDATE member
+        SET
+        user_password = #{user_password},
+        user_email = #{user_email},
+        user_phone = #{user_phone}
+        WHERE user_no = #{user_no}
+    </update>
 
-	<delete id="delete">
-		DELETE FROM member
-		WHERE user_no = #{user_no}
-	</delete>
+    <delete id="delete">
+        DELETE FROM member
+        WHERE user_no = #{user_no}
+    </delete>
 
-	<delete id="deleteAuth">
-		DELETE FROM member_auth
-		 WHERE user_no = #{userNo}
-	</delete>
+    <delete id="deleteAuth">
+        DELETE FROM member_auth
+        WHERE user_no = #{userNo}
+    </delete>
 
-	<update id="modifyUser" >
-		update member
-		set user_password = #{user_password}
-		where user_id = #{user_id} and user_email = #{user_email}
-	</update>
+    <update id="modifyUser">
+        update member
+        set user_password = #{user_password}
+        where user_id = #{user_id} and user_email = #{user_email}
+    </update>
 
-	<select id="idCheck" resultType="Member">
- 	select user_id
- 	from member
-     where user_id = #{user_id}
-	</select>
-
-
-	<select id="getMemberByNameAndEmail" resultType="Member">
- 	select *
- 	from member
-     where user_name = #{user_name} and user_email = #{user_email}
-	</select>
+    <select id="idCheck" resultType="Member">
+        select user_id
+        from member
+        where user_id = #{user_id}
+    </select>
 
 
-	<select id="getMemberByIdAndEmail" resultType="Member">
- 	select *
- 	from member
-     where user_id = #{user_id} and user_email = #{user_email}
-	</select>
+    <select id="getMemberByNameAndEmail" resultType="Member">
+        select *
+        from member
+        where user_name = #{user_name} and user_email = #{user_email}
+    </select>
 
 
+    <select id="getMemberByIdAndEmail" resultType="Member">
+        select *
+        from member
+        where user_id = #{user_id} and user_email = #{user_email}
+    </select>
 
-	<update id="modifyPwd">
- 	update member
- 	set user_password = #{user_password}
-    where user_id = #{user_id} and user_email = #{user_email}
-	</update>
+
+    <update id="modifyPwd">
+        update member
+        set user_password = #{user_password}
+        where user_id = #{user_id} and user_email = #{user_email}
+    </update>
 </mapper>

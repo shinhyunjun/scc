@@ -61,7 +61,6 @@ public class MemberController {
     private PasswordEncoder passwordEncoder;
 
 
-
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public void registerForm(Member member, Model model) throws Exception {
         model.addAttribute("member", member);
@@ -123,14 +122,14 @@ public class MemberController {
 
     @RequestMapping(value = "/read", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public void read(int user_no, Model model) throws Exception{
+    public void read(int user_no, Model model) throws Exception {
         model.addAttribute(service.read(user_no));
 
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public void modifyForm(int user_no, Model model) throws Exception{
+    public void modifyForm(int user_no, Model model) throws Exception {
 
         model.addAttribute(service.read(user_no));
 
@@ -138,14 +137,14 @@ public class MemberController {
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public String modify(Member member, RedirectAttributes rttr) throws Exception{
+    public String modify(Member member, RedirectAttributes rttr) throws Exception {
         String inputPassword = member.getUser_password();
         member.setUser_password(passwordEncoder.encode(inputPassword));
 
 
         MultipartFile pictureFile = member.getPicture();
 
-        if(pictureFile != null && pictureFile.getSize() > 0) {
+        if (pictureFile != null && pictureFile.getSize() > 0) {
             String createdFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
 
             member.setPicture_url(createdFilename);
@@ -160,7 +159,7 @@ public class MemberController {
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public String remove(int user_no, RedirectAttributes rttr) throws Exception{
+    public String remove(int user_no, RedirectAttributes rttr) throws Exception {
         service.remove(user_no);
 
         rttr.addFlashAttribute("msg", "SUCCESS");
@@ -171,14 +170,14 @@ public class MemberController {
 
     @RequestMapping(value = "/adminSetup", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String adminSetup() throws Exception{
+    public String adminSetup() throws Exception {
         return "user/adminSetup";
     }
 
 
     @RequestMapping(value = "/setup", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_MEMBER')")
-    public String setup(Model model, Authentication authentication) throws Exception{
+    public String setup(Model model, Authentication authentication) throws Exception {
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
@@ -187,7 +186,6 @@ public class MemberController {
 
         return "user/setup";
     }
-
 
 
     @ResponseBody
@@ -272,11 +270,10 @@ public class MemberController {
     }
 
 
-
     @RequestMapping(value = "/findId", method = RequestMethod.GET)
-    public void findAccount(Model model,Member member) throws Exception {
+    public void findAccount(Model model, Member member) throws Exception {
 
-          model.addAttribute("member",member);
+        model.addAttribute("member", member);
 
     }
 
@@ -284,16 +281,16 @@ public class MemberController {
     @RequestMapping(value = "/findId", method = RequestMethod.POST)
     public String findAccount2(String user_name, String user_email, Model model) throws Exception {
 
-       Member member =  service.getMemberByNameAndEmail(user_name,user_email);
+        Member member = service.getMemberByNameAndEmail(user_name, user_email);
 
-       if(member == null){
-            model.addAttribute("historyBack",true);
-           model.addAttribute("msg","해당 회원이 존재하지 않습니다.");
-           return "common/redirect";
-       }
+        if (member == null) {
+            model.addAttribute("historyBack", true);
+            model.addAttribute("msg", "해당 회원이 존재하지 않습니다.");
+            return "common/redirect";
+        }
 
-        model.addAttribute("historyBack",true);
-        model.addAttribute("msg",String.format("해당 회원의 아이디는 %s입니다.",member.getUser_id()));
+        model.addAttribute("historyBack", true);
+        model.addAttribute("msg", String.format("해당 회원의 아이디는 %s입니다.", member.getUser_id()));
 
 
         return "user/findIdOk";
@@ -304,14 +301,14 @@ public class MemberController {
     @RequestMapping(value = "/findPwd", method = RequestMethod.GET)
     public void findAccount3(Model model, Member member) throws Exception {
 
-        model.addAttribute("member",member);
+        model.addAttribute("member", member);
     }
 
-    @RequestMapping(value="/findPwd", method= RequestMethod.POST)
-    public String findAccount4 (Model model, String user_id, String user_email) throws Exception {
+    @RequestMapping(value = "/findPwd", method = RequestMethod.POST)
+    public String findAccount4(Model model, String user_id, String user_email) throws Exception {
 
 
-        Member member = service.getMemberByIdAndEmail(user_id,user_email);
+        Member member = service.getMemberByIdAndEmail(user_id, user_email);
 
         //String user_password = "111";
         String user_password = getTempPassword();  //무작위 비밀번호 생성
@@ -319,33 +316,33 @@ public class MemberController {
         member.setUser_password(passwordEncoder.encode(user_password));
 
         service.modifyPwd(member);
-        
+
 
         try {
             MimeMessage msg = mailSender.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true, "UTF-8");
 
-            messageHelper.setSubject(user_id+"님 비밀번호 찾기 메일입니다.");
-            messageHelper.setText("비밀번호는 "+user_password+" 입니다.");
+            messageHelper.setSubject(user_id + "님 비밀번호 찾기 메일입니다.");
+            messageHelper.setText("비밀번호는 " + user_password + " 입니다.");
             messageHelper.setTo(user_email);
-            msg.setRecipients(MimeMessage.RecipientType.TO , InternetAddress.parse(user_email));
+            msg.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(user_email));
             mailSender.send(msg);
 
-        }catch(MessagingException e) {
+        } catch (MessagingException e) {
             System.out.println("MessagingException");
             e.printStackTrace();
         }
 
         // mv.setViewName("user/emailSuccess");
         // return mv;
-        model.addAttribute("msg","이메일이 정상적으로 발송되었습니다");
+        model.addAttribute("msg", "이메일이 정상적으로 발송되었습니다");
         return "user/emailSuccess";
 
     }
 
-    public String getTempPassword(){
-        char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
-                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+    public String getTempPassword() {
+        char[] charSet = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
         String str = "";
 
@@ -367,6 +364,6 @@ public class MemberController {
     @RequestMapping(value = "/modifyPwd", method = RequestMethod.GET)
     public String modifyPwd2(Model model, Member member) throws Exception {
 
-            return "user/modifyPwd";
+        return "user/modifyPwd";
     }
 }

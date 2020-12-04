@@ -80,26 +80,18 @@ public class scc_pr_Controller {
 
 
     @RequestMapping(value = "/sccSearch_read", method = RequestMethod.GET)
-    public void read(int scc_num, @ModelAttribute("pgrq") PageRequest pageRequest, Model model, Authentication authentication) throws Exception {
+    public void read(int scc_num, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
         scc_pr scc_pr = service.read(scc_num);
 
         model.addAttribute("scc_pr", scc_pr);
 
+
         int count = comService.countReply(scc_num);
-        model.addAttribute("count",count);
-
-     //   CustomUser customUser = (CustomUser) authentication.getPrincipal();
-     //   Member member = customUser.getMember();
-
-     //   model.addAttribute("member",member);
+        model.addAttribute("count", count);
 
 
     }
-
-
-
-
 
 
 }

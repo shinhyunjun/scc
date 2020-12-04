@@ -34,7 +34,7 @@ public interface MemberService {
 
     public Member idCheck(String user_id) throws Exception;
 
-    public Member  getMemberByIdAndEmail(String user_id, String user_email) throws Exception;
+    public Member getMemberByIdAndEmail(String user_id, String user_email) throws Exception;
 
     public Member getMemberByNameAndEmail(String user_name, String user_email) throws Exception;
 
