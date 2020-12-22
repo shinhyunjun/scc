@@ -30,6 +30,13 @@ public interface NoticeMapper {
     public int count(PageRequest pageRequest) throws Exception;
 
 
+
+
+
+
+
+
+
     //첨부파일 추가
     public void addAttach(String fullName) throws Exception;
 

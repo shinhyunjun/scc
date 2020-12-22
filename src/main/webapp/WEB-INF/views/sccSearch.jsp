@@ -121,9 +121,10 @@
         table {
 
             position: absolute;
-            top: 150px;
+            top: 160px;
             right: 100px;
             border-collapse: collapse;
+
         }
 
         table a {

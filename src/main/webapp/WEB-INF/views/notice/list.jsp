@@ -116,7 +116,6 @@
 
 <jsp:include page="../menubar.jsp"/>
 
-
 <!-- 검색폼 만들기 -->
 <form:form modelAttribute="pgrq" method="get" action="list${pgrq.toUriStringByPage(1)}" autocomplete="off">
 
@@ -163,9 +162,9 @@
             <c:otherwise>
                 <c:forEach items="${list}" var="notice" varStatus="status">
                     <tr>
-                        <td align="center">${pagination.totalCount- ((pageRequest.page - 1) * pagination.displayPageNum + status.index)}</td>
-                        <td align="left"><a
-                                href="/notice/read${pgrq.toUriString(pgrq.page)}&boardNo=${notice.boardNo}">${notice.title}</a>
+                        <td align="center">${pagination.totalCount- ((pageRequest.page - 1) * pagination.displayPageNum + status.index) +1}</td>
+                        <td align="left">
+                            <a href="/notice/read${pgrq.toUriString(pgrq.page)}&boardNo=${notice.boardNo}">${notice.title}</a>
                         </td>
                         <td align="center">${notice.writer}</td>
                         <td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.regDate}"/></td>

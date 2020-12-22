@@ -8,7 +8,7 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <html>
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
     <title>read</title>
 
     <style>
@@ -136,8 +136,6 @@
 
 
 <jsp:include page="menubar.jsp"/>
-
-
 <!-- 현재 페이지 번호, 페이징 크기, 검색유형, 검색어를 숨겨진 필드 요소를 사용하여 전달-->
 <input type="hidden" name="page" value="${pgrq.page}">
 <input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
@@ -148,6 +146,13 @@
 <div id="d1">
     <h4>${scc_pr.scc_name}</h4>
     <h5>(${scc_pr.scc_grade})</h5>
+
+
+    <sec:authorize access="isAuthenticated()">
+       <!-- <p id="star" style="text-decoration: none; font-size: 30px; color:blue;">☆</p> -->
+        <button type="button" id="addCart_btn">스크랩</button>
+    </sec:authorize><br>
+
     <button onclick="window.open('${scc_pr.detail_info}')"> 상세정보</button>
 </div>
 
@@ -491,29 +496,35 @@
     })
 </script>
 
+
+
 <script>
+    $(document).ready(function(){
 
-    window.onload = function () {
+        $("#star").click(function () {
 
-        var btn1 = document.getElementById("btn1");
-        var btn2 = document.getElementById("btn2");
-        var cnt1 = document.getElementById("cnt1");
-        var cnt2 = document.getElementById("cnt2");
+            var a = confirm('추천하시겠습니까?');
 
-        btn1.onclick = function () {
-            cnt1.innerHTML = Number(cnt1.innerHTML) + 1;
+            if(a == true) {
+                //$('#star').val('★');
+                alert(1);
+            }
+        })
 
-        };
+    })
 
-        btn2.onclick = function () {
-            cnt2.innerHTML = Number(cnt2.innerHTML) + 1;
+    var sccNum = '${scc_pr.scc_num}'; //게시글 번호
+    $("#addCart_btn").click(function(){
 
-        };
-    }
-
-
+        $.ajax({
+            url:"/cart/insert",
+            type:"get",
+            data: {'sccNum': sccNum},
+            success: function(){
+                alert("카트담기 성공");
+            }
+        })
+    })
 </script>
-
-
 </body>
 </html>

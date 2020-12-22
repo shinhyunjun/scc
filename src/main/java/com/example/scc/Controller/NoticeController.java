@@ -91,21 +91,6 @@ public class NoticeController {
         model.addAttribute(notice);
     }
 
-/*
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String search(String title, Model model) throws Exception {
-
-        Notice notice = new Notice();
-        notice.setTitle(title);
-
-        model.addAttribute("notice", notice);
-
-        model.addAttribute("list", service.search(title));
-
-        return "notice/list";
-    }
-*/
-
     @RequestMapping(value = "/read", method = RequestMethod.GET)
     public String read(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 

@@ -101,7 +101,29 @@
 
 
 <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+
 <script>
+    var formObj = $("#member");
+
+    $("#btnRegister").on("click", function () {
+
+        var user_id = $('#user_id').val();
+        var user_email = $('#user_email').val();
+
+        if(user_id == ''){
+
+            alert('아이디를 입력하세요.');
+            return false;
+        }
+        else if(user_email == ''){
+
+            alert('이메일을 입력하세요.');
+            return false;
+        }
+        else{
+            formObj.submit();
+        }
+    })
 
 </script>
 </body>

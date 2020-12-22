@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
+                //로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제해 주도록 한다.
                 .deleteCookies("remember-me", "JSESSION_ID");
 
 

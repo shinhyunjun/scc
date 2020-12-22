@@ -228,10 +228,8 @@
         <tr>
             <td width="50" align="center">내용</td>
 
-
             <td width="550" align="center"><form:textarea path="content" name="content" id="editor"
                                                           class="ck-editor__editable"/></td>
-
 
         <tr>
 
