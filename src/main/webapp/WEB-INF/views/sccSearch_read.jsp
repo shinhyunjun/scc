@@ -230,11 +230,12 @@
 </script>
 <br>
 
+<!--
 <div>
     <a href="#" onclick="if(confirm('추천하시겠습니까?') == false) {return false;}">좋아요</a>
     <sapn id="cnt1" style="color: red; font-weight: normal;">0</sapn>
 </div>
-
+-->
 
 <br>
 <div class="full">
