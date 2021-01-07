@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.scc.mapper.CartMapper">
+
+    <insert id="addCart">
+
+        INSERT INTO cart(userNo,sccNum)
+        VALUES(#{userNo}, #{sccNum})
+    </insert>
+
+
+    <select id="list" resultType="cart">
+       SELECT scc_info.scc_name, scc_info.scc_grade, scc_info.scc_address, cart.sccNum
+        FROM cart, scc_info
+        where cart.userNo = #{userNo} and cart.sccNum = scc_info.scc_num;
+    </select>
+
+    <delete id="deleteCart" >
+        delete from cart
+        where cartNum = #{cartNum} and userNo = #{userNo}
+    </delete>
+</mapper>

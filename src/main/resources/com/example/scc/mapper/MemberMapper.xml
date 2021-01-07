@@ -152,9 +152,15 @@
     <update id="update">
         UPDATE member
         SET
-        user_password = #{user_password},
         user_email = #{user_email},
         user_phone = #{user_phone}
+        WHERE user_no = #{user_no}
+    </update>
+
+    <update id="modifyPwd">
+        UPDATE member
+        SET
+        user_password = #{user_password}
         WHERE user_no = #{user_no}
     </update>
 
@@ -194,10 +200,11 @@
         where user_id = #{user_id} and user_email = #{user_email}
     </select>
 
-
-    <update id="modifyPwd">
+    <!--
+    <update id="">
         update member
         set user_password = #{user_password}
         where user_id = #{user_id} and user_email = #{user_email}
     </update>
+    -->
 </mapper>

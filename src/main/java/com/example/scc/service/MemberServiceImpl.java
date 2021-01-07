@@ -126,9 +126,8 @@ public class MemberServiceImpl implements MemberService {
         return mapper.getMemberByIdAndEmail(user_id, user_email);
     }
 
-
+    @Override
     public void modifyPwd(Member member) throws Exception {
-
 
         mapper.modifyPwd(member);
     }

@@ -254,9 +254,9 @@
 
 
     <tbody>
-    <c:forEach items="${list}" var="scc">
+    <c:forEach items="${list}" var="scc" varStatus="status">
         <tr>
-            <td align="center">${scc.scc_num}</td>
+            <td align="center">${pgrq.sizePerPage * (pgrq.page - 1)  + status.index + 1}</td>
 
             <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
             <td align="left"><b><a

@@ -315,7 +315,7 @@ public class MemberController {
 
         member.setUser_password(passwordEncoder.encode(user_password));
 
-        service.modifyPwd(member);
+        //service.modifyPwd(member);
 
 
         try {
@@ -355,15 +355,20 @@ public class MemberController {
     }
 
 
-    @RequestMapping(value = "/modifyPwd", method = RequestMethod.POST)
-    public void modifyPwd(Model model, Member member) throws Exception {
-
-
-    }
-
     @RequestMapping(value = "/modifyPwd", method = RequestMethod.GET)
-    public String modifyPwd2(Model model, Member member) throws Exception {
+    public void modifyPwdForm(Model model, int user_no) throws Exception {
+        Member member = service.read(user_no);
 
-        return "user/modifyPwd";
+        model.addAttribute(member);
     }
+
+    @RequestMapping(value = "/modifyPwd", method = RequestMethod.POST)
+    public String modifyPwd(RedirectAttributes rttr, Member member) throws Exception {
+        service.modifyPwd(member);
+
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+        return "redirect:/";
+    }
+
 }

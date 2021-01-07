@@ -158,11 +158,10 @@
                 </tr>
             </c:when>
 
-
             <c:otherwise>
                 <c:forEach items="${list}" var="notice" varStatus="status">
                     <tr>
-                        <td align="center">${pagination.totalCount- ((pageRequest.page - 1) * pagination.displayPageNum + status.index) +1}</td>
+                        <td align="center">${pgrq.sizePerPage * (pgrq.page - 1)  + status.index + 1}</td>
                         <td align="left">
                             <a href="/notice/read${pgrq.toUriString(pgrq.page)}&boardNo=${notice.boardNo}">${notice.title}</a>
                         </td>
