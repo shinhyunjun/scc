@@ -58,6 +58,8 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Override
     public void modify(Member member) throws Exception {
+
+
         mapper.update(member);
 
 
@@ -111,5 +113,12 @@ public class MemberServiceImpl implements MemberService {
         mapper.modifyPwd(member);
     }
 
+    /*
+    @Override
+    public void deleteImg(int user_no) throws Exception{
+        mapper.deleteImg(user_no);
+    }
+
+     */
 
 }

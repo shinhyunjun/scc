@@ -12,9 +12,9 @@ import java.util.Map;
 
 public interface MemberService {
 
-    // 등록 처리
+    // 회원 가입
     public void register(Member member) throws Exception;
-
+    // 회원 리스트 출력(관리 페이지)
     public List<Member> list(PageRequest pageRequest) throws Exception;
 
     public int count(PageRequest pageRequest) throws Exception;
@@ -39,4 +39,5 @@ public interface MemberService {
     public Member getMemberByNameAndEmail(String user_name, String user_email) throws Exception;
 
     public void modifyPwd(Member member) throws Exception;
+
 }

@@ -269,7 +269,7 @@
 </script>
 
 <script type="text/javascript">
-
+    
     function uploadImgPreview() {
 
         let fileInfo = document.getElementById("upImgFile").files[0];

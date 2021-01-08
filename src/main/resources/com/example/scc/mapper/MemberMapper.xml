@@ -152,7 +152,7 @@
     <update id="update">
         UPDATE member
         SET
-
+        picture_url = #{picture_url},
         user_email = #{user_email},
         user_phone = #{user_phone}
         WHERE user_no = #{user_no}
@@ -174,11 +174,10 @@
         WHERE user_no = #{userNo}
     </delete>
 
-    <update id="modifyUser">
-        update member
-        set user_password = #{user_password}
-        where user_id = #{user_id} and user_email = #{user_email}
-    </update>
+    <delete id="deleteImg">
+        DELETE FROM member
+        WHERE user_no = #{user_no}
+    </delete>
 
     <select id="idCheck" resultType="Member">
         select user_id

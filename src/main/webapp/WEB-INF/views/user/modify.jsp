@@ -33,6 +33,8 @@
     <table>
         <tr>
             <td width="80">프로필사진</td>
+            <td><img src="/user/picture?user_no=${member.user_no}" id="thumbnailImg" width="100"/></td>
+            <td><form:input path="picture" type="file" id="upImgFile" onchange="uploadImgPreview();"/></td>
         </tr>
         <tr>
             <td width="70">아이디</td>

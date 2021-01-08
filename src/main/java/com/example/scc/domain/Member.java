@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-
 public class Member {
 
     private int user_no;

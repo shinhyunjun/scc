@@ -136,17 +136,21 @@ public class MemberController {
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public String modify(Member member, RedirectAttributes rttr) throws Exception {
+    public String modify(Member member, BindingResult result, RedirectAttributes rttr) throws Exception {
+        if (result.hasErrors()) {
+            return "user/register";
+        }
 
         int user_no = member.getUser_no();
 
         MultipartFile pictureFile = member.getPicture();
 
-        if (pictureFile != null && pictureFile.getSize() > 0) {
-            String createdFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
 
-            member.setPicture_url(createdFilename);
-        }
+        String createdFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
+
+        member.setPicture_url(createdFilename);
+
+
 
         service.modify(member);
 
