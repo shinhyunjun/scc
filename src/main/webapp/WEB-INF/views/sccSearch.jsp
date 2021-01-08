@@ -252,7 +252,6 @@
     </tr>
     </thead>
 
-
     <tbody>
     <c:forEach items="${list}" var="scc" varStatus="status">
         <tr>

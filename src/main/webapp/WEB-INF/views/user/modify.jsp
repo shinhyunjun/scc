@@ -28,22 +28,15 @@
 
 <form:form modelAttribute="member" action="modify">
 
-    <form:hidden path="user_no"/>
-    <form:hidden path="picture_url"/>
+    <form:hidden path="user_no" id="user_no"/>
 
     <table>
         <tr>
-            <td>프로필사진</td>
-            <td><img src="/user/picture?user_no=${member.user_no}" id="thumbnailImg" width="100"/></td>
-            <td><form:input path="picture" type="file" id="upImgFile" onchange="uploadImgPreview();"/></td>
+            <td width="80">프로필사진</td>
         </tr>
         <tr>
             <td width="70">아이디</td>
             <td width="350"><form:input path="user_id" readonly="true"/></td>
-        </tr>
-        <tr>
-            <td width="70">비밀번호</td>
-            <td width="350"><form:password path="user_password"/></td>
         </tr>
         <tr>
             <td width="70">이름</td>
@@ -65,23 +58,11 @@
             <td width="70">생일</td>
             <td width="350"><form:input path="user_birth" readonly="true"/></td>
         </tr>
-
-        <tr>
-            <td width="70">권한</td>
-            <td width="350">
-                <form:select path="authList[0].auth">
-                    <form:option value="" label="=== 선택해 주세요 ==="/>
-                    <form:option value="ROLE_MEMBER" label="회원"/>
-                    <form:option value="ROLE_ADMIN" label="관리자"/>
-                </form:select>
-            </td>
-        </tr>
-
     </table>
 </form:form>
 
 <div style="margin-left: 7px;">
-    <button type="submit" id="btnModify">정보수정</button>
+    <button type="submit" id="btnModify">수정</button>
     <button type="submit" id="btnList">목록</button>
 </div>
 
@@ -95,13 +76,15 @@
 
         var formObj = $("#member");
 
+        var userNoVal = $('#user_no').val();
+
         $("#btnModify").on("click", function () {
             alert("수정이 완료되었습니다.");
             formObj.submit();
         });
 
         $("#btnList").on("click", function () {
-            self.location = "list";
+            self.location = "/user/read?user_no=" + userNoVal;
         });
 
     });

@@ -76,10 +76,7 @@ public class MemberController {
         String inputPassword = member.getUser_password();
         member.setUser_password(passwordEncoder.encode(inputPassword));
 
-        //  service.register(member);
-
         rttr.addFlashAttribute("userName", member.getUser_name());
-
 
         //사진 url
         MultipartFile pictureFile = member.getPicture();
@@ -131,16 +128,17 @@ public class MemberController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
     public void modifyForm(int user_no, Model model) throws Exception {
 
-        model.addAttribute(service.read(user_no));
+        Member member = service.read(user_no);
+        model.addAttribute(member);
+
 
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
     public String modify(Member member, RedirectAttributes rttr) throws Exception {
-        String inputPassword = member.getUser_password();
-        member.setUser_password(passwordEncoder.encode(inputPassword));
 
+        int user_no = member.getUser_no();
 
         MultipartFile pictureFile = member.getPicture();
 
@@ -154,7 +152,7 @@ public class MemberController {
 
         rttr.addFlashAttribute("msg", "SUCCESS");
 
-        return "redirect:/user/read?user_no=" + member.getUser_no();
+        return "redirect:/user/read?user_no=" + user_no;
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -232,7 +230,6 @@ public class MemberController {
                 return MediaType.IMAGE_PNG;
             }
         }
-
         return null;
     }
 
@@ -360,10 +357,14 @@ public class MemberController {
         Member member = service.read(user_no);
 
         model.addAttribute(member);
+
     }
 
     @RequestMapping(value = "/modifyPwd", method = RequestMethod.POST)
     public String modifyPwd(RedirectAttributes rttr, Member member) throws Exception {
+        String inputPassword = member.getUser_password();
+        member.setUser_password(passwordEncoder.encode(inputPassword));
+
         service.modifyPwd(member);
 
         rttr.addFlashAttribute("msg", "SUCCESS");
