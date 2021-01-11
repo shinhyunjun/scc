@@ -68,9 +68,7 @@ public class MemberController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@Validated Member member, BindingResult result, Model model, RedirectAttributes rttr) throws Exception {
-        if (result.hasErrors()) {
-            return "user/register";
-        }
+
 
         // 비밀번호 암호화
         String inputPassword = member.getUser_password();
@@ -126,30 +124,27 @@ public class MemberController {
 
     @RequestMapping(value = "/modify", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public void modifyForm(int user_no, Model model) throws Exception {
+    public String modifyForm(int user_no, Model model) throws Exception {
 
         Member member = service.read(user_no);
         model.addAttribute(member);
 
-
+        return "user/modify";
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
     public String modify(Member member, BindingResult result, RedirectAttributes rttr) throws Exception {
-        if (result.hasErrors()) {
-            return "user/register";
-        }
 
         int user_no = member.getUser_no();
 
         MultipartFile pictureFile = member.getPicture();
 
+        if (pictureFile != null && pictureFile.getSize() > 0) {
+            String createdPictureFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
 
-        String createdFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
-
-        member.setPicture_url(createdFilename);
-
+            member.setPicture_url(createdPictureFilename);
+        }
 
 
         service.modify(member);

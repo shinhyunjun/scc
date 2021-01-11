@@ -59,7 +59,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void modify(Member member) throws Exception {
 
-
         mapper.update(member);
 
 
@@ -89,12 +88,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public String getPicture(Integer user_no) throws Exception {
         return mapper.getPicture(user_no);
-    }
-
-    @Override
-    public void modifyUser(Member member) throws Exception {
-
-        mapper.modifyUser(member);
     }
 
 

@@ -37,9 +37,6 @@ public interface MemberMapper {
 
     public String getPicture(Integer itemId) throws Exception;
 
-    public void modifyUser(Member member) throws Exception;
-
-
     public Member idCheck(String user_id) throws Exception;
 
     public Member getMemberByNameAndEmail(@Param("user_name") String user_name, @Param("user_email") String user_email) throws Exception;

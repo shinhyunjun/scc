@@ -30,8 +30,6 @@ public interface MemberService {
     // 원본 이미지 표시
     public String getPicture(Integer user_no) throws Exception;
 
-    public void modifyUser(Member member) throws Exception;
-
     public Member idCheck(String user_id) throws Exception;
 
     public Member getMemberByIdAndEmail(String user_id, String user_email) throws Exception;

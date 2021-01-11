@@ -38,7 +38,9 @@ public class Member {
     private int gr_no;
     private char enabled;
 
+    //이미지 파일
     private MultipartFile picture;
+    //이미지 경로
     private String picture_url;
 
     private List<MemberAuth> authList;

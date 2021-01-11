@@ -101,6 +101,7 @@
         user_date,
         gr_no,
         enabled,
+        picture_url,
         auth
         FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
         WHERE mem.user_id = #{user_id}
@@ -143,6 +144,7 @@
         user_sex,
         user_birth,
         user_date,
+        picture_url,
         auth
         FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
         WHERE mem.user_no = #{user_no}
