@@ -42,7 +42,7 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-
+//commit 확인
 @Controller
 @RequestMapping("/user")
 public class MemberController {
@@ -183,11 +183,11 @@ public class MemberController {
         Member member = customUser.getMember();
 
         model.addAttribute("member", member);
-
+        
         return "user/setup";
     }
-
-
+    
+    
     @ResponseBody
     @RequestMapping(value = "/idCheck")
     public int postIdCheck(HttpServletRequest req) throws Exception {
