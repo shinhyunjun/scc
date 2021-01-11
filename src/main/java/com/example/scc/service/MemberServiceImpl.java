@@ -127,8 +127,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
+    @Override
     public void modifyPwd(Member member) throws Exception {
-
 
         mapper.modifyPwd(member);
     }

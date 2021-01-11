@@ -152,7 +152,7 @@
     <update id="update">
         UPDATE member
         SET
-        user_password = #{user_password},
+        picture_url = #{picture_url},
         user_email = #{user_email},
         user_phone = #{user_phone}
         WHERE user_no = #{user_no}
@@ -196,8 +196,8 @@
 
 
     <update id="modifyPwd">
-        update member
-        set user_password = #{user_password}
-        where user_id = #{user_id} and user_email = #{user_email}
+        UPDATE member
+        SET user_password = #{user_password}
+        WHERE user_no = #{user_no}
     </update>
 </mapper>

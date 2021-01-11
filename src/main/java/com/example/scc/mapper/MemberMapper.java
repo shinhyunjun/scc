@@ -47,6 +47,7 @@ public interface MemberMapper {
     public Member getMemberByIdAndEmail(@Param("user_id") String user_id, @Param("user_email") String user_email) throws Exception;
 
     public void modifyPwd(Member member) throws Exception;
+
 }
 
 

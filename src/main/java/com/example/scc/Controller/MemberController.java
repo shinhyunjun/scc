@@ -42,7 +42,6 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-//commit 확인
 @Controller
 @RequestMapping("/user")
 public class MemberController {
@@ -138,8 +137,6 @@ public class MemberController {
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
     public String modify(Member member, RedirectAttributes rttr) throws Exception {
-        String inputPassword = member.getUser_password();
-        member.setUser_password(passwordEncoder.encode(inputPassword));
 
 
         MultipartFile pictureFile = member.getPicture();
@@ -354,16 +351,23 @@ public class MemberController {
         return str;
     }
 
+    @RequestMapping(value = "/modifyPwd", method = RequestMethod.GET)
+    public void modifyPwdForm(Model model, int user_no) throws Exception {
+        Member member = service.read(user_no);
 
-    @RequestMapping(value = "/modifyPwd", method = RequestMethod.POST)
-    public void modifyPwd(Model model, Member member) throws Exception {
-
+        model.addAttribute(member);
 
     }
 
-    @RequestMapping(value = "/modifyPwd", method = RequestMethod.GET)
-    public String modifyPwd2(Model model, Member member) throws Exception {
+    @RequestMapping(value = "/modifyPwd", method = RequestMethod.POST)
+    public String modifyPwd(RedirectAttributes rttr, Member member) throws Exception {
+        String inputPassword = member.getUser_password();
+        member.setUser_password(passwordEncoder.encode(inputPassword));
 
-        return "user/modifyPwd";
+        service.modifyPwd(member);
+
+        rttr.addFlashAttribute("msg", "SUCCESS");
+
+        return "redirect:/";
     }
 }

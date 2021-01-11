@@ -42,10 +42,13 @@
             <td width="350"><form:input path="user_id" readonly="true"/></td>
         </tr>
         <tr>
+<<<<<<< HEAD
             <td width="70">비밀번호</td>
             <td width="350"><form:password path="user_password"/></td>
         </tr>
         <tr>
+=======
+>>>>>>> origin/master
             <td width="70">이름</td>
             <td width="350"><form:input path="user_name" readonly="true"/></td>
         </tr>
@@ -66,6 +69,7 @@
             <td width="350"><form:input path="user_birth" readonly="true"/></td>
         </tr>
 
+<<<<<<< HEAD
         <tr>
             <td width="70">권한</td>
             <td width="350">
@@ -77,11 +81,17 @@
             </td>
         </tr>
 
+=======
+>>>>>>> origin/master
     </table>
 </form:form>
 
 <div style="margin-left: 7px;">
+<<<<<<< HEAD
     <button type="submit" id="btnModify">정보수정</button>
+=======
+    <button type="submit" id="btnModify">수정</button>
+>>>>>>> origin/master
     <button type="submit" id="btnList">목록</button>
 </div>
 
@@ -95,13 +105,23 @@
 
         var formObj = $("#member");
 
+<<<<<<< HEAD
         $("#btnModify").on("click", function () {
             alert("수정이 완료되었습니다.");
+=======
+        var userNoVal = $('#user_no').val();
+
+        $("#btnModify").on("click", function () {
+>>>>>>> origin/master
             formObj.submit();
         });
 
         $("#btnList").on("click", function () {
+<<<<<<< HEAD
             self.location = "list";
+=======
+            self.location = "/user/read?user_no=" + userNoVal;
+>>>>>>> origin/master
         });
 
     });
