@@ -19,5 +19,9 @@ public interface scc_pr_mapper {
 
     public scc_pr read(int scc_num) throws Exception;
 
+    // public int count(String scc_district) throws Exception;
+
+   // public int countDistrict(String scc_district) throws Exception;
+
 
 }

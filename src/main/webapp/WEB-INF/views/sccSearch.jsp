@@ -198,10 +198,11 @@
 <h5 class="seoul">서울특별시</h5>
 <div class="choice">구 선택</div>
 
-<!-- 지역구 목록-->
+
+<!-- 지역구 목록
 <div id="bx">
 
-    <p><a href="/sccSearch?searchType=c&keyword=강남구"> 강남구 </a></p>
+    <p><a href="/sccSearch?searchType=c&keyword=강남구">강남구</a></p>
     <p><a href="/sccSearch?searchType=c&keyword=강동구">강동구</a></p>
     <p><a href="/sccSearch?searchType=c&keyword=강북구">강북구</a></p>
     <p><a href="/sccSearch?searchType=c&keyword=강서구">강서구</a></p>
@@ -226,6 +227,15 @@
     <p><a href="/sccSearch?searchType=c&keyword=종로구">종로구</a></p>
     <p><a href="/sccSearch?searchType=c&keyword=중구">중구</a></p>
     <p><a href="/sccSearch?searchType=c&keyword=중랑구">중랑구</a></p>
+</div>
+-->
+
+<div id="bx">
+<c:forEach items="${list2}" var="list2" varStatus="status">
+
+    <p><span><a href="/sccSearch?searchType=c&keyword=${list2.scc_district}">${list2.scc_district}</a>  ${list2.cnt} </span></p>
+
+</c:forEach>
 </div>
 
 

@@ -44,5 +44,12 @@ public class sccprServiceImpl implements sccprService {
         return mapper.list2();
     }
 
+    /*
+    @Override
+    public int countDistrict(String scc_district) throws Exception{
+        return mapper.countDistrict(scc_district);
+    }
+    */
+
 
 }

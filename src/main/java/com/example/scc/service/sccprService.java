@@ -21,4 +21,5 @@ public interface sccprService {
     public scc_pr read(int scc_num) throws Exception;
 
 
+   // public int countDistrict(String scc_district) throws Exception;
 }

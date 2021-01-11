@@ -30,7 +30,7 @@ public class scc_pr_Controller {
 
 
     @RequestMapping(value = "/sccSearch", method = RequestMethod.GET)
-    public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+    public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model, String scc_district) throws Exception {
 
 
         model.addAttribute("sccPr", new scc_pr());
@@ -38,6 +38,7 @@ public class scc_pr_Controller {
         // 뷰에 페이징 처리를 한 게시글 목록을 전달한다.
         model.addAttribute("list", service.list(pageRequest));
 
+        model.addAttribute("list2", service.list2());
 
         // 페이징 네비게이션 정보를 뷰에 전달한다.
         Pagination pagination = new Pagination();
@@ -48,6 +49,10 @@ public class scc_pr_Controller {
 
         model.addAttribute("pagination", pagination);
         model.addAttribute("pageRequest", pageRequest);
+
+        // int count2 = service.countDistrict(scc_district);
+        // model.addAttribute("count2", count2);
+
 
         // 검색유형의 코드명과 코드값을 정의한다.
         List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>();
@@ -86,7 +91,7 @@ public class scc_pr_Controller {
 
         model.addAttribute("scc_pr", scc_pr);
 
-
+        //댓글 개수
         int count = comService.countReply(scc_num);
         model.addAttribute("count", count);
 

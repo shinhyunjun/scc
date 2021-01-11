@@ -6,6 +6,7 @@
 
 <mapper namespace="com.example.scc.mapper.scc_pr_mapper">
 
+
     <!-- 검색 조건을 나타내는 쿼리 조각 -->
     <sql id="search">
         <if test="searchType != null">
@@ -47,12 +48,16 @@
     <!-- 지역구 목록 -->
     <select id="list2" resultType="scc_pr">
         <![CDATA[
-		SELECT DISTINCT scc_district
-		  FROM scc_info
-		 WHERE scc_num > 0
-	  ORDER BY scc_district ASC
+
+        select distinct scc_district, count(*) as cnt
+        from scc_info
+        group by scc_district
+        having count(*) > 1
+        ORDER BY scc_district ASC
+
 		]]>
     </select>
+
 
 
     <!-- 게시글 전체 건수를 조회 -->
@@ -75,5 +80,13 @@
         WHERE scc_num = #{scc_num}
     </select>
 
+    <!--
+    <select id="countDistrict" resultType="int">
+
+      SELECT COUNT(*)
+        FROM scc_info
+        WHERE scc_district = #{scc_district}
+    </select>
+    -->
 
 </mapper>
