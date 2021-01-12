@@ -233,7 +233,7 @@
 <div id="bx">
 <c:forEach items="${list2}" var="list2" varStatus="status">
 
-    <p><span><a href="/sccSearch?searchType=c&keyword=${list2.scc_district}">${list2.scc_district}</a>  ${list2.cnt} </span></p>
+    <p style="color: blue;"><span><a style="color: black;" href="/sccSearch?searchType=c&keyword=${list2.scc_district}">${list2.scc_district}</a>  ${list2.cnt} </span></p>
 
 </c:forEach>
 </div>

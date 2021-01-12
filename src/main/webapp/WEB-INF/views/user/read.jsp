@@ -115,7 +115,10 @@
         });
 
         $("#btnPwd").on("click", function () {
-            self.location = "modifyPwd";
+            var userNo = $("#user_no");
+            var userNoVal = userNo.val();
+
+            self.location = "modifyPwd?user_no=" + userNoVal;
         });
 
     })

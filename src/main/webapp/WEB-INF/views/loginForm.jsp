@@ -86,6 +86,7 @@
 <body>
 <jsp:include page="menubar.jsp"/>
 
+
 <h2>
     <c:out value="${error}"/>
 </h2>
