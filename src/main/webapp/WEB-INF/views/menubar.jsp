@@ -24,7 +24,7 @@
 
     h1 a {
         text-decoration: none;
-        color: #81F781;
+        color: white;
     }
 
     #nav_menu ul {

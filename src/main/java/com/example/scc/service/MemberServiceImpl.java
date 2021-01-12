@@ -55,33 +55,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-    @Transactional
     @Override
     public void modify(Member member) throws Exception {
         mapper.update(member);
 
-        int user_no = member.getUser_no();
-
-        mapper.deleteAuth(user_no);
-
-        List<MemberAuth> authList = member.getAuthList();
-
-        for (int i = 0; i < authList.size(); i++) {
-            MemberAuth memberAuth = authList.get(i);
-
-            String auth = memberAuth.getAuth();
-
-            if (auth == null) {
-                continue;
-            }
-            if (auth.trim().length() == 0) {
-                continue;
-            }
-
-            memberAuth.setUser_no(user_no);
-
-            mapper.createAuth(memberAuth);
-        }
     }
 
     @Transactional
