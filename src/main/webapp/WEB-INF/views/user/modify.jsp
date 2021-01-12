@@ -28,12 +28,12 @@
 
 <form:form modelAttribute="member" action="modify">
 
-    <form:hidden path="user_no"/>
+    <form:hidden path="user_no" id="user_no"/>
     <form:hidden path="picture_url"/>
 
     <table>
         <tr>
-            <td>프로필사진</td>
+            <td width="80">프로필사진</td>
             <td><img src="/user/picture?user_no=${member.user_no}" id="thumbnailImg" width="100"/></td>
             <td><form:input path="picture" type="file" id="upImgFile" onchange="uploadImgPreview();"/></td>
         </tr>
@@ -70,7 +70,7 @@
     <button type="submit" id="btnList">목록</button>
 </div>
 
-</body>
+
 <script type="text/javascript"
 
         src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -84,6 +84,7 @@
 
         $("#btnModify").on("click", function () {
             formObj.submit();
+            alert("회원 정보가 변경되었습니다");
         });
 
         $("#btnList").on("click", function () {
@@ -120,3 +121,5 @@
     }
 
 </script>
+</body>
+</html>
