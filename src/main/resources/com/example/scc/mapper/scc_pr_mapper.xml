@@ -44,7 +44,7 @@
     </select>
 
 
-    <!-- 지역구 목록 -->
+    <!-- 지역구 목록
     <select id="list2" resultType="scc_pr">
         <![CDATA[
 		SELECT DISTINCT scc_district
@@ -53,7 +53,21 @@
 	  ORDER BY scc_district ASC
 		]]>
     </select>
+    -->
 
+    <!-- 지역구 목록
+    <select id="list2" resultType="scc_pr">
+        <![CDATA[
+
+        select distinct scc_district, count(*) as scc_count
+        from scc_info
+        group by scc_district
+        having count(*) > 1
+        ORDER BY scc_district ASC
+
+        ]]>
+    </select>
+    -->
 
     <!-- 게시글 전체 건수를 조회 -->
     <!-- 검색 조건 추가-->

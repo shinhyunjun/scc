@@ -17,7 +17,6 @@ public class Member {
 
     private int user_no;
 
-    @NotNull
     private String user_id;
 
     private String user_password;

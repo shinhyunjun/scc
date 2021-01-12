@@ -35,7 +35,7 @@ public interface MemberMapper {
     // 해당 사용자 아이디를 가진 회원정보를 조회한다.
     public Member readByUserId(String userId);
 
-    public String getPicture(Integer itemId) throws Exception;
+    public String getPicture(int itemId) throws Exception;
 
     public Member idCheck(String user_id) throws Exception;
 

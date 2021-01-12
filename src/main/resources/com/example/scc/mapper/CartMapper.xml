@@ -20,6 +20,6 @@
 
     <delete id="deleteCart" >
         delete from cart
-        where cartNum = #{cartNum} and userNo = #{userNo}
+        where cartNum = #{cartNum}
     </delete>
 </mapper>

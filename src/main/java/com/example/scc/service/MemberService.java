@@ -28,7 +28,7 @@ public interface MemberService {
     public int countAll() throws Exception;
 
     // 원본 이미지 표시
-    public String getPicture(Integer user_no) throws Exception;
+    public String getPicture(int user_no) throws Exception;
 
     public Member idCheck(String user_id) throws Exception;
 

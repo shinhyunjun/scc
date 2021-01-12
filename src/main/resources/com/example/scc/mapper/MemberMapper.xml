@@ -153,10 +153,9 @@
 
     <update id="update">
         UPDATE member
-        SET
-        picture_url = #{picture_url},
-        user_email = #{user_email},
-        user_phone = #{user_phone}
+        SET picture_url = #{picture_url},
+            user_email = #{user_email},
+            user_phone = #{user_phone}
         WHERE user_no = #{user_no}
     </update>
 

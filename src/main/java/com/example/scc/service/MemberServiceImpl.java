@@ -55,7 +55,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-    @Transactional
     @Override
     public void modify(Member member) throws Exception {
 
@@ -86,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public String getPicture(Integer user_no) throws Exception {
+    public String getPicture(int user_no) throws Exception {
         return mapper.getPicture(user_no);
     }
 
