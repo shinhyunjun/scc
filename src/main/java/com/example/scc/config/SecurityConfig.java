@@ -3,6 +3,7 @@ package com.example.scc.config;
 import com.example.scc.common.security.CustomAccessDeniedHandler;
 import com.example.scc.common.security.CustomLoginSuccessHandler;
 import com.example.scc.common.security.CustomUserDetailsService;
+import com.example.scc.common.security.LoginSuccessHandler;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,11 +41,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //  http.authorizeRequests().antMatchers("/notice/list").permitAll();
         // http.authorizeRequests().antMatchers("/notice/register").hasRole("ADMIN");
 
+        /* original
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 //CustomLoginSuccessHandler를 로그인 성공 처리자로 지정한다.
                 .successHandler(createAuthenticationSuccessHandler());
+
+         */
+        // 로그인시 원래 페이지로 돌아가기
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .successHandler(new LoginSuccessHandler("/"));
+
 
         http.logout()
                 .logoutUrl("/logout")
