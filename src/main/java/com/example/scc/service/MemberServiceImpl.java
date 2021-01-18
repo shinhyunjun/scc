@@ -24,7 +24,6 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberMapper mapper;
 
-
     @Transactional
     @Override
     public void register(Member member) throws Exception {
@@ -83,14 +82,8 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public String getPicture(Integer user_no) throws Exception {
+    public String getPicture(int user_no) throws Exception {
         return mapper.getPicture(user_no);
-    }
-
-    @Override
-    public void modifyUser(Member member) throws Exception {
-
-        mapper.modifyUser(member);
     }
 
 

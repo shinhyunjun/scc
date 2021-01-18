@@ -143,9 +143,9 @@ public class MemberController {
         MultipartFile pictureFile = member.getPicture();
 
         if (pictureFile != null && pictureFile.getSize() > 0) {
-            String createdFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
+            String createdPictureFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
 
-            member.setPicture_url(createdFilename);
+            member.setPicture_url(createdPictureFilename);
         }
 
         service.modify(member);

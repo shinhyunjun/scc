@@ -38,27 +38,12 @@
 </form:form>
 
 <div style="margin-left: 7px;">
-    <button type="submit" id="btnModifyPwd" onclick="test()">변경</button>
+    <button type="submit" id="btnModifyPwd">변경</button>
 </div>
 
 <script type="text/javascript"
 
         src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-
-<script type="text/javascript">
-    function test() {
-        var p1 = document.getElementById('password').value;
-        var p2 = document.getElementById('password2').value;
-
-        if(p1 != p2) {
-            alert("비밀번호가 일치하지 않습니다");
-            return false;
-        } else {
-            return true;
-        }
-    }
-</script>
 
 
 <script type="text/javascript">
@@ -68,7 +53,19 @@
         var formObj = $("#member");
 
         $("#btnModifyPwd").on("click", function (){
-            formObj.submit();
+
+            var user_password = $('#password').val();
+            var user_password2 = $('#password2').val();
+
+            if (user_password == '') {
+                alert('비밀번호를 입력하세요.');
+                return false;
+            } else if(user_password != user_password2){
+                alert("비밀번호가 일치하지 않습니다");
+                return false;
+            } else {
+                formObj.submit();
+            }
         });
 
     });

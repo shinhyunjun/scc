@@ -26,7 +26,7 @@
 
 <h3 style="margin-left: 7px;">회원정보 수정</h3>
 
-<form:form modelAttribute="member" action="modify">
+<form:form modelAttribute="member" action="modify" enctype="multipart/form-data">
 
     <form:hidden path="user_no" id="user_no"/>
     <form:hidden path="picture_url"/>
@@ -83,8 +83,21 @@
 
 
         $("#btnModify").on("click", function () {
-            formObj.submit();
-            alert("회원 정보가 변경되었습니다");
+            var user_phone = $('#user_phone').val();
+            var user_email = $('#user_email').val();
+            var text = "@";
+
+            if (user_phone == '') {
+                alert('전화번호를 입력하세요.');
+                return false;
+            } else if (user_email.indexOf(text) == -1) {
+                alert("이메일을 다시 입력해주세요.");
+                return false;
+            } else {
+                formObj.submit();
+                alert("회원 정보가 변경되었습니다");
+            }
+
         });
 
         $("#btnList").on("click", function () {
@@ -95,6 +108,7 @@
 
     });
 </script>
+
 
 <script type="text/javascript">
 
