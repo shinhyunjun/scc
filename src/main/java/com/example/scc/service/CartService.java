@@ -15,5 +15,8 @@ public interface CartService {
 
     public void deleteCart(cart cart) throws Exception;
 
+    public int delete(cart cart) throws Exception;
+
+    public int countNum(cart cart) throws Exception;
 
 }

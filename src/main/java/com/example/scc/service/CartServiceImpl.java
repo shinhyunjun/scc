@@ -29,4 +29,14 @@ public class CartServiceImpl implements CartService{
     public void deleteCart(cart cart) throws Exception{
         mapper.deleteCart(cart);
     }
+
+    @Override
+    public int delete(cart cart) throws Exception{
+        return mapper.delete(cart);
+    }
+
+    @Override
+    public int countNum(cart cart) throws Exception{
+        return mapper.countNum(cart);
+    }
 }

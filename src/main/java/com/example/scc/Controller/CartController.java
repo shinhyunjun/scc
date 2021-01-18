@@ -121,6 +121,58 @@ public class CartController {
 
 }
 
+    @ResponseBody
+    @RequestMapping(value = "/delete")
+    public int delete(int sccNum, cart cart, Authentication authentication) throws Exception{
+        cart.setSccNum(sccNum);
+
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        cart.setUserNo(member.getUser_no());
+
+        return service.delete(cart);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/count")
+    public int count(int sccNum, cart cart, Authentication authentication) throws Exception{
+        cart.setSccNum(sccNum);
+        try{
+            CustomUser customUser = (CustomUser) authentication.getPrincipal();
+            Member member = customUser.getMember();
+
+            cart.setUserNo(member.getUser_no());
+        } catch (NullPointerException e) {
+            System.out.println("Please Login Access");
+        }
+
+
+        return service.countNum(cart);
+    }
+
+
+
+    /*
+    // 카트 삭제
+    @ResponseBody
+    @RequestMapping(value = "/deleteCart", method =RequestMethod.GET)
+    public void deleteCart2(Authentication authentication,
+                          @RequestParam(value = "chbox[]") List<String> chArr, cart cart) throws Exception {
+
+
+    }
+*/
+
+    /*
+    @ResponseBody
+    @RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
+    public void deleteCart2(Authentication authentication,
+                            @RequestParam(value = "chbox[]") List<String> chArr, cart cart) throws Exception {
+
+
+    }
+*/
 
 
 

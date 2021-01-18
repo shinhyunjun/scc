@@ -149,11 +149,12 @@
 
 
     <sec:authorize access="isAuthenticated()">
-       <!-- <p id="star" style="text-decoration: none; font-size: 30px; color:blue;">☆</p> -->
-        <button type="button" id="addCart_btn">스크랩</button>
+        <img src="${pageContext.request.contextPath}/img/heart1.png" width="30" height="30" id="addCart_btn" style="visibility: visible">
+        <img src="${pageContext.request.contextPath}/img/heart2.png" width="30" height="30" id="deleteCart_btn" style="display: none">
+        <button onclick="window.open('${scc_pr.detail_info}')"> 상세정보</button>
     </sec:authorize><br>
 
-    <button onclick="window.open('${scc_pr.detail_info}')"> 상세정보</button>
+
 </div>
 
 <div>
@@ -216,13 +217,13 @@
             });
 
 
-            /* 인포윈도우로 장소에 대한 설명을 표시합니다
+
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;"></div>'
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">${scc_pr.scc_name}</div>'
 
             });
             infowindow.open(map, marker);
-*/
+
             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
             map.setCenter(coords);
         }
@@ -515,6 +516,9 @@
     })
 
     var sccNum = '${scc_pr.scc_num}'; //게시글 번호
+    var userNo = '${cart.userNo}';
+    var blank = document.getElementById("addCart_btn");
+    var fill = document.getElementById("deleteCart_btn");
     $("#addCart_btn").click(function(){
 
         $.ajax({
@@ -522,10 +526,44 @@
             type:"get",
             data: {'sccNum': sccNum},
             success: function(){
-                alert("카트담기 성공");
+
+                blank.style.display = 'none';
+                fill.style.display = 'inline';
             }
         })
     })
+
+
+    $("#deleteCart_btn").click(function (){
+        $.ajax({
+            url:"/cart/delete",
+            type:"get",
+            data: {'sccNum': sccNum, 'userNo': userNo},
+            success: function() {
+                blank.style.display = 'inline';
+                fill.style.display = 'none';
+            }
+        })
+    })
+
+    function count() {
+        $.ajax({
+            url: "/cart/count",
+            type: "get",
+            data: {'sccNum': sccNum, 'userNo': userNo},
+            success: function (data) {
+                if(data == 1){
+                    blank.style.display = 'none';
+                    fill.style.display = 'inline';
+                }else{
+                    blank.style.display = 'inline';
+                    fill.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    var num = count();
 </script>
 </body>
 </html>

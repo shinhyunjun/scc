@@ -5,6 +5,7 @@ import com.example.scc.common.security.domain.CustomUser;
 import com.example.scc.common.security.domain.PageRequest;
 import com.example.scc.common.security.domain.Pagination;
 import com.example.scc.domain.*;
+import com.example.scc.service.CartService;
 import com.example.scc.service.CommentService;
 import com.example.scc.service.sccprService;
 import lombok.extern.java.Log;
@@ -27,6 +28,9 @@ public class scc_pr_Controller {
 
     @Autowired
     private CommentService comService;
+
+    @Autowired
+    private CartService cartService;
 
 
     @RequestMapping(value = "/sccSearch", method = RequestMethod.GET)
@@ -88,6 +92,14 @@ public class scc_pr_Controller {
     public void read(int scc_num, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
         scc_pr scc_pr = service.read(scc_num);
+
+        cart cart = new cart();
+        cart.setSccNum(scc_pr.getScc_num());
+
+        int num = cartService.countNum(cart);
+        model.addAttribute("num", num);
+
+        model.addAttribute("cart", cart);
 
         model.addAttribute("scc_pr", scc_pr);
 
