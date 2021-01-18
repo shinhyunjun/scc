@@ -50,11 +50,11 @@ public class CartController {
         model.addAttribute("cartList",cartList);
 
     }
+
     // 카트 삭제
     @ResponseBody
-    @RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
-    public int deleteCart(Authentication authentication,
-                          @RequestParam(value = "chbox[]") List<String> chArr, cart cart) throws Exception {
+    @RequestMapping(value = "/deleteCart")
+    public int deleteCart(@RequestParam(value = "chBox[]") List<String> chArr, Authentication authentication, cart cart) throws Exception {
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
@@ -66,18 +66,39 @@ public class CartController {
 
 
         if(member != null) {
-            cart.setUserNo(userNo);
+            cart.setUserNo(userNo);   // 사용자 정보 담기
 
             for(String i : chArr) {
                 cartNum = Integer.parseInt(i);
-                cart.setCartNum(cartNum);
+                cart.setCartNum(cartNum);   // 카드 번호 담기
                 service.deleteCart(cart);
             }
+
             result = 1;
         }
         return result;
     }
 
+    /*
+    // 카트 삭제
+    @ResponseBody
+    @RequestMapping(value = "/deleteCart", method =RequestMethod.GET)
+    public void deleteCart2(Authentication authentication,
+                          @RequestParam(value = "chbox[]") List<String> chArr, cart cart) throws Exception {
+
+
+    }
+*/
+
+    /*
+    @ResponseBody
+    @RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
+    public void deleteCart2(Authentication authentication,
+                            @RequestParam(value = "chbox[]") List<String> chArr, cart cart) throws Exception {
+
+
+    }
+*/
 
 
 //    @PreAuthorize("hasRole('ROLE_MEMBER')")

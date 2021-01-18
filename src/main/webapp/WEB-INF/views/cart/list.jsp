@@ -57,7 +57,7 @@
         <th align="center" width="320">요양원명</th>
         <th align="center" width="120">등급</th>
         <th align="center" width="507">주소</th>
-        <th align="center">삭제</th>
+
     </tr>
     </thead>
 
@@ -70,16 +70,16 @@
             <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
             <td align="center">
 
-                <input type="checkbox" name="chBox" class="chBox" data-cartNum="${scc.cartNum}" />
+                <input type="checkbox" name="chBox" class="chBox" var="${scc.cartNum}" />
 
                 <b>
                     <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.sccNum}"> ${scc.scc_name} </a>
-                 </b>
+                </b>
 
             </td>
             <td align="center">${scc.scc_grade}</td>
             <td align="center">${scc.scc_address}</td>
-            <td align="center">  <input type="button" class="delete_btn" data-cartNum="${scc.cartNum}" value="삭제"/> </td>
+
         </tr>
     </c:forEach>
     </tbody>
@@ -120,10 +120,10 @@
         }
     });
 </script>
-
 -->
 
 <script>
+
     $(".selectDelete_btn").click(function(){
         var confirm_val = confirm("정말 삭제하시겠습니까");
 
@@ -132,18 +132,22 @@
 
             $("input[class='chBox']:checked").each(function(){
 
-                checkArr.push($(this).attr(data-cartNum));
+                checkArr.push($(this).attr("var"));
             })
 
             $.ajax({
                 url: "/cart/deleteCart",
-                type: "post",
-                data: {chbox:checkArr},
+                type: 'get',
+                data: {chBox:checkArr},
                 success: function(result){
-                    location.href="/cart/list";
+                    if(result == 1) {
+                        location.href = "/cart/list";
+                    } else {
+                        alert("삭제 실패");
+                    }
 
-                  }
-                })
+                }
+            })
         }
     })
 </script>

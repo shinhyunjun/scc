@@ -18,7 +18,7 @@
         where cart.userNo = #{userNo} and cart.sccNum = scc_info.scc_num;
     </select>
 
-    <delete id="deleteCart" >
+    <delete id="deleteCart" parameterType="int">
         delete from cart
         where cartNum = #{cartNum} and userNo = #{userNo}
     </delete>

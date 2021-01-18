@@ -143,7 +143,7 @@
 
         #paging {
             top: 580px;
-            left: 405px;
+            left: 570px;
             position: absolute;
         }
 
