@@ -10,6 +10,13 @@
     <title>Title</title>
 
     <style>
+
+        #mb{
+            position: absolute;
+            top:29%;
+            left:20%;
+        }
+
         table{
             position: absolute;
             top:40%;
@@ -63,14 +70,16 @@
 
     <tbody>
 
+    <div id="mb">
     <input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
     <button type="button" class="selectDelete_btn">선택 삭제</button>
-    <c:forEach items="${cartList}" var="scc">
+    </div>
+        <c:forEach items="${cartList}" var="scc">
         <tr>
             <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
             <td align="center">
 
-                <input type="checkbox" name="chBox" class="chBox" var="${scc.cartNum}" />
+                <input type="checkbox" name="chBox" class="chBox" data-cartNum="${scc.cartNum}" />
 
                 <b>
                     <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.sccNum}"> ${scc.scc_name} </a>
@@ -90,7 +99,9 @@
 
 <!-- 모두 선택-->
 <script>
+
     $("#allCheck").click(function(){
+
         var chk = $("#allCheck").prop("checked");
         if(chk) {
             $(".chBox").prop("checked", true);
@@ -122,7 +133,7 @@
 </script>
 -->
 
-<script>
+<script type="text/javascript">
 
     $(".selectDelete_btn").click(function(){
         var confirm_val = confirm("정말 삭제하시겠습니까");
@@ -132,7 +143,8 @@
 
             $("input[class='chBox']:checked").each(function(){
 
-                checkArr.push($(this).attr("var"));
+                checkArr.push($(this).attr("data-cartNum"));
+
             })
 
             $.ajax({

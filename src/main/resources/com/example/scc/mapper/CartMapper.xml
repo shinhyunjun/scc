@@ -11,7 +11,7 @@
     </insert>
 
     <select id="list" resultType="cart">
-       SELECT scc_info.scc_name, scc_info.scc_grade, scc_info.scc_address, cart.sccNum
+       SELECT scc_info.scc_name, scc_info.scc_grade, scc_info.scc_address, cart.sccNum, cart.cartNum
         FROM cart, scc_info
         where cart.userNo = #{userNo} and cart.sccNum = scc_info.scc_num;
     </select>

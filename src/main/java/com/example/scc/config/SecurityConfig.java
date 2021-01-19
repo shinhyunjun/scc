@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(createAuthenticationSuccessHandler());
 
          */
-        // 로그인시 원래 페이지로 돌아가기
+        // 로그인시 원래 페이지로 돌아가기(.failureUrl("/login")로 처리)
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
