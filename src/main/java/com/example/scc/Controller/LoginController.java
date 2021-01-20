@@ -50,12 +50,14 @@ public class LoginController {
         return "loginForm";
     }
 
-
+    /*
     @RequestMapping("/logout")
     public String logoutForm() {
 
         return "logoutForm";
     }
+
+     */
 
    /* @RequestMapping(value = "/findAccount")
     public void findAccount() throws Exception{

@@ -155,17 +155,24 @@ public class MemberController {
         return "redirect:/user/read?user_no=" + user_no;
     }
 
-    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @RequestMapping(value = "/remove", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public String remove(int user_no, RedirectAttributes rttr) throws Exception {
-        service.remove(user_no);
-
-        rttr.addFlashAttribute("msg", "SUCCESS");
-
-        return "redirect:/user/list";
+    public void removeForm(int user_no, Model model) throws Exception {
+        Member member = service.read(user_no);
+        model.addAttribute(member);
 
     }
 
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+    public String remove(int user_no, HttpServletRequest request) throws Exception {
+        service.remove(user_no);
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "redirect:/";
+
+    }
     @RequestMapping(value = "/adminSetup", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String adminSetup() throws Exception {
