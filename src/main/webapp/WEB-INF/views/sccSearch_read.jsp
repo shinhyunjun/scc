@@ -148,6 +148,7 @@
     <h5>(${scc_pr.scc_grade})</h5>
 
 
+    <!--하트 즐겨찾기-->
     <sec:authorize access="isAuthenticated()">
         <img src="${pageContext.request.contextPath}/img/heart1.png" width="30" height="30" id="addCart_btn" style="visibility: visible">
         <img src="${pageContext.request.contextPath}/img/heart2.png" width="30" height="30" id="deleteCart_btn" style="display: none">
@@ -219,7 +220,7 @@
 
 
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">${scc_pr.scc_name}</div>'
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">${scc_pr.scc_name}</div>'   // 지도 내 제목
 
             });
             infowindow.open(map, marker);

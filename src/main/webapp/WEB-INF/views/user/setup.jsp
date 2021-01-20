@@ -13,7 +13,7 @@
 <h3>마이페이지</h3>
 
 
-<button onclick="location.href='read?user_no=${member.user_no}'">계정관리</button>
+<button onclick="location.href='read?user_no=${member.user_no}'">프로필</button>
 <input type="button" id="list" value="즐겨찾기"/>
 
 

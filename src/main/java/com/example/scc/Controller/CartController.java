@@ -96,6 +96,7 @@ public class CartController {
     @ResponseBody
     @RequestMapping(value = "/count")
     public int count(int sccNum, cart cart, Authentication authentication) throws Exception {
+
         cart.setSccNum(sccNum);
         try {
             CustomUser customUser = (CustomUser) authentication.getPrincipal();
