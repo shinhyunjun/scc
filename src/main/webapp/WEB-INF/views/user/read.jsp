@@ -28,7 +28,7 @@
             width: 90px;
             border: 0;
             outline: 0;
-            background-color: #FA58F4;
+            background-color: #c153bb;
             color: white;
         }
         #btnRemove{

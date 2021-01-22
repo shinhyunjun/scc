@@ -253,7 +253,7 @@
 <table>
 
     <thead>
-    <tr>
+    <tr style="background-color: #1ec4ab">
         <th align="center" width="40">no</th>
         <th align="center" width="320">요양원명</th>
         <th align="center" width="120">등급</th>

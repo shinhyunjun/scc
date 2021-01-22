@@ -138,7 +138,7 @@
 
     <table>
 
-        <tr>
+        <tr style="background-color: yellow;">
             <th align="center" width="60">번호</th>
 
             <th align="center" width="300">제목</th>
