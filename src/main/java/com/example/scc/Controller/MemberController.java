@@ -159,8 +159,12 @@ public class MemberController {
     @RequestMapping(value = "/remove", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
     public String removeForm(int user_no, Model model) throws Exception {
+
         Member member = new Member();
         model.addAttribute("member", member);
+
+        Member member2 = service.read(user_no);
+        model.addAttribute("member2", member2);
 
         return "user/remove";
     }

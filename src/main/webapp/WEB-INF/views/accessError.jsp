@@ -3,12 +3,11 @@
 
 <html>
 <head>
-    <title>Access Denied Page</title>
+    <title>Error</title>
 </head>
 <body>
 
-<h3>Access Denied</h3>
-
 <h2><c:out value="${msg}"/></h2>
+<button onclick="self.location='/'">홈 으로 돌아가기</button>
 </body>
 </html>

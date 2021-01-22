@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -57,6 +58,11 @@
     <form:hidden path="user_no"/>
     <form:hidden path="picture_url"/>
 
+    <sec:authentication property="principal" var="pinfo"/>
+    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')">
+        <c:choose>
+            <c:when test="${pinfo.username eq member.user_id}">
+
     <table>
         <h3 style="margin-left: 7px;">프로필</h3>
         <tr>
@@ -92,16 +98,29 @@
 
     </table>
 
+            </c:when>
+            <c:otherwise>
+                <h3>접근권한이 없습니다!</h3>
+            </c:otherwise>
+        </c:choose>
+
+    </sec:authorize>
+
 </form:form>
 
-<div style="margin-left: 7px;">
-    <button type="submit" id="btnEdit">정보수정</button>
-    <button type="submit" id="btnPwd">비밀번호 변경</button>
-    <button type="submit" id="btnRemove">회원탈퇴</button>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"> <!--인증된 경우-->
-        <button type="submit" id="btnList">목록</button>
-    </sec:authorize>
-</div>
+<sec:authentication property="principal" var="pinfo"/>
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')">
+    <c:if test="${pinfo.username eq member.user_id}">
+        <div style="margin-left: 7px;">
+            <button type="submit" id="btnEdit">정보수정</button>
+            <button type="submit" id="btnPwd">비밀번호 변경</button>
+            <button type="submit" id="btnRemove">회원탈퇴</button>
+            <sec:authorize access="hasRole('ROLE_ADMIN')"> <!--인증된 경우-->
+                <button type="submit" id="btnList">목록</button>
+            </sec:authorize>
+        </div>
+    </c:if>
+</sec:authorize>
 
 </body>
 
