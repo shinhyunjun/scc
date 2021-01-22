@@ -88,16 +88,7 @@
             <td width="70">생일</td>
             <td width="350"><form:input path="user_birth" readonly="true"/></td>
         </tr><tr></tr>
-        <tr>
-            <td width="70">권한</td>
-            <td width="350">
-                <form:select path="authList[0].auth" disabled="true">
-                    <form:option value="" label="=== 선택해 주세요 ==="/>
-                    <form:option value="ROLE_MEMBER" label="회원"/>
-                    <form:option value="ROLE_ADMIN" label="관리자"/>
-                </form:select>
-            </td>
-        </tr><tr></tr>
+        <tr></tr>
 
     </table>
 
@@ -106,7 +97,7 @@
 <div style="margin-left: 7px;">
     <button type="submit" id="btnEdit">정보수정</button>
     <button type="submit" id="btnPwd">비밀번호 변경</button>
-    <button type="submit" id="btnRemove">계정삭제</button>
+    <button type="submit" id="btnRemove">회원탈퇴</button>
     <sec:authorize access="hasRole('ROLE_ADMIN')"> <!--인증된 경우-->
         <button type="submit" id="btnList">목록</button>
     </sec:authorize>
@@ -121,32 +112,24 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var formObj = $("#member");
+        var userNo = $("#user_no");
+        var userNoVal = userNo.val();
 
         $("#btnEdit").on("click", function () {
-            var userNo = $("#user_no");
-            var userNoVal = userNo.val();
 
             self.location = "/user/modify?user_no=" + userNoVal;
         });
 
         $("#btnRemove").on("click", function () {
-            var message = confirm("정말 삭제 하시겠습니까?")
-            if (message == true) {
-                formObj.attr("action", "remove");
-                formObj.submit();
-            } else if (message == false) {
-                return;
-            }
+            self.location = "/user/remove?user_no=" + userNoVal;
         });
+
 
         $("#btnList").on("click", function () {
             self.location = "list";
         });
 
         $("#btnPwd").on("click", function () {
-            var userNo = $("#user_no");
-            var userNoVal = userNo.val();
-
             self.location = "modifyPwd?user_no=" + userNoVal;
         });
 
