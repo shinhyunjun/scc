@@ -44,7 +44,6 @@
 
     </select>
 
-
     <!-- 지역구 목록 -->
     <select id="list2" resultType="scc_pr">
         <![CDATA[

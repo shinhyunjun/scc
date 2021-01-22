@@ -53,6 +53,11 @@ public class MemberServiceImpl implements MemberService {
         return mapper.read(user_no);
     }
 
+    @Override
+    public String readPw(int user_no) throws Exception {
+        return mapper.readPw(user_no);
+    }
+
 
     @Override
     public void modify(Member member) throws Exception {
@@ -64,6 +69,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void remove(int user_no) throws Exception {
         mapper.deleteAuth(user_no);
+
+        mapper.deleteComment(user_no);
+
+        mapper.deleteCart(user_no);
 
         mapper.delete(user_no);
     }

@@ -38,6 +38,7 @@ public class CommentController {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
         comment.setWriter(member.getUser_id());
+        comment.setUserNo(member.getUser_no());
 
         //comment.setWriter("user");
 
