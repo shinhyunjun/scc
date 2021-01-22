@@ -39,6 +39,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -61,6 +62,7 @@ public class MemberController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @PreAuthorize("isAnonymous()")
     public void registerForm(Member member, Model model) throws Exception {
         model.addAttribute("member", member);
     }
@@ -121,7 +123,6 @@ public class MemberController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
     public void read(int user_no, Model model) throws Exception {
         model.addAttribute(service.read(user_no));
-
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.GET)
@@ -157,22 +158,43 @@ public class MemberController {
 
     @RequestMapping(value = "/remove", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public void removeForm(int user_no, Model model) throws Exception {
-        Member member = service.read(user_no);
-        model.addAttribute(member);
+    public String removeForm(int user_no, Model model) throws Exception {
+        Member member = new Member();
+        model.addAttribute("member", member);
 
+        return "user/remove";
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public String remove(int user_no, HttpServletRequest request) throws Exception {
-        service.remove(user_no);
-        HttpSession session = request.getSession();
-        session.invalidate();
+    public String remove(Member member, HttpServletRequest request,
+                         HttpServletResponse response, Authentication authentication) throws Exception {
 
-        return "redirect:/";
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member2 = customUser.getMember();
+        int user_no = member2.getUser_no();
 
+        String inputPassword = member.getUser_password();
+        String dbPassword = service.readPw(user_no);
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        if(!passwordEncoder.matches(inputPassword, dbPassword)) {
+            out.println("<script>");
+            out.println("alert('비밀번호가 일치하지 않습니다');");
+            out.println("history.go(-1);");
+            out.println("</script>");
+            out.close();
+            return "redirct:/user/remove?user_no=" + member.getUser_no();
+        } else {
+            service.remove(user_no);
+            HttpSession session = request.getSession();
+            session.invalidate();
+
+            return "redirect:/";
+        }
     }
+
+
     @RequestMapping(value = "/adminSetup", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String adminSetup() throws Exception {

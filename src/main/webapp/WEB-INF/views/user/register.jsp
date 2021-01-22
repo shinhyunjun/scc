@@ -13,7 +13,7 @@
 <head>
     <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>가입해보자!</title>
+    <title>회원가입</title>
     <style>
         * {
             margin: 0;
@@ -119,7 +119,6 @@
     <fieldset>
         <legend>회원가입</legend>
 
-
         <table>
             <tr>
                 <td>프로필사진</td>
@@ -147,8 +146,6 @@
                 </td>
             </tr>
 
-            <!--  <div id="checkMsg"></div> -->
-            <!-- <h4 align="left" style="display:none">숨길내용입니다.</h4> -->
             <tr>
                 <td>비밀번호</td>
                 <td><form:input path="user_password" type="password" name="user_password" id="user_password"
@@ -165,7 +162,7 @@
             <tr>
                 <td>생년월일</td>
                 <td><form:input path="user_birth" type="text" name="user_birth" id="testDatepicker"
-                                placeholder="생년월일"/></td>
+                                placeholder="생년월일" readonly="true"/></td>
             </tr>
 
             <tr>
@@ -252,14 +249,14 @@
         } else if (user_sex == '') {
             alert('성별을 입력하세요.');
             return false;
-        } else if (user_password != user_password2) {
-            alert('비밀번호를 다시 입력해주세요.');
-            return false;
         } else if (user_phone == '') {
             alert('전화번호를 입력하세요.');
             return false;
         } else if (user_email.indexOf(text) == -1) {
-            alert("이메일을 다시 입력해주세요.");
+            alert("이메일 형식을 확인해주세요.");
+            return false;
+        } else if (user_password != user_password2) {
+            alert('비밀번호를 다시 입력해주세요.');
             return false;
         } else {
             formObj.submit();

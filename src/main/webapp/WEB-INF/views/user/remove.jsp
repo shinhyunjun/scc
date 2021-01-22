@@ -25,14 +25,12 @@
 
 <h3 style="margin-left: 7px;">회원 탈퇴</h3>
 
-<form:form modelAttribute="member" action="remove">
-    <form:hidden path="user_no"/>
-    <form:hidden path="user_password" id="password"/>
-    ${member.user_password}
+<form:form modelAttribute="member">
     <table>
         <tr>
-            <td width="110">비밀번호 입력</td>
-            <td width="350"><input type="password" id="password2"></td>
+            <td>비밀번호</td>
+            <td><form:input path="user_password" type="password" name="user_password" id="user_password"
+                            placeholder="비밀번호"/></td>
         </tr>
     </table>
 </form:form>
@@ -55,24 +53,10 @@
 
 
         $("#btnRemove").on("click", function (){
-
-            var user_password = $('#password').val();
-            var user_password2 = $('#password2').val();
-
-            if (user_password == '') {
-                alert('비밀번호를 입력하세요.');
-                return false;
-            } else if(user_password != user_password2){
-                alert("비밀번호가 일치하지 않습니다");
-                return false;
-            } else {
-                var result = confirm("탈퇴하시겠습니까?");
-                if(result) {
-                    formObj.attr("action", "/user/remove");
-                    formObj.submit();
-                    alert("탈퇴가 완료되었습니다.");
-                }
-
+            var result = confirm("탈퇴하시겠습니까?");
+            if(result) {
+                formObj.attr("action", "/user/remove");
+                formObj.submit();
             }
         });
 
@@ -81,6 +65,5 @@
 
     });
 </script>
-
 </body>
 </html>

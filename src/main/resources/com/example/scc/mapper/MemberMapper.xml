@@ -177,6 +177,16 @@
         WHERE user_no = #{userNo}
     </delete>
 
+    <delete id="deleteComment">
+        DELETE FROM comment
+        WHERE userNo = #{userNo}
+    </delete>
+
+    <delete id="deleteCart">
+        DELETE FROM cart
+        WHERE userNo = #{userNo}
+    </delete>
+
     <select id="idCheck" resultType="Member">
         select user_id
         from member
@@ -195,6 +205,12 @@
         select *
         from member
         where user_id = #{user_id} and user_email = #{user_email}
+    </select>
+
+    <select id="readPw" resultType="String">
+        SELECT user_password
+        FROM member
+        WHERE user_no = #{user_no}
     </select>
 
 

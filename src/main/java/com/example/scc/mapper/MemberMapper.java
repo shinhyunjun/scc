@@ -25,8 +25,14 @@ public interface MemberMapper {
 
     public int countAll() throws Exception;
 
+    public String readPw(int user_no) throws Exception;
+
     //권한 삭제
     public void deleteAuth(int userNo) throws Exception;
+
+    public void deleteComment(int userNo) throws Exception;
+
+    public void deleteCart(int userNo) throws Exception;
 
     //등록 처리
     public void create(Member member) throws Exception;

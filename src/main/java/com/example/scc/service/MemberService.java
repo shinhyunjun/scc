@@ -21,6 +21,8 @@ public interface MemberService {
 
     public Member read(int user_no) throws Exception;
 
+    public String readPw(int user_no) throws Exception;
+
     public void modify(Member member) throws Exception;
 
     public void remove(int user_no) throws Exception;

@@ -16,4 +16,6 @@ public class Comment {
     private String writer;
     private Date regdate;
 
+    private int userNo;
+
 }
