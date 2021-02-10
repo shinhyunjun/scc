@@ -6,11 +6,9 @@
 <mapper namespace="com.example.scc.mapper.CartMapper">
 
     <insert id="addCart">
-
         INSERT INTO cart(userNo,sccNum)
         VALUES(#{userNo}, #{sccNum})
     </insert>
-
 
     <select id="list" resultType="cart">
        SELECT scc_info.scc_name, scc_info.scc_grade, scc_info.scc_address, cart.sccNum
@@ -22,4 +20,16 @@
         delete from cart
         where cartNum = #{cartNum}
     </delete>
+
+    <delete id="delete">
+        delete
+        from cart
+        where sccNum = #{sccNum} AND userNo = #{userNo}
+    </delete>
+
+    <select id="countNum" resultType="int">
+        select count(cartNum) as cartIn
+        from cart
+        where sccNum = #{sccNum} AND userNo = #{userNo}
+    </select>
 </mapper>

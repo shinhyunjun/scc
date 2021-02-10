@@ -70,6 +70,14 @@
         transform: scale(1.3);
     }
 
+    #logoutBtn {
+        all: unset;
+        color: #013ADF;
+    }
+    #logoutBtn:hover {
+        transform: scale(1.1);
+    }
+
 </style>
 
 
@@ -90,7 +98,13 @@
         </sec:authorize>
 
         <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')"> <!--인증된 경우-->
-            <li><h5><sec:authentication property="principal.username"/> 님 <a href="/logout">로그아웃</a></h5></li>
+            <li><h5>
+                <sec:authentication property="principal.username"/> 님
+                <form action="/logout" method="post">
+                <sec:csrfInput/>
+                    <button id="logoutBtn" onclick="alert('로그아웃 되었습니다');">로그아웃</button>
+                </form>
+            </h5></li>
         </sec:authorize>
 
     </ul>

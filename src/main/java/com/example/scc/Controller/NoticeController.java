@@ -54,9 +54,6 @@ public class NoticeController {
         //페이지 네비게이션 정보에 검색처리된 게시글 건수를 저장한다.
         pagination.setTotalCount(service.count(pageRequest));
 
-        int pg = service.count(pageRequest);
-        model.addAttribute("pg", pg);
-
         model.addAttribute("pagination", pagination);
         model.addAttribute("pageRequest", pageRequest);
 

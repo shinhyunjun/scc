@@ -105,7 +105,6 @@
 
 <jsp:include page="menubar.jsp"/>
 
-
 <div class="d1">
 
     <!--

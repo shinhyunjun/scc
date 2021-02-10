@@ -213,13 +213,13 @@
     });
 </script>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/ckeditor4/build/ckeditor.js"></script>
 <script>
 
     ClassicEditor
-        .create(document.querySelector('#editor'), {
-            toolbar: [],
-        })
+        .create(document.querySelector( '#editor'), {
+            toolbar: [ ],
+        } )
         .then(editor => {
             console.log(editor);
             editor.isReadOnly = true;

@@ -113,7 +113,7 @@
         </tr>
         <tr>
             <td width="50" align="center">내용</td>
-            <td width="550" align="center"><form:textarea path="content"/></td>
+            <td width="550" align="center"><form:textarea path="content" id="editor"/></td>
 
         </tr>
         <tr>
@@ -230,6 +230,34 @@
             });
         });
     });
+</script>
+<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+<script src="${pageContext.request.contextPath}/ckeditor4/build/ckeditor.js"></script>
+<script>
+
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            toolbar: {
+                items: ['Heading', '|',
+                    'fontsize', 'fontcolor', 'fontfamily', 'fontbackgroundcolor', 'bold', 'italic', '|',
+                    'blockquote', 'bulletedList', 'numberedlist', 'indent', 'outdent', 'alignment', '|',
+                    'CKFinder', 'link', 'table', 'mediaembed', '|',
+                    'undo', 'redo'],
+                shouldNotGroupWhenFull: true,
+                viewportTopOffset: 30
+
+            },
+            ckfinder: {
+                uploadUrl: '/ck/fileupload'
+            }
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
 </script>
 </body>
 </html>

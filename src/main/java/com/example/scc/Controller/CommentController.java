@@ -35,9 +35,11 @@ public class CommentController {
         Comment comment = new Comment();
         comment.setBno(bno);
         comment.setContent(content);
+        //사용자의 권한을 보내준다
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
         comment.setWriter(member.getUser_id());
+        //comment.setUserNo(member.getUser_no());
 
         //comment.setWriter("user");
 

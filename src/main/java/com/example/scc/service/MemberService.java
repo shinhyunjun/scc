@@ -5,6 +5,7 @@ import com.example.scc.domain.Member;
 import com.example.scc.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,8 @@ public interface MemberService {
 
     public Member read(int user_no) throws Exception;
 
+    public String readPw(int user_no) throws Exception;
+
     public void modify(Member member) throws Exception;
 
     public void remove(int user_no) throws Exception;
@@ -31,6 +34,8 @@ public interface MemberService {
     public String getPicture(int user_no) throws Exception;
 
     public Member idCheck(String user_id) throws Exception;
+
+    public boolean pwCheck(String user_password) throws Exception;
 
     public Member getMemberByIdAndEmail(String user_id, String user_email) throws Exception;
 

@@ -1,8 +1,6 @@
 package com.example.scc.config;
 
-import com.example.scc.common.security.CustomAccessDeniedHandler;
-import com.example.scc.common.security.CustomLoginSuccessHandler;
-import com.example.scc.common.security.CustomUserDetailsService;
+import com.example.scc.common.security.*;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,10 +17,15 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @Log
 @EnableWebSecurity
@@ -40,15 +43,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //  http.authorizeRequests().antMatchers("/notice/list").permitAll();
         // http.authorizeRequests().antMatchers("/notice/register").hasRole("ADMIN");
 
+        /* original
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 //CustomLoginSuccessHandler를 로그인 성공 처리자로 지정한다.
                 .successHandler(createAuthenticationSuccessHandler());
 
+         */
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .successHandler(new LoginSuccessHandler("/"));
+
+
         http.logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
+                .logoutSuccessUrl("/")
                 //로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제해 주도록 한다.
                 .deleteCookies("remember-me", "JSESSION_ID");
 
@@ -84,9 +96,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(createUserDetailsService())
                 .passwordEncoder(createPasswordEncoder());
+
     }
-
-
     @Bean
     public PasswordEncoder createPasswordEncoder() {
 

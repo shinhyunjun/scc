@@ -94,9 +94,10 @@
 <form method="post" action="/login" id="login-form">
     <input name="username" type="text" placeholder="아이디">
     <input name="password" type="password" placeholder="비밀번호">
-    <input type="submit" value="로그인">
+    <input type="submit" id="login" value="로그인">
 
     <sec:csrfInput/>
+
 </form>
 
 <div>
@@ -106,6 +107,14 @@
     <a href="user/findPwd">비밀번호 찾기</a>
 </div>
 
+
+<script type="text/javascript"
+
+        src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script>
+
+</script>
 
 </body>
 </html>

@@ -143,17 +143,15 @@
 <input type="hidden" name="keyword" value="${pgrq.keyword}">
 <input type="hidden" id="rno" name="rno" value="${Reply.rno}">
 
-<div id="d1">
+<div id="d1" class="area-desc">
     <h4>${scc_pr.scc_name}</h4>
     <h5>(${scc_pr.scc_grade})</h5>
-
-
     <sec:authorize access="isAuthenticated()">
-       <!-- <p id="star" style="text-decoration: none; font-size: 30px; color:blue;">☆</p> -->
-        <button type="button" id="addCart_btn">스크랩</button>
+        <img src="${pageContext.request.contextPath}/img/heart1.png" width="30" height="30" id="addCart_btn" style="visibility: visible">
+        <img src="${pageContext.request.contextPath}/img/heart2.png" width="30" height="30" id="deleteCart_btn" style="display: none">
+        <button onclick="window.open('${scc_pr.detail_info}')"> 상세정보</button>
     </sec:authorize><br>
 
-    <button onclick="window.open('${scc_pr.detail_info}')"> 상세정보</button>
 </div>
 
 <div>
@@ -194,7 +192,6 @@
             center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         };
-
     // 지도를 생성합니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
 
@@ -231,6 +228,7 @@
 <br>
 
 <!--
+
 <div>
     <a href="#" onclick="if(confirm('추천하시겠습니까?') == false) {return false;}">좋아요</a>
     <sapn id="cnt1" style="color: red; font-weight: normal;">0</sapn>
@@ -267,7 +265,6 @@
             outline: 0; border-radius: 5px;" onclick="location.href='/login'">로그인 하기
     </button>
 </sec:authorize>
-
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')">
     <div class="container">
@@ -324,7 +321,6 @@
         alert("등록이 완료되었습니다");
     });
 
-
     function displayTime(timeValue) {
 
 
@@ -364,15 +360,15 @@
 
                     var b = (value.writer);
                     if (b ==  ${pinfo.username}) {
-                        a += '<a onclick="commentUpdate(' + value.cno + ',\'' + value.content + '\');" style="border:1px solid red; width:150px;"> 수정 </a>';
-                        a += '<a onclick="commentDelete(' + value.cno + ');" style="border:1px solid blue; width:150px; margin-left: 5px;"> 삭제 </a>';
+                        a += '<a onclick="commentUpdate(' + value.cno + ',\'' + value.content + '\');" style="border:1px solid red; width:150px; margin-left: 5px;"> 수정 </a>';
+                        a += '<a onclick="commentDelete(' + value.cno + ');" style="border:1px solid blue; width:150px;"> 삭제 </a>';
                     }
 
                     a += '</sec:authorize>';
 
                     a += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
-                    a += '<a onclick="commentUpdate(' + value.cno + ',\'' + value.content + '\');" style="border:1px solid red; width:150px;"> 수정 </a>';
-                    a += '<a onclick="commentDelete(' + value.cno + ');" style="border:1px solid blue; width:150px; margin-left: 5px;"> 삭제 </a>';
+                    a += '<a onclick="commentUpdate(' + value.cno + ',\'' + value.content + '\');" style="border:1px solid red; width:150px; margin-left: 5px;"> 수정 </a>';
+                    a += '<a onclick="commentDelete(' + value.cno + ');" style="border:1px solid blue; width:150px;"> 삭제 </a>';
                     a += '</sec:authorize>';
 
                     a += '</div></div></div>';
@@ -383,6 +379,7 @@
             }
         });
     }
+
 
     //댓글 등록
     function commentInsert(insertData) {
@@ -425,6 +422,22 @@
             }
         });
     }
+    /*
+    function deleteCart(cartNum) {
+        var result = confirm("삭제하시겠습니까?");
+        if (result) {
+            $.ajax({
+                url: '/cart/delete',
+                type: 'get',
+                success: function () {
+
+                }
+            })
+        }
+
+    }
+
+     */
 
     //댓글 삭제
     function commentDelete(cno) {
@@ -515,6 +528,9 @@
     })
 
     var sccNum = '${scc_pr.scc_num}'; //게시글 번호
+    var userNo = '${cart.userNo}';
+    var blank = document.getElementById("addCart_btn");
+    var fill = document.getElementById("deleteCart_btn");
     $("#addCart_btn").click(function(){
 
         $.ajax({
@@ -522,10 +538,93 @@
             type:"get",
             data: {'sccNum': sccNum},
             success: function(){
-                alert("카트담기 성공");
+                blank.style.display = 'none';
+                fill.style.display = 'inline';
             }
         })
     })
+
+
+    $("#deleteCart_btn").click(function (){
+        $.ajax({
+            url:"/cart/delete",
+            type:"get",
+            data: {'sccNum': sccNum, 'userNo': userNo},
+            success: function() {
+                blank.style.display = 'inline';
+                fill.style.display = 'none';
+            }
+        })
+    })
+    /*
+    $("#likeImg").click(function (){
+        var cont = document.getElementById("likeImg").src;
+        if(cont === '/img/heart1.png'){
+            $.ajax({
+                url:"/cart/insert",
+                type:"get",
+                data: {'sccNum': sccNum},
+                success: function(){
+                    document.getElementById("likeImg").src = '/img/heart2.png';
+                }
+            })
+        } else if(cont === '/img/heart2.png'){
+            $.ajax({
+                url:"/cart/delete",
+                type:"get",
+                data: {'sccNum': sccNum, 'userNo': userNo},
+                success: function() {
+                    document.getElementById("likeImg").src = '/img/heart1.png';
+                }
+            })
+        }
+    })
+    */
+
+    function count() {
+        $.ajax({
+            url: "/cart/count",
+            type: "get",
+            data: {'sccNum': sccNum, 'userNo': userNo},
+            success: function (data) {
+                if(data == 1){
+                    blank.style.display = 'none';
+                    fill.style.display = 'inline';
+                }
+            }
+        });
+    }
+
+    var num = count();
+    /*
+    $(document).ready(function(){
+        $.ajax({
+            url: "/cart/count",
+            type: "get",
+            data: {'sccNum': sccNum, 'userNo': userNo},
+            success: function (data) {
+                var a= '';
+                if (data == 1){
+                    a+= '<img src="/img/heart1.png" width="30" height="30" id="addCart_btn" style="display: none">';
+                    a+= '<img src="/img/heart2.png" width="30" height="30" id="deleteCart_btn" style="visibility: visible">';
+                    $('.heart1').html(a);
+                } else {
+                    a+= '<img src="/img/heart1.png" width="30" height="30" id="addCart_btn" style="visibility: visible">';
+                    a+= '<img src="/img/heart2.png" width="30" height="30" id="deleteCart_btn" style="display: none">';
+                    $('.heart1').html(a);
+                }
+            }
+        });
+    })
+
+
+     */
+
+
+
+
+
+
 </script>
 </body>
 </html>

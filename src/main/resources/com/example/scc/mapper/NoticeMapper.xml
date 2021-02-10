@@ -26,7 +26,7 @@
 
     <insert id="create">
 
-        INSERT INTO board2(title,content,writer)
+        INSERT INTO notice(title,content,writer)
         VALUES(#{title}, #{content}, #{writer})
     </insert>
 
@@ -36,7 +36,7 @@
     <select id="list" resultType="Notice">
         <![CDATA[
  	    SELECT *
-         FROM board2
+         FROM notice
          WHERE boardNo > 0
          ]]>
 
@@ -55,7 +55,7 @@
     <select id="count" resultType="int">
         <![CDATA[
 	 	SELECT count(boardNo)
-		  FROM board2
+		  FROM notice
 		 WHERE boardNo > 0
 		]]>
 
@@ -71,7 +71,7 @@
  			   content,
  			   writer,
  			   regDate
-		  FROM board2
+		  FROM notice
 		 WHERE boardNo > 0
         ]]>
 
@@ -92,19 +92,19 @@
         content,
         writer,
         regDate
-        FROM board2
+        FROM notice
         WHERE boardNo = #{boardNo}
     </select>
 
     <update id="update">
-        UPDATE board2
+        UPDATE notice
         SET title =#{title},
         content =#{content}
         WHERE boardNo = #{boardNo}
     </update>
 
     <delete id="delete">
-        DELETE FROM board2
+        DELETE FROM notice
         WHERE boardNo = #{boardNo}
     </delete>
 
@@ -128,7 +128,7 @@
         SELECT fullName
         FROM pds_attach
         WHERE boardNo = #{boardNo}
-        ORDER BY regdate
+        ORDER BY regDate
     </select>
 
     <!-- 첨부파일 삭제 -->
@@ -154,14 +154,14 @@
     <!-- 첨부파일 다운로드 건수 업데이트 -->
     <update id="updateAttachDownCnt">
         UPDATE pds_attach
-        SET down_cnt = down_cnt + 1
+        SET downCnt = downCnt + 1
         WHERE fullName = #{fullName}
     </update>
 
     <!-- 공개자료 조회 건수 업데이트 -->
     <update id="updateViewCnt">
-        UPDATE board2
-        SET view_cnt = view_cnt + 1
+        UPDATE notice
+        SET viewCnt = viewCnt + 1
         WHERE boardNo = #{boardNo}
     </update>
 

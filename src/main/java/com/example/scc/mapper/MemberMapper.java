@@ -25,9 +25,14 @@ public interface MemberMapper {
 
     public int countAll() throws Exception;
 
+    public String readPw(int user_no) throws Exception;
 
     //권한 삭제
     public void deleteAuth(int userNo) throws Exception;
+
+    public void deleteComment(int userNo) throws Exception;
+
+    public void deleteCart(int userNo) throws Exception;
 
     //등록 처리
     public void create(Member member) throws Exception;
@@ -39,13 +44,14 @@ public interface MemberMapper {
 
     public Member idCheck(String user_id) throws Exception;
 
+    public boolean pwCheck(String user_pw) throws Exception;
+
     public Member getMemberByNameAndEmail(@Param("user_name") String user_name, @Param("user_email") String user_email) throws Exception;
 
     public Member getMemberByIdAndEmail(@Param("user_id") String user_id, @Param("user_email") String user_email) throws Exception;
 
     public void modifyPwd(Member member) throws Exception;
 
-    public void deleteImg(int user_no) throws Exception;
 }
 
 

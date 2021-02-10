@@ -146,7 +146,6 @@
                     </p>
                 </td>
             </tr>
-
             <!--  <div id="checkMsg"></div> -->
             <!-- <h4 align="left" style="display:none">숨길내용입니다.</h4> -->
             <tr>
@@ -252,14 +251,14 @@
         } else if (user_sex == '') {
             alert('성별을 입력하세요.');
             return false;
-        } else if (user_password != user_password2) {
-            alert('비밀번호를 다시 입력해주세요.');
-            return false;
         } else if (user_phone == '') {
             alert('전화번호를 입력하세요.');
             return false;
         } else if (user_email.indexOf(text) == -1) {
-            alert("이메일을 다시 입력해주세요.");
+            alert("이메일 형식을 확인해주세요.");
+            return false;
+        } else if (user_password != user_password2) {
+            alert('비밀번호를 다시 입력해주세요.');
             return false;
         } else {
             formObj.submit();

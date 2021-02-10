@@ -1,6 +1,7 @@
 package com.example.scc.common.security;
 
 import lombok.extern.java.Log;
+import org.apache.tomcat.util.json.JSONParserTokenManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -18,6 +19,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         log.info("Redirect....");
 
-        response.sendRedirect("/error/accessError");
+        response.sendRedirect("/accessError");
+
     }
 }

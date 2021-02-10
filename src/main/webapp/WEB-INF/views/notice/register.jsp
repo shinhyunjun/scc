@@ -15,6 +15,11 @@
             padding: 0;
         }
 
+        .ck-editor__editable {
+            min-height: 400px;
+            max-width: 580px;
+        }
+
         h1 {
             width: 90px;
             height: 63px;
@@ -252,17 +257,37 @@
 
 </body>
 
-
-<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+<script src="${pageContext.request.contextPath}/ckeditor4/build/ckeditor.js"></script>
 <script>
+    //ckeditor4
+    //CKEDITOR.replace('editor',{filebrowserUploadUrl:'/imageUpload'});
 
     ClassicEditor
-        .create(document.querySelector('#editor'), {})
+        .create(document.querySelector('#editor'), {
+            toolbar: {
+                items: ['Heading', '|',
+                    'fontsize', 'fontcolor', 'fontfamily', 'fontbackgroundcolor', 'bold', 'italic', '|',
+                    'blockquote', 'bulletedList', 'numberedlist', 'indent', 'outdent', 'alignment', '|',
+                    'CKFinder','link', 'table', 'mediaembed', '|',
+                    'undo', 'redo', 'Font'],
+                shouldNotGroupWhenFull: true,
+                viewportTopOffset: 30
 
+            },
+            ckfinder: {
+                uploadUrl: '/ck/fileupload'
+            }
+        })
+        .then(editor => {
+            console.log(editor);
+        })
         .catch(error => {
             console.error(error);
-
         });
+
+
+
 
 
 </script>

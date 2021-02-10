@@ -4,6 +4,7 @@ import com.example.scc.common.security.domain.PageRequest;
 import com.example.scc.domain.Member;
 import com.example.scc.domain.MemberAuth;
 import com.example.scc.mapper.MemberMapper;
+import org.apache.ibatis.session.SqlSession;
 import org.assertj.core.util.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.rmi.CORBA.Util;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +25,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberMapper mapper;
+
+    @Autowired
+    SqlSession sqlsession;
 
 
     @Transactional
@@ -54,19 +59,27 @@ public class MemberServiceImpl implements MemberService {
         return mapper.read(user_no);
     }
 
+    @Override
+    public String readPw(int user_no) throws Exception {
+        return mapper.readPw(user_no);
+    }
+
 
     @Override
     public void modify(Member member) throws Exception {
 
         mapper.update(member);
-
-
     }
 
     @Transactional
     @Override
     public void remove(int user_no) throws Exception {
+
         mapper.deleteAuth(user_no);
+
+        mapper.deleteComment(user_no);
+
+        mapper.deleteCart(user_no);
 
         mapper.delete(user_no);
     }
@@ -81,6 +94,11 @@ public class MemberServiceImpl implements MemberService {
     public Member idCheck(String user_id) throws Exception {
 
         return mapper.idCheck(user_id);
+    }
+
+    @Override
+    public boolean pwCheck(String user_password) throws Exception {
+        return mapper.pwCheck(user_password);
     }
 
 
@@ -105,12 +123,5 @@ public class MemberServiceImpl implements MemberService {
         mapper.modifyPwd(member);
     }
 
-    /*
-    @Override
-    public void deleteImg(int user_no) throws Exception{
-        mapper.deleteImg(user_no);
-    }
-
-     */
 
 }

@@ -176,7 +176,6 @@
 
 </form:form>
 
-${pg}
 <div id="paging">
     <ul>
         <c:if test="${pagination.prev}">

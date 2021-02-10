@@ -75,7 +75,6 @@
                 <b>
                     <a href="/sccSearch_read${pgrq.toUriString(pgrq.page)}&scc_num=${scc.sccNum}"> ${scc.scc_name} </a>
                  </b>
-
             </td>
             <td align="center">${scc.scc_grade}</td>
             <td align="center">${scc.scc_address}</td>
@@ -106,16 +105,15 @@
 
 
 <script>
-    $(".delete_btn").click(function(cartNum){
+    var sccNum = '${scc_pr.scc_num}'; //게시글 번호
+    $(".delete_btn").click(function(){
 
         var result = confirm("삭제하시겠습니까?");
         if (result) {
             $.ajax({
-                url: '/cart/delete/' + cartNum,
+                url: '/cart/delete',
                 type: 'get',
-                success: function () {
-                    location.href = "/cart/list";
-                }
+                data: {'sccNum': sccNum, 'userNo': userNo}
             });
         }
     });
@@ -126,25 +124,14 @@
     $(".selectDelete_btn").click(function(){
         var confirm_val = confirm("정말 삭제하시겠습니까");
 
-        if(confirm_val){
-            var checkArr = new Array();
-
-            $("input[class='chBox']:checked").each(function(){
-
-                checkArr.push($(this).attr(data-cartNum));
-            })
-
             $.ajax({
-                url: "/cart/deleteCart",
-                type: "post",
-                data: {chbox:checkArr},
-                success: function(result){
-                    location.href="/cart/list";
-
-                  }
+                url: "/cart/delete",
+                type: "get",
+                data: {'sccNum': sccNum, 'userNo': userNo}
                 })
-        }
+
     })
+
 </script>
 
 </body>

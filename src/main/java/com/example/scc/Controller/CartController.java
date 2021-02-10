@@ -25,7 +25,7 @@ public class CartController {
 
     @ResponseBody
     @RequestMapping(value = "/insert")
-    public void addCart(int sccNum,cart cart, Authentication authentication) throws Exception{
+    public void addCart(int sccNum, cart cart, Authentication authentication) throws Exception{
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
@@ -39,7 +39,6 @@ public class CartController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public void list(@ModelAttribute("pgrq") PageRequest pageRequest,Model model, Authentication authentication) throws Exception {
 
-
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
@@ -48,17 +47,16 @@ public class CartController {
         List<cart> cartList = service.list(pageRequest, userNo);
 
         model.addAttribute("cartList",cartList);
-
     }
+
     // 카트 삭제
     @ResponseBody
-    @RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteCart")
     public int deleteCart(Authentication authentication,
                           @RequestParam(value = "chbox[]") List<String> chArr, cart cart) throws Exception {
-
+        //현재 접속한 사용자의 UserNo를 받아온다
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
-
         int userNo = member.getUser_no();
 
         int result = 0;
@@ -78,25 +76,36 @@ public class CartController {
         return result;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/delete")
+    public int delete(int sccNum, cart cart, Authentication authentication) throws Exception{
+        cart.setSccNum(sccNum);
+
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        cart.setUserNo(member.getUser_no());
+
+        return service.delete(cart);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/count")
+    public int count(int sccNum, cart cart, Authentication authentication) throws Exception{
+        cart.setSccNum(sccNum);
+        try{
+            CustomUser customUser = (CustomUser) authentication.getPrincipal();
+            Member member = customUser.getMember();
+
+            cart.setUserNo(member.getUser_no());
+        } catch (NullPointerException e) {
+            System.out.println("Please Login Access");
+        }
 
 
-//    @PreAuthorize("hasRole('ROLE_MEMBER')")
-//    @ResponseBody
- //   @RequestMapping(value = "/delete/{cartNum}", method = RequestMethod.GET)
-  //  public int deleteCart(@PathVariable int cartNum, cart cart, Authentication authentication) throws Exception{
+        return service.countNum(cart);
+    }
 
- //       CustomUser customUser = (CustomUser) authentication.getPrincipal();
-  //      Member member = customUser.getMember();
-
-  //      int userNo = member.getUser_no();
-
-
-   //     if(member != null) {
-    //        cart.setUserNo(userNo);
-
-    //    }
-    //    return service.deleteCart(cartNum);
- //   }
 
 }
 

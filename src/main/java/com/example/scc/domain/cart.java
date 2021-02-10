@@ -14,6 +14,7 @@ public class cart {
     private int cartNum;
     private int userNo;
     private int sccNum;
+    private int cartIn;
 
     private String scc_name;
     private String scc_address;

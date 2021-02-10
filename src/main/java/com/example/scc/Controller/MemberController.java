@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.misc.Request;
+import sun.rmi.runtime.Log;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -36,9 +38,11 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -62,8 +66,11 @@ public class MemberController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @PreAuthorize("isAnonymous()")
     public void registerForm(Member member, Model model) throws Exception {
         model.addAttribute("member", member);
+
+
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -138,6 +145,7 @@ public class MemberController {
 
         int user_no = member.getUser_no();
 
+
         MultipartFile pictureFile = member.getPicture();
 
         if (pictureFile != null && pictureFile.getSize() > 0) {
@@ -146,7 +154,6 @@ public class MemberController {
             member.setPicture_url(createdPictureFilename);
         }
 
-
         service.modify(member);
 
         rttr.addFlashAttribute("msg", "SUCCESS");
@@ -154,14 +161,46 @@ public class MemberController {
         return "redirect:/user/read?user_no=" + user_no;
     }
 
+    @RequestMapping(value = "/remove", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+    public String removeForm(int user_no, Model model) throws Exception {
+        Member member = new Member();
+        model.addAttribute("member", member);
+
+        Member member2 = service.read(user_no);
+        model.addAttribute("member2", member2);
+
+        return "user/remove";
+    }
+
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public String remove(int user_no, RedirectAttributes rttr) throws Exception {
-        service.remove(user_no);
+    public String remove(Member member, HttpServletRequest request,
+                         HttpServletResponse response, Authentication authentication) throws Exception {
 
-        rttr.addFlashAttribute("msg", "SUCCESS");
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member2 = customUser.getMember();
+        int user_no = member2.getUser_no();
 
-        return "redirect:/user/list";
+        String inputPassword = member.getUser_password();
+        String dbPassword = service.readPw(user_no);
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        if(!passwordEncoder.matches(inputPassword, dbPassword)) {
+            out.println("<script>");
+            out.println("alert('비밀번호가 일치하지 않습니다');");
+            out.println("history.go(-1);");
+            out.println("</script>");
+            out.close();
+            return "redirct:/user/remove?user_no=" + member.getUser_no();
+        } else {
+            service.remove(user_no);
+            HttpSession session = request.getSession();
+            session.invalidate();
+
+            return "redirect:/";
+        }
+
 
     }
 
