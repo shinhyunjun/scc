@@ -42,19 +42,6 @@ public class NoticeServiceImpl implements NoticeService {
         return mapper.list(pageRequest);
     }
 
-    /*
-    public int listCount() throws Exception{
-        return mapper.listCount();
-    }
-*/
-
-    /*
-    @Override
-    public List<Notice> search(String title) throws Exception{
-        return mapper.search(title);
-    }
-*/
-
     @Override
     public Notice read(Integer boardNo) throws Exception {
 

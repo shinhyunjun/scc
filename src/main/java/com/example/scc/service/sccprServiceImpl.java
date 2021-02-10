@@ -27,13 +27,6 @@ public class sccprServiceImpl implements sccprService {
         return mapper.count(pageRequest);
     }
 
-/*
-    @Override
-    public List<scc_pr> search(String scc_district) throws Exception{
-        return mapper.search(scc_district);
-    }
-*/
-
     @Override
     public scc_pr read(int scc_num) throws Exception {
         return mapper.read(scc_num);

@@ -16,8 +16,6 @@ public interface sccprService {
     //검색 처리된 게시글 전체 건수를 반환한다.
     public int count(PageRequest pageRequest) throws Exception;
 
-    // public List<scc_pr> search(String scc_district) throws Exception;
-
     public scc_pr read(int scc_num) throws Exception;
 
 

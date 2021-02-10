@@ -345,12 +345,9 @@ public class MemberController {
 
         Member member = service.getMemberByIdAndEmail(user_id, user_email);
 
-        //String user_password = "111";
         String user_password = getTempPassword();  //무작위 비밀번호 생성
 
         member.setUser_password(passwordEncoder.encode(user_password));
-
-        //service.modifyPwd(member);
 
 
         try {
@@ -368,8 +365,6 @@ public class MemberController {
             e.printStackTrace();
         }
 
-        // mv.setViewName("user/emailSuccess");
-        // return mv;
         model.addAttribute("msg", "이메일이 정상적으로 발송되었습니다");
         return "user/emailSuccess";
 

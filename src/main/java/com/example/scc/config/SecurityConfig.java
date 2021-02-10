@@ -39,18 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-
-        //  http.authorizeRequests().antMatchers("/notice/list").permitAll();
-        // http.authorizeRequests().antMatchers("/notice/register").hasRole("ADMIN");
-
-        /* original
-        http.formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                //CustomLoginSuccessHandler를 로그인 성공 처리자로 지정한다.
-                .successHandler(createAuthenticationSuccessHandler());
-
-         */
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
@@ -76,21 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(60 * 60 * 24); //쿠키의 유효 시간 지정
     }
 
-/*
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 
-       // jdbc 스프링 시큐리티가 원하는 결과를 반환하는 쿼리를 작성한다.
-        String query1 = "SELECT user_id , user_password, enabled FROM member WHERE user_id = ?";
-        String query2 ="SELECT b.user_id, a.auth FROM member_auth2 a, member b WHERE a.user_no = b.user_no AND b.user_id = ?";
-
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-
-                .usersByUsernameQuery(query1) //jdbc
-                .authoritiesByUsernameQuery(query2);  //작성한 쿼리를 지정한다.
-
-    }*/
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -129,9 +103,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return repo;
     }
 
-/*
-    @Bean
-    public PasswordEncoder noOpPasswordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }    */
 }

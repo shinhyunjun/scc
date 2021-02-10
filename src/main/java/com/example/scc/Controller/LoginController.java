@@ -13,26 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController {
 
-    /*
-    @RequestMapping("/login")
-    public String loginForm(String error, String logout, Model model) {
 
-
-        log.info("error" + error);
-        log.info("logout" + logout);
-
-        if (error != null) {
-            model.addAttribute("error", "Login Error!!");
-        }
-
-        if (logout != null) {
-            model.addAttribute("logout", "Logout!!!!");
-        }
-
-        return "loginForm";
-    }
-
-     */
     @RequestMapping("/login")
     @PreAuthorize("isAnonymous()")
     public String login(HttpServletRequest request, String error, String logout, Model model){
@@ -56,20 +37,5 @@ public class LoginController {
         return "loginForm";
     }
 
-    /*
-    @RequestMapping("/logout")
-    public String logoutForm() {
-
-        return "logoutForm";
-    }
-
-     */
-
-   /* @RequestMapping(value = "/findAccount")
-    public void findAccount() throws Exception{
-
-
-    }
-    */
 
 }

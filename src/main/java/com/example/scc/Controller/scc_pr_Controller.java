@@ -36,7 +36,6 @@ public class scc_pr_Controller {
     @RequestMapping(value = "/sccSearch", method = RequestMethod.GET)
     public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
-
         model.addAttribute("sccPr", new scc_pr());
 
         // 뷰에 페이징 처리를 한 게시글 목록을 전달한다.
@@ -64,34 +63,13 @@ public class scc_pr_Controller {
 
     }
 
-
-/*
- 하나로만 검색할때 예) 제목
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String search(String scc_district, Model model) throws Exception {
-
-        scc_pr scc_pr = new scc_pr();
-        scc_pr.setScc_district(scc_district);
-
-        model.addAttribute("scc_pr", scc_pr);
-
-        model.addAttribute("list", service.search(scc_district));
-
-        return "sccSearch";
-    }
-*/
-
-
     @RequestMapping(value = "/sccSearch_read", method = RequestMethod.GET)
     public void read(int scc_num, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 
         scc_pr scc_pr = service.read(scc_num);
 
-        //비로그인 시 에러 발생
-        //CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        //Member member = customUser.getMember();
         cart cart = new cart();
-        //cart.setUserNo(member.getUser_no());
+
         cart.setSccNum(scc_pr.getScc_num());
 
         int num = cartService.countNum(cart);

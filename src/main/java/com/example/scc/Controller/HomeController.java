@@ -17,13 +17,11 @@ public class HomeController {
     private sccprService service;
 
 
-    @RequestMapping("/")    //url을 컨트롤러의 메서드와 매핑할때 사용
+    @RequestMapping("/")
     public String home(Model model, @ModelAttribute("pgrq") PageRequest pageRequest) {
 
-
-        //model 객체를 이용하여 view로 데이터 전달
         model.addAttribute("home", "main");
-        return "home";  //view 파일 리턴
+        return "home";
     }
 
 

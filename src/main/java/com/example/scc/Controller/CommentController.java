@@ -21,7 +21,8 @@ public class CommentController {
     @Autowired
     CommentService service;
 
-    @RequestMapping("/list") //댓글 리스트
+    //댓글 리스트
+    @RequestMapping("/list")
     @ResponseBody
     private List<Comment> mCommentServiceList(int bno, Model model) throws Exception {
 
@@ -40,7 +41,6 @@ public class CommentController {
         Member member = customUser.getMember();
         comment.setWriter(member.getUser_id());
         //comment.setUserNo(member.getUser_no());
-
         //comment.setWriter("user");
 
         return service.commentInsert(comment);
